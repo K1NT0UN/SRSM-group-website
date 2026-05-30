@@ -28,6 +28,11 @@ const entities = [
     segment: 'Residential',
     description: 'Focused residential projects with a commitment to quality construction and on-time delivery.',
   },
+  {
+    name: 'SM Projects',
+    segment: 'Residential & Commercial',
+    description: 'Delivering residential and commercial projects across Hyderabad and Vizag, with a strong track record of completed developments.',
+  },
 ]
 
 const leadership = [

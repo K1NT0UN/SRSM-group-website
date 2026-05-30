@@ -24,6 +24,7 @@ export default function Footer() {
               <p>SR Builders &amp; Developers</p>
               <p>SM Builders</p>
               <p>SM Builders and Developers</p>
+              <p>SM Projects</p>
             </div>
           </div>
 
