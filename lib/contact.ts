@@ -1,7 +1,7 @@
 export const contact = {
   phone: '+91 99899 90256',
   phoneHref: 'tel:+919989990256',
-  email: 'sales@srbuilders.com',
+  email: 'sr.sm.group.buildersanddevelopers@gmail.com',
   address: {
     line1: 'Flat No. 109, First Floor',
     line2: 'Aparna Green Homes Apartment',
