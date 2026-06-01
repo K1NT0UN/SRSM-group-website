@@ -269,6 +269,35 @@ export default function HomePage() {
         </FadeInView>
       </section>
 
+      {/* ── CTA ───────────────────────────────────────────── */}
+      <section className="bg-parchment py-24 px-6">
+        <FadeInView>
+          <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
+            <div>
+              <p className="text-xs tracking-[0.5em] uppercase text-gold mb-3">Our Portfolio</p>
+              <h2 className="font-serif text-4xl text-forest">
+                24+ Projects Delivered.<br />
+                <span className="font-light">A Pipeline That Keeps Growing.</span>
+              </h2>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 shrink-0">
+              <Link
+                href="/projects"
+                className="px-8 py-4 bg-forest text-parchment text-sm tracking-widest uppercase font-semibold hover:bg-forest-dark transition-colors duration-200 text-center"
+              >
+                View All Projects
+              </Link>
+              <Link
+                href="/about"
+                className="px-8 py-4 border-2 border-forest text-forest text-sm tracking-widest uppercase hover:bg-forest hover:text-parchment transition-colors duration-200 text-center"
+              >
+                About Us
+              </Link>
+            </div>
+          </div>
+        </FadeInView>
+      </section>
+
       {/* ── Contact Strip ────────────────────────────────── */}
       <section className="bg-linen py-16 px-6">
         <FadeInView>
@@ -307,35 +336,6 @@ export default function HomePage() {
                 </svg>
                 Email Us
               </a>
-            </div>
-          </div>
-        </FadeInView>
-      </section>
-
-      {/* ── CTA ───────────────────────────────────────────── */}
-      <section className="bg-parchment py-24 px-6">
-        <FadeInView>
-          <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
-            <div>
-              <p className="text-xs tracking-[0.5em] uppercase text-gold mb-3">Our Portfolio</p>
-              <h2 className="font-serif text-4xl text-forest">
-                24+ Projects Delivered.<br />
-                <span className="font-light">A Pipeline That Keeps Growing.</span>
-              </h2>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4 shrink-0">
-              <Link
-                href="/projects"
-                className="px-8 py-4 bg-forest text-parchment text-sm tracking-widest uppercase font-semibold hover:bg-forest-dark transition-colors duration-200 text-center"
-              >
-                View All Projects
-              </Link>
-              <Link
-                href="/about"
-                className="px-8 py-4 border-2 border-forest text-forest text-sm tracking-widest uppercase hover:bg-forest hover:text-parchment transition-colors duration-200 text-center"
-              >
-                About Us
-              </Link>
             </div>
           </div>
         </FadeInView>
