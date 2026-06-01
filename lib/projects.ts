@@ -9,6 +9,9 @@ export interface Project {
   type: ProjectType | string
   description?: string
   targetCompletion?: string
+  slug?: string
+  brochure?: string
+  image?: string
 }
 
 export const currentProjects: Project[] = [
@@ -21,6 +24,23 @@ export const currentProjects: Project[] = [
     description:
       'A landmark gated township offering premium 4 & 5 BHK forestscape villas on 17+ acres in Kollur, one of Hyderabad\'s fastest-growing corridors. 50+ amenities, 2 exclusive clubhouses. RERA: PO22000007723.',
     targetCompletion: 'End of 2028',
+    slug: 'nisarga',
+  },
+  {
+    company: 'SRSM Group',
+    name: 'Nagole Villas',
+    location: 'Nagole, Hyderabad',
+    status: 'ONGOING',
+    type: 'Residential',
+    description: '~10 acres of residential villa development in Nagole, Hyderabad.',
+  },
+  {
+    company: 'SRSM Group',
+    name: 'Medchal Commercial',
+    location: 'Medchal, Hyderabad',
+    status: 'ONGOING',
+    type: 'Commercial',
+    description: '~1+ acre commercial development in Medchal, one of Hyderabad\'s fastest-growing corridors.',
   },
 ]
 
@@ -42,22 +62,6 @@ export const pipelineProjects: Project[] = [
     status: 'PIPELINE',
     type: 'Residential',
     description: '~30 acres of residential villa development.',
-  },
-  {
-    company: 'SRSM Group',
-    name: 'Nagole Villas',
-    location: 'Nagole, Hyderabad',
-    status: 'PIPELINE',
-    type: 'Residential',
-    description: '~10 acres of residential villa development.',
-  },
-  {
-    company: 'SRSM Group',
-    name: 'Medchal Commercial',
-    location: 'Medchal, Hyderabad',
-    status: 'PIPELINE',
-    type: 'Commercial',
-    description: '~1+ acre commercial development.',
   },
   {
     company: 'SRSM Group',

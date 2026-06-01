@@ -3,11 +3,12 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import FadeInView from '@/components/FadeInView'
+import TestimonialsCarousel from '@/components/TestimonialsCarousel'
 
 const stats = [
   { value: '25+', label: 'Years of Legacy' },
   { value: '24+', label: 'Completed Projects' },
-  { value: '3', label: 'Active Entities' },
+  { value: '4', label: 'Active Entities' },
   { value: '3', label: 'Cities' },
 ]
 
@@ -269,6 +270,9 @@ export default function HomePage() {
           </FadeInView>
         </div>
       </section>
+
+      {/* ── Testimonials ─────────────────────────────────── */}
+      <TestimonialsCarousel />
 
       {/* ── Mission Quote ─────────────────────────────────── */}
       <section className="bg-forest py-24 px-6">

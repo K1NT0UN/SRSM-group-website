@@ -25,8 +25,8 @@ export default function ProjectsPage() {
       <section className="bg-gold py-8 px-6">
         <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
-            { value: '1', label: 'Ongoing' },
-            { value: '7', label: 'Pipeline' },
+            { value: '3', label: 'Ongoing' },
+            { value: '5', label: 'Pipeline' },
             { value: '24+', label: 'Completed' },
             { value: '3', label: 'Cities' },
           ].map(({ value, label }) => (

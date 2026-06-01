@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import type { Project } from '@/lib/projects'
 
@@ -52,46 +53,70 @@ export default function ProjectsTabs({ current, pipeline, completed }: Props) {
             {/* Ongoing */}
             <div className="mb-16">
               <h3 className="font-serif text-2xl text-forest mb-8 text-center">Ongoing</h3>
-              {current.map((p, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ y: -3, boxShadow: '0 16px 48px rgba(26,51,32,0.14)' }}
-                  transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-                  className="max-w-3xl mx-auto bg-forest/5 border border-gold/40 p-10 relative group cursor-default hover:border-gold transition-all duration-300"
-                >
-                  <div className="absolute top-0 left-0 w-1 h-full bg-gold" />
-                  <p className="text-[10px] tracking-[0.4em] uppercase text-forest font-bold mb-2">{p.company}</p>
-                  <h3 className="font-serif text-4xl text-forest font-bold mb-2 group-hover:text-gold transition-colors duration-300">
-                    {p.name}
-                  </h3>
-                  <p className="text-sm text-charcoal-light mb-4">{p.location} · {p.type}</p>
-                  {p.description && (
-                    <p className="text-charcoal-light leading-relaxed mb-6">{p.description}</p>
-                  )}
-                  <div className="flex flex-wrap gap-6 items-center pt-4 border-t border-gold/20">
-                    <span className="px-4 py-1.5 border border-gold text-gold text-xs tracking-widest uppercase">
-                      ONGOING
-                    </span>
-                    {p.targetCompletion && (
-                      <p className="text-xs text-charcoal-light/60">Completion: {p.targetCompletion}</p>
+              <div className="max-w-3xl mx-auto space-y-6">
+                {current.map((p, i) => (
+                  <motion.div
+                    key={i}
+                    whileHover={{ y: -3, boxShadow: '0 16px 48px rgba(26,51,32,0.14)' }}
+                    transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+                    className="bg-forest/5 border border-gold/40 p-10 relative group cursor-default hover:border-gold transition-all duration-300"
+                  >
+                    <div className="absolute top-0 left-0 w-1 h-full bg-gold" />
+                    <p className="text-[10px] tracking-[0.4em] uppercase text-forest font-bold mb-2">{p.company}</p>
+                    <h3 className="font-serif text-4xl text-forest font-bold mb-2 group-hover:text-gold transition-colors duration-300">
+                      {p.name}
+                    </h3>
+                    <p className="text-sm text-charcoal-light mb-4">{p.location} · {p.type}</p>
+                    {p.description && (
+                      <p className="text-charcoal-light leading-relaxed mb-6">{p.description}</p>
                     )}
-                    <div className="ml-auto flex gap-5">
-                      <Link
-                        href="/projects/nisarga"
-                        className="text-forest text-xs tracking-widest uppercase border-b border-forest/30 pb-0.5 hover:text-gold hover:border-gold transition-colors font-semibold"
-                      >
-                        View Project →
-                      </Link>
-                      <Link
-                        href="/enquire"
-                        className="text-forest text-xs tracking-widest uppercase border-b border-gold pb-0.5 hover:text-gold transition-colors"
-                      >
-                        Enquire →
-                      </Link>
+                    <div className="flex flex-wrap gap-4 items-center pt-4 border-t border-gold/20">
+                      <span className="px-4 py-1.5 border border-gold text-gold text-xs tracking-widest uppercase">
+                        ONGOING
+                      </span>
+                      {p.targetCompletion && (
+                        <p className="text-xs text-charcoal-light/60">Completion: {p.targetCompletion}</p>
+                      )}
+                      <div className="ml-auto flex flex-wrap gap-4 items-center">
+                        {/* Brochure download — show only if brochure path exists */}
+                        {p.brochure ? (
+                          <a
+                            href={p.brochure}
+                            download
+                            className="flex items-center gap-2 text-forest text-xs tracking-widest uppercase border border-gold/40 px-4 py-2 hover:bg-gold hover:text-forest hover:border-gold transition-colors duration-200 font-semibold"
+                          >
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                            Download Brochure
+                          </a>
+                        ) : (
+                          <span className="flex items-center gap-2 text-charcoal-light/30 text-xs tracking-widest uppercase border border-charcoal/10 px-4 py-2 cursor-not-allowed">
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                            Brochure Coming Soon
+                          </span>
+                        )}
+                        {p.slug && (
+                          <Link
+                            href={`/projects/${p.slug}`}
+                            className="text-forest text-xs tracking-widest uppercase border-b border-forest/30 pb-0.5 hover:text-gold hover:border-gold transition-colors font-semibold"
+                          >
+                            View Project →
+                          </Link>
+                        )}
+                        <Link
+                          href="/enquire"
+                          className="text-forest text-xs tracking-widest uppercase border-b border-gold pb-0.5 hover:text-gold transition-colors"
+                        >
+                          Enquire →
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                ))}
+              </div>
             </div>
 
             {/* Pipeline */}
@@ -184,20 +209,41 @@ export default function ProjectsTabs({ current, pipeline, completed }: Props) {
               {completed.map((p, i) => (
                 <motion.div
                   key={i}
-                  whileHover={{ y: -4, backgroundColor: 'rgb(26 51 32 / 0.04)', boxShadow: '0 8px 24px rgba(26,51,32,0.1)' }}
+                  whileHover={{ y: -4, boxShadow: '0 8px 24px rgba(26,51,32,0.1)' }}
                   transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                  className="bg-parchment border border-charcoal/10 p-5 group cursor-default hover:border-gold/40 transition-colors duration-200"
+                  className="bg-parchment border border-charcoal/10 group cursor-default hover:border-gold/40 transition-colors duration-200 overflow-hidden flex flex-col"
                 >
-                  <p className="text-[10px] tracking-widest uppercase text-charcoal-light/40 mb-3 group-hover:text-charcoal-light/60 transition-colors">
-                    {p.company}
-                  </p>
-                  <h4 className="font-serif text-lg text-forest group-hover:text-gold transition-colors duration-200 leading-snug mb-1">
-                    {p.name}
-                  </h4>
-                  <p className="text-xs text-charcoal-light/60 mb-3">{p.location}</p>
-                  <span className={`text-[10px] tracking-widest uppercase ${typeColors[p.type] ?? 'text-charcoal-light'}`}>
-                    {p.type}
-                  </span>
+                  {/* Photo slot */}
+                  <div className="relative aspect-[4/3] bg-linen overflow-hidden">
+                    {p.image ? (
+                      <Image
+                        src={p.image}
+                        alt={p.name}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-charcoal/20">
+                        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span className="text-[9px] tracking-widest uppercase">Photo Coming Soon</span>
+                      </div>
+                    )}
+                  </div>
+                  {/* Info */}
+                  <div className="p-5 flex flex-col flex-1">
+                    <p className="text-[10px] tracking-widest uppercase text-charcoal-light/40 mb-2 group-hover:text-charcoal-light/60 transition-colors">
+                      {p.company}
+                    </p>
+                    <h4 className="font-serif text-lg text-forest group-hover:text-gold transition-colors duration-200 leading-snug mb-1">
+                      {p.name}
+                    </h4>
+                    <p className="text-xs text-charcoal-light/60 mb-3">{p.location}</p>
+                    <span className={`text-[10px] tracking-widest uppercase mt-auto ${typeColors[p.type] ?? 'text-charcoal-light'}`}>
+                      {p.type}
+                    </span>
+                  </div>
                 </motion.div>
               ))}
             </div>

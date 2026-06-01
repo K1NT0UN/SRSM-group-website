@@ -51,9 +51,11 @@ export default function Footer() {
           <div>
             <h4 className="font-serif text-lg text-gold mb-5 tracking-wide">Contact</h4>
             <address className="not-italic space-y-2 text-sm text-parchment/60">
-              <p>Beside Chirec International School</p>
-              <p>Botanical Garden Road, Kondapur</p>
-              <p>Hyderabad 500084, Telangana</p>
+              <p>Flat No. 109, First Floor</p>
+              <p>Aparna Green Homes Apartment</p>
+              <p>Opp. Golf View Apartments</p>
+              <p>Nanakramguda Rd, Financial District</p>
+              <p>Nanakramguda, Hyderabad 500032</p>
               <p className="pt-2">Phone: +1800-4123-3970</p>
               <p>Email: sales@srbuilders.com</p>
             </address>

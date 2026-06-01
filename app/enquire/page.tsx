@@ -36,9 +36,11 @@ export default function EnquirePage() {
               <div>
                 <p className="text-xs tracking-widest uppercase text-gold mb-1">Office</p>
                 <p className="text-sm leading-relaxed">
-                  Beside Chirec International School<br />
-                  Botanical Garden Road, Kondapur<br />
-                  Hyderabad 500084, Telangana
+                  Flat No. 109, First Floor<br />
+                  Aparna Green Homes Apartment<br />
+                  Opp. Golf View Apartments<br />
+                  Nanakramguda Rd, Financial District<br />
+                  Nanakramguda, Hyderabad 500032
                 </p>
               </div>
               <div>
