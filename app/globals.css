@@ -4,14 +4,14 @@
   --font-serif: var(--font-oswald), 'Arial Narrow', sans-serif;
   --font-sans: var(--font-barlow), system-ui, sans-serif;
 
-  --color-forest: #1a3320;
-  --color-forest-dark: #112216;
-  --color-forest-light: #24472e;
-  --color-gold: #c8a951;
-  --color-gold-dark: #a88b3a;
-  --color-gold-light: #dfc06a;
-  --color-parchment: #faf7f0;
-  --color-linen: #ede0c8;
+  --color-forest: #4a1528;
+  --color-forest-dark: #31001a;
+  --color-forest-light: #5e1f35;
+  --color-gold: #c9a96e;
+  --color-gold-dark: #a88950;
+  --color-gold-light: #dfc48a;
+  --color-parchment: #faf6ee;
+  --color-linen: #ede8dc;
   --color-charcoal: #1c1c1c;
   --color-charcoal-light: #3d3d3d;
 }
