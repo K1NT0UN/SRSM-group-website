@@ -8,5 +8,9 @@ export const metadata: Metadata = {
 }
 
 export default function NisargaPage() {
-  return <NisargaPageContent />
+  return (
+    <div className="nisarga-theme">
+      <NisargaPageContent />
+    </div>
+  )
 }

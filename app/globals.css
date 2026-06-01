@@ -26,6 +26,17 @@ h1, h2, h3, h4 {
   font-family: var(--font-serif);
 }
 
+.nisarga-theme {
+  --color-forest: #1a3320;
+  --color-forest-dark: #112216;
+  --color-forest-light: #24472e;
+  --color-gold: #c8a951;
+  --color-gold-dark: #a88b3a;
+  --color-gold-light: #dfc06a;
+  --color-parchment: #faf7f0;
+  --color-linen: #ede0c8;
+}
+
 @keyframes kenburns {
   from { transform: scale(1) translate(0, 0); }
   to   { transform: scale(1.08) translate(-1%, -0.5%); }
