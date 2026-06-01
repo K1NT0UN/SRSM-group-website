@@ -82,12 +82,6 @@ export default function TestimonialsCarousel() {
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes scrollLeft {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
     </section>
   )
 }

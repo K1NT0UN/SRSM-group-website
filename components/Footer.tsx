@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { contact } from '@/lib/contact'
 
 export default function Footer() {
   return (
@@ -56,8 +57,8 @@ export default function Footer() {
               <p>Opp. Golf View Apartments</p>
               <p>Nanakramguda Rd, Financial District</p>
               <p>Nanakramguda, Hyderabad 500032</p>
-              <p className="pt-2">Phone: +1800-4123-3970</p>
-              <p>Email: sales@srbuilders.com</p>
+              <p className="pt-2">Phone: {contact.phone}</p>
+              <p>Email: {contact.email}</p>
             </address>
           </div>
         </div>

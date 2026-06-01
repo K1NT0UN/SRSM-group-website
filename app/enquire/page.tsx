@@ -1,5 +1,6 @@
 import FadeInView from '@/components/FadeInView'
 import Link from 'next/link'
+import { contact } from '@/lib/contact'
 
 export default function EnquirePage() {
   return (
@@ -23,14 +24,14 @@ export default function EnquirePage() {
             <div className="space-y-5 text-charcoal-light">
               <div>
                 <p className="text-xs tracking-widest uppercase text-gold mb-1">Phone</p>
-                <a href="tel:+180041233970" className="text-lg hover:text-gold transition-colors">
-                  +1800-4123-3970
+                <a href={contact.phoneHref} className="text-lg hover:text-gold transition-colors">
+                  {contact.phone}
                 </a>
               </div>
               <div>
                 <p className="text-xs tracking-widest uppercase text-gold mb-1">Email</p>
-                <a href="mailto:sales@srbuilders.com" className="text-lg hover:text-gold transition-colors">
-                  sales@srbuilders.com
+                <a href={`mailto:${contact.email}`} className="text-lg hover:text-gold transition-colors">
+                  {contact.email}
                 </a>
               </div>
               <div>
@@ -61,13 +62,13 @@ export default function EnquirePage() {
                 please reach us directly via phone or email. Our team will get back to you within 24 hours.
               </p>
               <a
-                href="tel:+180041233970"
+                href={contact.phoneHref}
                 className="block w-full text-center px-8 py-4 bg-forest text-parchment text-sm tracking-widest uppercase font-semibold hover:bg-forest-dark transition-colors duration-200 mb-4"
               >
                 Call Now
               </a>
               <a
-                href="mailto:sales@srbuilders.com"
+                href={`mailto:${contact.email}`}
                 className="block w-full text-center px-8 py-4 border-2 border-forest text-forest text-sm tracking-widest uppercase hover:bg-forest hover:text-parchment transition-colors duration-200"
               >
                 Email Us

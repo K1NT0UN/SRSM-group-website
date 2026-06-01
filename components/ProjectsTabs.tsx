@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import type { Project } from '@/lib/projects'
+import type { Project, ProjectType } from '@/lib/projects'
 
 interface Props {
   current: Project[]
@@ -12,7 +12,7 @@ interface Props {
   completed: Project[]
 }
 
-const typeColors: Record<string, string> = {
+const typeColors: Partial<Record<ProjectType, string>> = {
   Residential: 'text-forest',
   Commercial: 'text-charcoal-light',
   'RE & Comm': 'text-gold-dark',
@@ -220,6 +220,7 @@ export default function ProjectsTabs({ current, pipeline, completed }: Props) {
                         src={p.image}
                         alt={p.name}
                         fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     ) : (
@@ -240,7 +241,7 @@ export default function ProjectsTabs({ current, pipeline, completed }: Props) {
                       {p.name}
                     </h4>
                     <p className="text-xs text-charcoal-light/60 mb-3">{p.location}</p>
-                    <span className={`text-[10px] tracking-widest uppercase mt-auto ${typeColors[p.type] ?? 'text-charcoal-light'}`}>
+                    <span className={`text-[10px] tracking-widest uppercase mt-auto ${typeColors[p.type as ProjectType] ?? 'text-charcoal-light'}`}>
                       {p.type}
                     </span>
                   </div>

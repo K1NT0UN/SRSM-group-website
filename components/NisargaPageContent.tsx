@@ -4,6 +4,7 @@ import FadeInView from '@/components/FadeInView'
 import NisargaHeroCarousel from '@/components/NisargaHeroCarousel'
 import NisargaOverviewLightbox from '@/components/NisargaOverviewLightbox'
 import NisargaLandscapeGallery from '@/components/NisargaLandscapeGallery'
+import { contact } from '@/lib/contact'
 
 const stats = [
   { value: '17+', label: 'Acres' },
@@ -350,9 +351,9 @@ export default function NisargaPageContent() {
           </h2>
           <p className="text-forest/70 text-sm mb-2">RERA: PO22000007723 (T.S. RERA) · CREDAI Member</p>
           <p className="text-forest/70 text-sm mb-8">
-            <a href="tel:+180041233970" className="hover:text-forest transition-colors">+1800-4123-3970</a>
+            <a href={contact.phoneHref} className="hover:text-forest transition-colors">{contact.phone}</a>
             {' · '}
-            <a href="mailto:sales@srbuilders.com" className="hover:text-forest transition-colors">sales@srbuilders.com</a>
+            <a href={`mailto:${contact.email}`} className="hover:text-forest transition-colors">{contact.email}</a>
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link

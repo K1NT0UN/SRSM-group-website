@@ -4,35 +4,13 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import FadeInView from '@/components/FadeInView'
 import TestimonialsCarousel from '@/components/TestimonialsCarousel'
+import { entities } from '@/lib/entities'
 
 const stats = [
   { value: '25+', label: 'Years of Legacy' },
   { value: '24+', label: 'Completed Projects' },
   { value: '4', label: 'Active Entities' },
   { value: '3', label: 'Cities' },
-]
-
-const entities = [
-  {
-    name: 'SR Builders and Developers',
-    segment: 'Residential & Villas',
-    description: 'Flagship residential and integrated township projects. Currently developing Nisarga — a 17+ acre forestscape villa township in Kollur, Hyderabad.',
-  },
-  {
-    name: 'SM Builders',
-    segment: 'Residential & Commercial',
-    description: 'Delivering quality residential apartments and commercial spaces across Hyderabad\'s most sought-after localities.',
-  },
-  {
-    name: 'SM Builders and Developers',
-    segment: 'Residential',
-    description: 'Focused residential developments with an emphasis on quality construction and timely delivery.',
-  },
-  {
-    name: 'SM Projects',
-    segment: 'Residential & Commercial',
-    description: 'Delivering residential and commercial projects across Hyderabad and Vizag, with a strong track record of completed developments.',
-  },
 ]
 
 const strengths = [

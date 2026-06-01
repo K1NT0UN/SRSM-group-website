@@ -30,3 +30,8 @@ h1, h2, h3, h4 {
   from { transform: scale(1) translate(0, 0); }
   to   { transform: scale(1.08) translate(-1%, -0.5%); }
 }
+
+@keyframes scrollLeft {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

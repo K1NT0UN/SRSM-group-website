@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import FadeInView from '@/components/FadeInView'
+import { entities } from '@/lib/entities'
 
 const coreStrengths = [
   '24+ completed projects across residential, commercial, and mixed-use segments',
@@ -10,29 +11,6 @@ const coreStrengths = [
   'In-house civil engineering team ensuring quality control and execution excellence',
   'Long-standing relationships with architects, contractors, and accountants',
   'Active RERA registration for the flagship Kollur project (PO22000007723)',
-]
-
-const entities = [
-  {
-    name: 'SR Builders and Developers',
-    segment: 'Residential & Villas',
-    description: 'Flagship residential and integrated township projects. Currently delivering Nisarga — a forestscape villa township in Kollur, Hyderabad.',
-  },
-  {
-    name: 'SM Builders',
-    segment: 'Residential & Commercial',
-    description: 'Quality residential apartments and commercial developments across Hyderabad\'s key localities.',
-  },
-  {
-    name: 'SM Builders and Developers',
-    segment: 'Residential',
-    description: 'Focused residential projects with a commitment to quality construction and on-time delivery.',
-  },
-  {
-    name: 'SM Projects',
-    segment: 'Residential & Commercial',
-    description: 'Delivering residential and commercial projects across Hyderabad and Vizag, with a strong track record of completed developments.',
-  },
 ]
 
 const leadership = [
