@@ -26,7 +26,7 @@ const villas = [
     ],
     total: '3,540 SQ.FT',
     facing: 'East & West Facing',
-    image: '/images/nisarga/villa-200-interior.jpg',
+    image: '/images/nisarga/villa-200-interior.webp',
   },
   {
     size: '239 Sq. Yd',
@@ -38,7 +38,7 @@ const villas = [
     ],
     total: '4,230 SQ.FT',
     facing: 'East & West Facing',
-    image: '/images/nisarga/villa-239-interior.jpg',
+    image: '/images/nisarga/villa-239-interior.webp',
   },
   {
     size: '300 Sq. Yd',
@@ -50,7 +50,7 @@ const villas = [
     ],
     total: '4,985 SQ.FT',
     facing: 'East & West Facing',
-    image: '/images/nisarga/villa-300-interior.jpg',
+    image: '/images/nisarga/villa-300-interior.webp',
   },
 ]
 
@@ -94,7 +94,7 @@ export default function NisargaPageContent() {
           <FadeInView direction="left">
             <div className="relative aspect-[4/5] overflow-hidden">
               <Image
-                src="/images/nisarga/vision-forest.jpg"
+                src="/images/nisarga/vision-forest.webp"
                 alt="Nisarga — forest lifestyle"
                 fill
                 className="object-cover"
@@ -121,7 +121,7 @@ export default function NisargaPageContent() {
 
       <section className="relative py-36 px-6 overflow-hidden">
         <Image
-          src="/images/nisarga/arch-streetscape.jpg"
+          src="/images/nisarga/arch-streetscape.webp"
           alt="Nisarga villas — golden hour"
           fill
           className="object-cover object-center"
@@ -205,7 +205,7 @@ export default function NisargaPageContent() {
 
       <section className="relative min-h-[70vh] flex items-center overflow-hidden">
         <Image
-          src="/images/nisarga/streetscape-rain.jpg"
+          src="/images/nisarga/streetscape-rain.webp"
           alt="Nisarga villa streetscape"
           fill
           className="object-cover object-center"
@@ -240,7 +240,7 @@ export default function NisargaPageContent() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 mb-16 overflow-hidden">
             <FadeInView direction="left" className="relative aspect-[4/3] lg:aspect-auto lg:min-h-[480px]">
               <Image
-                src="/images/nisarga/clubhouse-nspire.jpg"
+                src="/images/nisarga/clubhouse-nspire.webp"
                 alt="Club N'Spire"
                 fill
                 className="object-cover"
@@ -283,7 +283,7 @@ export default function NisargaPageContent() {
             </FadeInView>
             <FadeInView direction="right" className="relative aspect-[4/3] lg:aspect-auto lg:min-h-[480px] lg:order-2">
               <Image
-                src="/images/nisarga/clubhouse-nfinity.jpg"
+                src="/images/nisarga/clubhouse-nfinity.webp"
                 alt="Club N'finity"
                 fill
                 className="object-cover"
@@ -310,7 +310,7 @@ export default function NisargaPageContent() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-14">
             <FadeInView direction="left" className="relative aspect-[6/5] overflow-hidden">
               <Image
-                src="/images/nisarga/location-map.jpg"
+                src="/images/nisarga/location-map.webp"
                 alt="Nisarga location map"
                 fill
                 className="object-contain object-center"

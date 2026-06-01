@@ -28,7 +28,7 @@ export default function NisargaOverviewLightbox() {
             <FadeInView direction="left">
               <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
-                  src="/images/nisarga/overview-left.jpg"
+                  src="/images/nisarga/overview-left.webp"
                   alt="Nisarga — aerial township view"
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -43,7 +43,7 @@ export default function NisargaOverviewLightbox() {
                 onClick={() => setOpen(true)}
               >
                 <Image
-                  src="/images/nisarga/masterplan.jpg"
+                  src="/images/nisarga/masterplan.webp"
                   alt="Nisarga master plan"
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -90,7 +90,7 @@ export default function NisargaOverviewLightbox() {
               onClick={e => e.stopPropagation()}
             >
               <Image
-                src="/images/nisarga/masterplan.jpg"
+                src="/images/nisarga/masterplan.webp"
                 alt="Nisarga master plan"
                 fill
                 sizes="100vw"

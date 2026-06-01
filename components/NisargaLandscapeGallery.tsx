@@ -6,17 +6,17 @@ import { AnimatePresence, motion } from 'framer-motion'
 import FadeInView from '@/components/FadeInView'
 
 const landscapeViews = [
-  { label: 'Play Courts', image: '/images/nisarga/landscape-playcourts.jpg' },
-  { label: 'Outdoor Dining', image: '/images/nisarga/landscape-dining.jpg' },
-  { label: 'Elderly Seating', image: '/images/nisarga/landscape-elderly.jpg' },
-  { label: 'Golf Course', image: '/images/nisarga/landscape-golf1.jpg' },
-  { label: 'Golf Course 2', image: '/images/nisarga/landscape-golf2.jpg' },
-  { label: 'Grassland', image: '/images/nisarga/landscape-grassland.jpg' },
-  { label: 'Lawn & Meditation', image: '/images/nisarga/landscape-lawn.jpg' },
-  { label: 'Party Lawn', image: '/images/nisarga/landscape-party.jpg' },
-  { label: 'Tennis Court', image: '/images/nisarga/landscape-tennis.jpg' },
-  { label: 'Basketball Court', image: '/images/nisarga/landscape-basketball.jpg' },
-  { label: 'Volleyball Court', image: '/images/nisarga/landscape-volleyball.jpg' },
+  { label: 'Play Courts', image: '/images/nisarga/landscape-playcourts.webp' },
+  { label: 'Outdoor Dining', image: '/images/nisarga/landscape-dining.webp' },
+  { label: 'Elderly Seating', image: '/images/nisarga/landscape-elderly.webp' },
+  { label: 'Golf Course', image: '/images/nisarga/landscape-golf1.webp' },
+  { label: 'Golf Course 2', image: '/images/nisarga/landscape-golf2.webp' },
+  { label: 'Grassland', image: '/images/nisarga/landscape-grassland.webp' },
+  { label: 'Lawn & Meditation', image: '/images/nisarga/landscape-lawn.webp' },
+  { label: 'Party Lawn', image: '/images/nisarga/landscape-party.webp' },
+  { label: 'Tennis Court', image: '/images/nisarga/landscape-tennis.webp' },
+  { label: 'Basketball Court', image: '/images/nisarga/landscape-basketball.webp' },
+  { label: 'Volleyball Court', image: '/images/nisarga/landscape-volleyball.webp' },
 ]
 
 export default function NisargaLandscapeGallery() {

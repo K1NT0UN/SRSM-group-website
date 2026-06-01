@@ -5,10 +5,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const heroImages = [
-  '/images/nisarga/hero-1.jpg',
-  '/images/nisarga/hero-2.jpg',
-  '/images/nisarga/hero-3.jpg',
-  '/images/nisarga/hero-7.jpg',
+  '/images/nisarga/hero-1.webp',
+  '/images/nisarga/hero-2.webp',
+  '/images/nisarga/hero-3.webp',
+  '/images/nisarga/hero-7.webp',
 ]
 
 function useSlideKeys(count: number) {
