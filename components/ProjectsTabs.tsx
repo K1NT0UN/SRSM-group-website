@@ -59,7 +59,7 @@ export default function ProjectsTabs({ current, pipeline, completed }: Props) {
                     key={i}
                     whileHover={{ y: -3, boxShadow: '0 16px 48px rgba(26,51,32,0.14)' }}
                     transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-                    className="bg-forest/5 border border-gold/40 p-10 relative group cursor-default hover:border-gold transition-all duration-300"
+                    className="bg-parchment border border-gold/40 p-10 relative group cursor-default hover:border-gold transition-all duration-300"
                   >
                     <div className="absolute top-0 left-0 w-1 h-full bg-gold" />
                     <p className="text-[10px] tracking-[0.4em] uppercase text-forest font-bold mb-2">{p.company}</p>
@@ -129,9 +129,9 @@ export default function ProjectsTabs({ current, pipeline, completed }: Props) {
                       key={i}
                       whileHover={{ y: -4, boxShadow: '0 20px 48px rgba(200,169,81,0.18)' }}
                       transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-                      className="border-2 border-gold bg-forest/[0.03] p-10 relative group cursor-default overflow-hidden"
+                      className="bg-parchment border border-gold/40 p-10 relative group cursor-default hover:border-gold overflow-hidden transition-all duration-300"
                     >
-                      <div className="absolute top-0 left-0 w-full h-1 bg-gold" />
+                      <div className="absolute top-0 left-0 w-1 h-full bg-gold" />
                       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
                         <div className="flex-1">
                           <span className="text-[10px] tracking-[0.4em] uppercase text-gold font-semibold mb-3 block">
@@ -153,13 +153,19 @@ export default function ProjectsTabs({ current, pipeline, completed }: Props) {
                             ))}
                           </div>
                         </div>
-                        <div className="shrink-0 md:text-right">
-                          <span className="inline-block px-4 py-1.5 border border-gold text-gold text-[10px] tracking-widest uppercase mb-3">
+                        <div className="shrink-0 md:text-right flex flex-col items-end gap-3">
+                          <span className="inline-block px-4 py-1.5 border border-gold text-gold text-[10px] tracking-widest uppercase">
                             Pipeline
                           </span>
                           {p.targetCompletion && (
                             <p className="text-xs text-charcoal-light/60">{p.targetCompletion}</p>
                           )}
+                          <span className="flex items-center gap-2 text-charcoal-light/30 text-xs tracking-widest uppercase border border-charcoal/10 px-4 py-2 cursor-not-allowed">
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                            Brochure Coming Soon
+                          </span>
                         </div>
                       </div>
                     </motion.div>
@@ -168,8 +174,9 @@ export default function ProjectsTabs({ current, pipeline, completed }: Props) {
                       key={i}
                       whileHover={{ y: -3, boxShadow: '0 12px 36px rgba(26,51,32,0.12)' }}
                       transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-                      className="bg-transparent border border-forest/30 p-8 relative group cursor-default hover:border-gold/40 hover:bg-forest/[0.02] transition-all duration-300"
+                      className="bg-parchment border border-gold/40 p-8 relative group cursor-default hover:border-gold transition-all duration-300"
                     >
+                      <div className="absolute top-0 left-0 w-1 h-full bg-gold" />
                       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                         <div>
                           <span className="text-[10px] tracking-widest uppercase text-charcoal-light/40 mb-2 block">
@@ -183,9 +190,15 @@ export default function ProjectsTabs({ current, pipeline, completed }: Props) {
                             <p className="text-sm text-charcoal-light/70 leading-relaxed">{p.description}</p>
                           )}
                         </div>
-                        <div className="shrink-0">
+                        <div className="shrink-0 flex flex-col items-end gap-3">
                           <span className="mt-2 inline-block text-[10px] tracking-widest uppercase px-3 py-1 border border-forest/20 text-forest/40">
                             {p.type}
+                          </span>
+                          <span className="flex items-center gap-2 text-charcoal-light/30 text-xs tracking-widest uppercase border border-charcoal/10 px-4 py-2 cursor-not-allowed">
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                            Brochure Coming Soon
                           </span>
                         </div>
                       </div>
