@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import FadeInView from '@/components/FadeInView'
 
 const landscapeViews = [
-  { label: 'Basketball Court', image: '/images/nisarga/landscape-basketball.jpg' },
+  { label: 'Play Courts', image: '/images/nisarga/landscape-playcourts.jpg' },
   { label: 'Outdoor Dining', image: '/images/nisarga/landscape-dining.jpg' },
   { label: 'Elderly Seating', image: '/images/nisarga/landscape-elderly.jpg' },
   { label: 'Golf Course', image: '/images/nisarga/landscape-golf1.jpg' },
@@ -15,7 +15,7 @@ const landscapeViews = [
   { label: 'Lawn & Meditation', image: '/images/nisarga/landscape-lawn.jpg' },
   { label: 'Party Lawn', image: '/images/nisarga/landscape-party.jpg' },
   { label: 'Tennis Court', image: '/images/nisarga/landscape-tennis.jpg' },
-  { label: 'Play Courts', image: '/images/nisarga/landscape-playcourts.jpg' },
+  { label: 'Basketball Court', image: '/images/nisarga/landscape-basketball.jpg' },
   { label: 'Volleyball Court', image: '/images/nisarga/landscape-volleyball.jpg' },
 ]
 
@@ -49,7 +49,7 @@ export default function NisargaLandscapeGallery() {
                   key={view.label}
                   onClick={() => setActive(i)}
                   className={`relative overflow-hidden cursor-pointer group ${
-                    i === 0 ? 'col-span-2 row-span-2 aspect-[4/3]' : 'aspect-square'
+                    i === 0 ? 'col-span-2 row-span-2 aspect-square' : 'aspect-square'
                   }`}
                 >
                   <Image
