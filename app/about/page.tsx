@@ -27,8 +27,8 @@ const leadership = [
     role: 'Co-Director',
     name: 'Yashwanth Raavi',
     tagline: 'Projects · Development',
-    qualifications: null,
-    bio: "Yashwanth Raavi leads project development and on-ground execution across the Group's active sites, translating design intent into delivered homes while upholding the timelines and quality standards SRSM is known for.",
+    qualifications: 'BBA, Symbiosis International University, Pune · MIM, London, United Kingdom',
+    bio: "Yashwanth Raavi holds a Bachelor of Business Administration from Symbiosis International University, Pune — one of India's premier private universities — and a Master in Management from London, United Kingdom. He leads project development and on-ground execution across the Group's active sites, translating design intent into delivered homes while upholding the timelines and quality standards SRSM is known for.",
   },
   {
     initials: 'MR',
@@ -51,8 +51,8 @@ const leadership = [
     role: 'Director — Business Development',
     name: 'Raavi Chidvilas',
     tagline: 'Business Development · Expansion',
-    qualifications: 'B.S. Civil Engineering, United States of America',
-    bio: 'Raavi Chidvilas holds a Bachelor of Science in Civil Engineering from the United States of America, equipping him with a technically rigorous foundation that informs every aspect of his business development role. He is responsible for identifying new market opportunities, forging strategic partnerships, and driving the Group\'s geographic and operational expansion. His engineering background ensures that growth decisions are always evaluated through the lens of structural viability and project deliverability.',
+    qualifications: 'B.S. Civil Engineering, NC State University, United States of America',
+    bio: 'Raavi Chidvilas holds a Bachelor of Science in Civil Engineering from NC State University, United States of America, equipping him with a technically rigorous foundation that informs every aspect of his business development role. He is responsible for identifying new market opportunities, forging strategic partnerships, and driving the Group\'s geographic and operational expansion. His engineering background ensures that growth decisions are always evaluated through the lens of structural viability and project deliverability.',
   },
 ]
 
