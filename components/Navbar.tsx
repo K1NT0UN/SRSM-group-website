@@ -61,10 +61,10 @@ export default function Navbar() {
             </Link>
           ))}
           <Link
-            href="/projects"
+            href="/enquire"
             className="ml-4 px-6 py-2.5 bg-forest text-parchment text-sm tracking-widest uppercase font-semibold hover:bg-forest-dark transition-colors duration-200"
           >
-            Our Projects
+            Enquire Now
           </Link>
         </div>
 
@@ -94,11 +94,11 @@ export default function Navbar() {
             </Link>
           ))}
           <Link
-            href="/projects"
+            href="/enquire"
             onClick={() => setMenuOpen(false)}
             className="mt-2 px-6 py-3 bg-gold text-forest text-sm tracking-widest uppercase font-semibold text-center"
           >
-            Our Projects
+            Enquire Now
           </Link>
         </div>
       )}
