@@ -1,14 +1,14 @@
-# AntiGravity — Agent Handoff README
+# SRSM Group — Agent Handoff README
 
-*Last updated: 2026-06-01*
+*Last updated: 2026-06-02*
 
 ---
 
 ## What This Workspace Is
 
-This is the **SRSM Group company website** — a Next.js 16 site for the parent real estate and construction group (SRSM Group), which operates three active subsidiaries. The working directory is `~/Desktop/AntiGravity/srsm-group/`.
+The **SRSM Group company website** — a Next.js 16 site for the parent real estate and construction group, which operates several active subsidiaries. Working directory: `~/Desktop/AntiGravity/srsm-group-website/`.
 
-The SR Builders & Developers subsidiary site (flagship project Nisarga) lives separately at `~/Desktop/AntiGravity/construction-site/` and is tracked at `github.com/K1NT0UN/srsm-group-website`.
+The SR Builders & Developers subsidiary site (flagship project Nisarga) lives separately at `~/Desktop/AntiGravity/construction-site/`.
 
 ---
 
@@ -16,9 +16,10 @@ The SR Builders & Developers subsidiary site (flagship project Nisarga) lives se
 
 | Item | Status |
 |---|---|
-| GitHub repo | github.com/K1NT0UN/srsm-group |
-| Vercel deployment | Connect at vercel.com/new → import K1NT0UN/srsm-group |
-| Supabase | Not yet set up for this project |
+| GitHub repo | github.com/K1NT0UN/SRSM-group-website |
+| Vercel deployment | Live on Vercel default domain — auto-deploys on push to `main`. Custom GoDaddy domain not yet connected. |
+| Supabase | Not used on this site — contact page is display-only (no form) |
+| Working tree | Clean, synced to `origin/main` |
 
 ---
 
@@ -26,8 +27,8 @@ The SR Builders & Developers subsidiary site (flagship project Nisarga) lives se
 
 - **Next.js 16.2.6** — App Router, TypeScript
 - **Tailwind CSS v4** — CSS-based config in `app/globals.css` (no `tailwind.config.ts`)
-- **Framer Motion** — scroll reveals, tab transitions, hover lift animations, testimonial carousel
-- **No GSAP** — not yet needed on this site
+- **Framer Motion** — scroll reveals, tab transitions, hover lift, testimonial carousel, Ken Burns hero
+- **No GSAP**, **no Supabase** on this site
 
 ---
 
@@ -47,52 +48,63 @@ Defined in `app/globals.css` via `@theme`:
 
 **Fonts:** Oswald (headings via `font-serif`) + Barlow (body via `font-sans`)
 **Rule:** Never use cool grey. Brand is entirely warm-toned.
-**Navbar:** Parchment background — uses `srsm-logo.png`. Mobile menu is forest-dark.
+
+> Note: a Deep Burgundy & Ivory theme was trialled (commit 614b2de) then reverted to the forest-green theme (733e746). The Nisarga page pins the forest theme via a CSS variable override.
+
+---
+
+## Contact (single source of truth)
+
+All contact details live in **`lib/contact.ts`** — edit there and every page updates:
+
+- **Phone:** `+91 99899 90256`
+- **Email:** `sr.sm.group.buildersanddevelopers@gmail.com`
+- **WhatsApp:** `wa.me/919989990256` (floating button + inline contact strip)
 
 ---
 
 ## Logo Files
 
-Both are in `srsm-group/public/images/`:
+In `public/images/`:
 
 | File | Usage |
 |---|---|
-| `srsm-logo.png` | Navbar (dark logo on parchment bg) |
-| `sr-builders-logo-light.png` | Available but not currently used |
-
-Footer uses `srsm-logo.png` with `brightness-0 invert` Tailwind classes to render white.
+| `srsm-logo.png` | Navbar (dark logo on parchment). Footer reuses it with `brightness-0 invert` to render white |
+| `sr-builders-logo-light.png` | Available, not currently used |
 
 ---
 
 ## File Structure
 
 ```
-srsm-group/
+srsm-group-website/
 ├── app/
 │   ├── globals.css              ← Brand colors + fonts (Tailwind v4 @theme) + kenburns keyframe
-│   ├── layout.tsx               ← Root layout, Oswald + Barlow fonts, Navbar + Footer
-│   ├── page.tsx                 ← Homepage (Hero, Stats, Who We Are, Entities, Nisarga card, Testimonials, Mission, CTA)
-│   ├── about/page.tsx           ← About page (Mission, Legacy, Strengths, Entities, Leadership)
+│   ├── layout.tsx               ← Root layout, Oswald + Barlow, Navbar + Footer + FloatingWhatsApp
+│   ├── page.tsx                 ← Homepage (Hero, Stats, Who We Are, Entities, Nisarga card, Testimonials, Mission, CTA, contact strip)
+│   ├── about/page.tsx           ← About (Mission, Legacy, Strengths, Entities, Leadership)
 │   ├── projects/
-│   │   ├── page.tsx             ← Projects page (stats strip, ProjectsTabs)
-│   │   └── nisarga/page.tsx     ← Nisarga landing page (full brochure content via NisargaPageContent)
-│   └── enquire/page.tsx         ← Contact page (phone, email, office address — no Supabase form yet)
+│   │   ├── page.tsx             ← Projects (stats strip + ProjectsTabs)
+│   │   └── nisarga/page.tsx     ← Nisarga landing (full brochure content via NisargaPageContent)
+│   └── enquire/page.tsx         ← Contact page (phone, email, office address — display only, no form)
 ├── components/
-│   ├── Navbar.tsx               ← Parchment bg, forest links, SRSM logo, "Our Projects" CTA
-│   ├── Footer.tsx               ← Forest bg, inverted logo, 4 entities, Nanakramguda address
-│   ├── FadeInView.tsx           ← Framer Motion scroll reveal (up/left/right/none)
-│   ├── ProjectsTabs.tsx         ← Tab switcher (Current & Pipeline / Completed), brochure buttons, photo placeholders
-│   ├── TestimonialsCarousel.tsx ← Horizontal auto-scroll carousel (pauses on hover), placeholder names
-│   ├── NisargaHeroCarousel.tsx  ← Ken Burns hero carousel (4 slides, 5s interval)
-│   ├── NisargaOverviewLightbox.tsx ← Aerial + masterplan, click-to-enlarge lightbox
-│   ├── NisargaLandscapeGallery.tsx ← 11-view grid gallery, click to expand, tab selector
-│   └── NisargaPageContent.tsx  ← Full Nisarga page JSX (all 11 sections)
+│   ├── Navbar.tsx               ← Parchment bg, forest links, SRSM logo
+│   ├── Footer.tsx               ← Forest bg, inverted logo, entities, Nanakramguda address
+│   ├── FloatingWhatsApp.tsx     ← Floating WhatsApp button (Framer Motion)
+│   ├── FadeInView.tsx           ← Framer Motion scroll reveal
+│   ├── ProjectsTabs.tsx         ← Tab switcher (Current & Pipeline / Completed), brochure buttons
+│   ├── TestimonialsCarousel.tsx ← Auto-scroll carousel (pauses on hover) — PLACEHOLDER names
+│   ├── NisargaHeroCarousel.tsx  ← Ken Burns hero carousel (4 slides, 5s)
+│   ├── NisargaOverviewLightbox.tsx ← Aerial + masterplan, click-to-enlarge
+│   ├── NisargaLandscapeGallery.tsx ← 11-view grid gallery, tab selector
+│   └── NisargaPageContent.tsx   ← Full Nisarga page JSX (11 sections)
 ├── lib/
-│   └── projects.ts             ← All project data (current, pipeline, completed) with Project interface
+│   ├── contact.ts               ← Single source of truth for phone/email/WhatsApp
+│   └── projects.ts              ← All project data (current / pipeline / completed)
 └── public/images/
     ├── srsm-logo.png
     ├── sr-builders-logo-light.png
-    └── nisarga/                 ← 36 brochure renders (hero, villas, clubhouses, landscape, etc.)
+    └── nisarga/                 ← Brochure renders (WebP, resized to 2400px max)
 ```
 
 ---
@@ -100,12 +112,12 @@ srsm-group/
 ## What's Been Built
 
 ### Pages
-
-- ✅ **Homepage (`/`)** — Hero ("Building Legacies Since 1999"), stats bar (25+ yrs, 24+ projects, 4 entities, 3 cities), Who We Are + 4 core strengths, Three Entities grid (forest bg), Nisarga flagship card, Testimonials carousel (placeholder names), Mission quote, CTA
-- ✅ **`/about`** — Mission, 25yr legacy + core strengths, mission quote, 4 active entities, Leadership (5 people)
-- ✅ **`/projects`** — Gold stats strip (3/5/24+/3), tabs: Current & Pipeline / Completed (24 cards with photo placeholders)
+- ✅ **Homepage (`/`)** — Hero ("Building Legacies Since 1999"), stats bar, Who We Are + 4 core strengths, Four Entities grid, Nisarga flagship card, Testimonials carousel (placeholder names), Mission quote, CTA, inline contact strip
+- ✅ **`/about`** — Mission, 25yr legacy + core strengths, mission quote, active entities, Leadership (5 people)
+- ✅ **`/projects`** — Gold stats strip, tabs: Current & Pipeline / Completed (24 cards with photo placeholders)
 - ✅ **`/projects/nisarga`** — Full Nisarga landing page (11 sections, all images wired)
-- ✅ **`/enquire`** — Contact page with phone, email, Nanakramguda office address
+- ✅ **`/enquire`** — Contact page (phone, email, Nanakramguda office address)
+- ✅ **WhatsApp** — Floating button + inline contact strip, shipped
 
 ### Group Entities (4 active)
 1. SR Builders and Developers — Residential & Villas
@@ -121,67 +133,22 @@ srsm-group/
 5. Raavi Chidvilas — Director, Business Development & Growth
 
 ### Projects Data (`lib/projects.ts`)
-
-**Current (3 ongoing):**
-1. Nisarga — SR Builders, Kollur, Integrated Township Villas, 2028, slug: `nisarga`
-2. Nagole Villas — SRSM Group, Nagole, ~10 acres residential
-3. Medchal Commercial — SRSM Group, Medchal, ~1+ acre commercial
-
-**Pipeline (5 total):**
-1. Highrise Apartments — SR Builders, Kollur, **Name TBD**, 2030
-2. Borampet Villas — SRSM Group, ~30 acres
-3. Bashirbag Commercial — 60k sqft on 0.5 acres
-4. Chandanagar Commercial — 30k sqft on 1,200 sq yards
-5. Lingampally Residences — 120 flats opp. Railway Station
-
+**Current (3):** Nisarga (SR Builders, Kollur, township villas, 2028) · Nagole Villas · Medchal Commercial
+**Pipeline (5):** Highrise Apartments (Kollur, **name TBD**, 2030) · Borampet Villas · Bashirbag Commercial · Chandanagar Commercial · Lingampally Residences
 **Completed:** 24 projects across SR Builders, SM Builders, SM Builders & Developers, SM Projects, SM Constructions, SM Infra Developers
-
-### Nisarga Page Sections (`NisargaPageContent.tsx`)
-1. Hero carousel — 4 slides, Ken Burns, 5s auto-advance, dot indicators
-2. Stats bar — 17+ Acres, 50+ Amenities, 4,000 Acres Greenery, 2 Clubhouses, 800m Frontage, G+2
-3. Vision — vision-forest image + "Wood Morning" copy
-4. Architecture — arch-streetscape full-bleed with forest overlay
-5. Overview + Master Plan — aerial left, masterplan right (click to enlarge lightbox)
-6. Villa Types — 200 / 239 / 300 sq yd cards with per-floor area tables
-7. Streetscape full-bleed (rain render) with forest overlay
-8. Clubhouses — Club N'Spire (forest bg) + Club N'finity (charcoal bg) with amenity lists
-9. Landscape Gallery — Play Courts featured (col-span-2 row-span-2 aspect-square), 10 other views, tab selector
-10. Location — location-map + 5 highlight categories on forest bg
-11. CTA — gold section, RERA, phone, email, two buttons → `/enquire`
 
 ---
 
 ## What Still Needs To Be Done
 
-### 1. Vercel Deployment
-Not yet connected. Go to vercel.com/new → import `K1NT0UN/srsm-group` → Deploy. Auto-deploys on push to `main` once connected.
-
-### 2. Customer Testimonials — Real Names
-`components/TestimonialsCarousel.tsx` — all 8 entries use `'Placeholder Name N'`. Replace with real customer names once provided. Each entry: `{ name, rating (4.3–5.0), review (one sentence) }`.
-
-### 3. Brochure Downloads
-`lib/projects.ts` — add `brochure: '/brochures/filename.pdf'` to each ongoing project once PDFs are provided. Drop PDFs in `public/brochures/`. The download button is already wired — it activates automatically when `brochure` field is set.
-
-### 4. Completed Project Photos
-`lib/projects.ts` — add `image: '/images/completed/filename.jpg'` to each completed project once photos are provided. Drop images in `public/images/completed/`. The photo slot is already in the card — placeholder shows until image is set.
-
-### 5. Leadership Photos
-`app/about/page.tsx` — all 5 leadership cards show initials circles. Upload real headshots to `public/images/team/`, add `<Image>` in place of the initials `<div>`.
-
-### 6. Leadership Qualifications & Bios
-`app/about/page.tsx` — Yashwanth, Manaswitha, Rishi, Chidvilas all have `'[Qualifications to be added]'` and empty bios.
-
-### 7. Contact Details
-Phone (`+1800-4123-3970`) and email (`sales@srbuilders.com`) are placeholder values from the Nisarga project. Update with actual SRSM Group contact details in:
-- `components/Footer.tsx`
-- `app/enquire/page.tsx`
-- `components/NisargaPageContent.tsx` (CTA section)
-
-### 8. Nisarga Apartments Dedicated Page
-`/projects/highrise` — once the brand name for the high-rise is decided, build a page similar to `/projects/nisarga`.
-
-### 9. Supabase Enquiry Form
-`app/enquire/page.tsx` — currently shows phone/email only (no form submission). Wire up Supabase `enquiries` table when ready (see `construction-site/` for reference implementation).
+1. **Connect custom GoDaddy domain** — site is live on the Vercel default domain; point the purchased GoDaddy domain at it (add domain in Vercel dashboard, then A record + CNAME in GoDaddy DNS).
+2. **Real testimonial names** — `components/TestimonialsCarousel.tsx` still uses placeholder names.
+3. **Brochure downloads** — add `brochure: '/brochures/filename.pdf'` to ongoing projects in `lib/projects.ts`; drop PDFs in `public/brochures/`. Button is already wired.
+4. **Completed-project photos** — add `image: '/images/completed/filename.jpg'` per project; drop files in `public/images/completed/`.
+5. **Leadership photos** — `app/about/page.tsx` shows initials circles; add headshots to `public/images/team/`.
+6. **Leadership qualifications & bios** — Yashwanth, Manaswitha, Rishi, Chidvilas still have `'[Qualifications to be added]'` and empty bios.
+7. **Highrise dedicated page** — `/projects/highrise`, once the brand name is decided.
+8. **Optional enquiry form** — `/enquire` is display-only; wire to Supabase later if a real form is wanted (see construction-site for reference).
 
 ---
 
@@ -200,5 +167,5 @@ Financial District, Nanakramguda, Hyderabad 500032
 | `~/Desktop/SRSM Profile/SR B & D Logo/` | Logo source files |
 | `~/Desktop/SRSM Profile/Nisarga_Brochure_APRL_21_26_.pdf` | Full Nisarga brochure (31 pages) |
 | `~/Desktop/Nisarga_Project_Website_Assets/` | All extracted brochure images |
-| `~/Desktop/Nisarga_Project_Website_Assets/Website_Content_References/website_copy.md` | Full verified Nisarga website copy |
+| `~/Desktop/Nisarga_Project_Website_Assets/Website_Content_References/website_copy.md` | Verified Nisarga website copy |
 | `~/Desktop/SRSM Profile/PROJECTS DATA CHIDVILAS.xlsx` | All project data spreadsheet |

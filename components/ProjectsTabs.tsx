@@ -78,17 +78,18 @@ export default function ProjectsTabs({ current, pipeline, completed }: Props) {
                         <p className="text-xs text-charcoal-light/60">Completion: {p.targetCompletion}</p>
                       )}
                       <div className="ml-auto flex flex-wrap gap-4 items-center">
-                        {/* Brochure download — show only if brochure path exists */}
-                        {p.brochure ? (
+                        {/* Brochure — hosted on the project's own website */}
+                        {p.brochureExternal ? (
                           <a
-                            href={p.brochure}
-                            download
+                            href={p.brochureExternal}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="flex items-center gap-2 text-forest text-xs tracking-widest uppercase border border-gold/40 px-4 py-2 hover:bg-gold hover:text-forest hover:border-gold transition-colors duration-200 font-semibold"
                           >
                             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                             </svg>
-                            Download Brochure
+                            Get Brochure ↗
                           </a>
                         ) : (
                           <span className="flex items-center gap-2 text-charcoal-light/30 text-xs tracking-widest uppercase border border-charcoal/10 px-4 py-2 cursor-not-allowed">

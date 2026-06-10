@@ -22,7 +22,10 @@ export default function NisargaHeroCarousel() {
   const [current, setCurrent] = useState(0)
   const [keys, activate] = useSlideKeys(heroImages.length)
   const currentRef = useRef(current)
-  currentRef.current = current
+
+  useEffect(() => {
+    currentRef.current = current
+  }, [current])
 
   useEffect(() => {
     activate(0)

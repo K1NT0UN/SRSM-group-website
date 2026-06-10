@@ -10,7 +10,8 @@ export interface Project {
   description?: string
   targetCompletion?: string
   slug?: string
-  brochure?: string
+  /** External brochure page (e.g. project's own website) — opens in a new tab. */
+  brochureExternal?: string
   image?: string
 }
 
@@ -25,6 +26,7 @@ export const currentProjects: Project[] = [
       'A landmark gated township offering premium 4 & 5 BHK forestscape villas on 17+ acres in Kollur, one of Hyderabad\'s fastest-growing corridors. 50+ amenities, 2 exclusive clubhouses. RERA: PO22000007723.',
     targetCompletion: 'End of 2028',
     slug: 'nisarga',
+    brochureExternal: 'https://www.srbuildersanddevelopers.co',
   },
   {
     company: 'SRSM Group',

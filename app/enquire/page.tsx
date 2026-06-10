@@ -1,6 +1,7 @@
 import FadeInView from '@/components/FadeInView'
 import Link from 'next/link'
 import { contact } from '@/lib/contact'
+import EnquireForms from '@/components/EnquireForms'
 
 export default function EnquirePage() {
   return (
@@ -55,25 +56,7 @@ export default function EnquirePage() {
           </FadeInView>
 
           <FadeInView direction="right" delay={0.1}>
-            <div className="bg-linen border border-gold/20 p-8">
-              <p className="text-xs tracking-[0.5em] uppercase text-gold mb-6">Quick Enquiry</p>
-              <p className="text-charcoal-light text-sm leading-relaxed mb-6">
-                To enquire about our projects, book a site visit, or request pricing information,
-                please reach us directly via phone or email. Our team will get back to you within 24 hours.
-              </p>
-              <a
-                href={contact.phoneHref}
-                className="block w-full text-center px-8 py-4 bg-forest text-parchment text-sm tracking-widest uppercase font-semibold hover:bg-forest-dark transition-colors duration-200 mb-4"
-              >
-                Call Now
-              </a>
-              <a
-                href={`mailto:${contact.email}`}
-                className="block w-full text-center px-8 py-4 border-2 border-forest text-forest text-sm tracking-widest uppercase hover:bg-forest hover:text-parchment transition-colors duration-200"
-              >
-                Email Us
-              </a>
-            </div>
+            <EnquireForms />
           </FadeInView>
         </div>
       </section>

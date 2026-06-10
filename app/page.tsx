@@ -1,17 +1,20 @@
 'use client'
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import FadeInView from '@/components/FadeInView'
 import TestimonialsCarousel from '@/components/TestimonialsCarousel'
+import StatsCounter from '@/components/StatsCounter'
+import ProjectsMarquee from '@/components/ProjectsMarquee'
 import { entities } from '@/lib/entities'
 import { contact } from '@/lib/contact'
 
 const stats = [
-  { value: '25+', label: 'Years of Legacy' },
-  { value: '24+', label: 'Completed Projects' },
-  { value: '4', label: 'Active Entities' },
-  { value: '3', label: 'Cities' },
+  { value: 25, suffix: '+', label: 'Years of Legacy' },
+  { value: 24, suffix: '+', label: 'Completed Projects' },
+  { value: 4, suffix: '', label: 'Active Entities' },
+  { value: 3, suffix: '', label: 'Cities' },
 ]
 
 const strengths = [
@@ -31,19 +34,26 @@ const item = {
 }
 
 export default function HomePage() {
+  const heroRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 120])
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.15])
+  const gridY = useTransform(scrollYProgress, [0, 1], [0, 60])
+
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────── */}
-      <section className="relative bg-forest min-h-screen flex flex-col justify-center overflow-hidden">
-        {/* subtle grid texture */}
-        <div
+      <section ref={heroRef} className="relative bg-forest min-h-screen flex flex-col justify-center overflow-hidden">
+        {/* subtle grid texture — drifts on scroll */}
+        <motion.div
           className="absolute inset-0 opacity-5"
           style={{
-            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 39px, #c8a951 39px, #c8a951 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, #c8a951 39px, #c8a951 40px)`,
+            y: gridY,
+            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 39px, var(--color-gold) 39px, var(--color-gold) 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, var(--color-gold) 39px, var(--color-gold) 40px)`,
           }}
         />
 
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-12 pt-32 pb-24">
+        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative max-w-7xl mx-auto px-6 lg:px-12 pt-32 pb-24">
           <FadeInView direction="none">
             <p className="text-xs tracking-[0.6em] uppercase text-gold/70 mb-6">
               Hyderabad · Vizag · Bangalore
@@ -81,9 +91,9 @@ export default function HomePage() {
               </Link>
             </div>
           </FadeInView>
-        </div>
+        </motion.div>
 
-        {/* Stats bar */}
+        {/* Stats bar — counts up on scroll */}
         <div className="relative border-t border-parchment/10">
           <motion.div
             variants={container}
@@ -92,15 +102,20 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="max-w-7xl mx-auto px-6 lg:px-12 py-10 grid grid-cols-2 md:grid-cols-4 gap-8"
           >
-            {stats.map(({ value, label }) => (
+            {stats.map(({ value, suffix, label }) => (
               <motion.div key={label} variants={item} className="text-center md:text-left">
-                <p className="font-serif text-4xl md:text-5xl text-gold mb-1">{value}</p>
+                <p className="font-serif text-4xl md:text-5xl text-gold mb-1">
+                  <StatsCounter value={value} suffix={suffix} />
+                </p>
                 <p className="text-xs tracking-widest uppercase text-parchment/50">{label}</p>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
+
+      {/* ── Completed projects marquee ───────────────────── */}
+      <ProjectsMarquee />
 
       {/* ── Who We Are ───────────────────────────────────── */}
       <section className="bg-parchment py-28 px-6">

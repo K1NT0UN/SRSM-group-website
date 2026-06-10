@@ -4,16 +4,21 @@
   --font-serif: var(--font-oswald), 'Arial Narrow', sans-serif;
   --font-sans: var(--font-barlow), system-ui, sans-serif;
 
-  --color-forest: #4a1528;
-  --color-forest-dark: #31001a;
-  --color-forest-light: #5e1f35;
-  --color-gold: #c9a96e;
-  --color-gold-dark: #a88950;
-  --color-gold-light: #dfc48a;
-  --color-parchment: #faf6ee;
-  --color-linen: #ede8dc;
-  --color-charcoal: #1c1c1c;
-  --color-charcoal-light: #3d3d3d;
+  /* SRSM Group palette — midnight navy + champagne gold */
+  --color-forest: #0c2340;
+  --color-forest-dark: #071729;
+  --color-forest-light: #16395f;
+  --color-gold: #d2b277;
+  --color-gold-dark: #b3935a;
+  --color-gold-light: #e7d3a4;
+  --color-parchment: #faf8f3;
+  --color-linen: #eee9de;
+  --color-charcoal: #1a1d21;
+  --color-charcoal-light: #3b4046;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -26,6 +31,12 @@ h1, h2, h3, h4 {
   font-family: var(--font-serif);
 }
 
+::selection {
+  background-color: var(--color-gold);
+  color: var(--color-forest-dark);
+}
+
+/* Nisarga project pages keep their forest-green identity */
 .nisarga-theme {
   --color-forest: #1a3320;
   --color-forest-dark: #112216;
@@ -45,4 +56,8 @@ h1, h2, h3, h4 {
 @keyframes scrollLeft {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
