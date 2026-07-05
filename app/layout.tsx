@@ -21,9 +21,34 @@ const barlow = Barlow({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://srsm-group.vercel.app'),
   title: 'SRSM Group | 25 Years of Excellence in Real Estate',
   description:
     'SRSM Group — A Hyderabad-based real estate and construction group with 25+ years of legacy, 24+ completed projects, and a growing portfolio across residential and commercial segments.',
+  openGraph: {
+    title: 'SRSM Group | 25 Years of Excellence in Real Estate',
+    description:
+      'A Hyderabad-based real estate and construction group with 25+ years of legacy, 24+ completed projects, and a growing portfolio across residential and commercial segments.',
+    url: '/',
+    siteName: 'SRSM Group',
+    locale: 'en_IN',
+    type: 'website',
+    images: [
+      {
+        url: '/og/og-default.png',
+        width: 1200,
+        height: 630,
+        alt: 'SRSM Group — 25 Years of Excellence in Real Estate',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SRSM Group | 25 Years of Excellence in Real Estate',
+    description:
+      'A Hyderabad-based real estate and construction group with 25+ years of legacy and 24+ completed projects.',
+    images: ['/og/og-default.png'],
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

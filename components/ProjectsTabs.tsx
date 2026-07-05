@@ -133,6 +133,20 @@ export default function ProjectsTabs({ current, pipeline, completed }: Props) {
                       className="bg-parchment border border-gold/40 p-10 relative group cursor-default hover:border-gold overflow-hidden transition-all duration-300"
                     >
                       <div className="absolute top-0 left-0 w-1 h-full bg-gold" />
+                      {p.image && (
+                        <div className="relative aspect-[21/9] -mx-10 -mt-10 mb-8 overflow-hidden">
+                          <Image
+                            src={p.image}
+                            alt={`${p.name} — stylised concept artwork`}
+                            fill
+                            sizes="(max-width: 768px) 100vw, 768px"
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                          <span className="absolute bottom-3 left-3 px-2.5 py-1 bg-forest/80 text-parchment/80 text-[9px] tracking-widest uppercase">
+                            Stylised concept — not an actual render
+                          </span>
+                        </div>
+                      )}
                       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
                         <div className="flex-1">
                           <span className="text-[10px] tracking-[0.4em] uppercase text-gold font-semibold mb-3 block">
@@ -179,7 +193,21 @@ export default function ProjectsTabs({ current, pipeline, completed }: Props) {
                     >
                       <div className="absolute top-0 left-0 w-1 h-full bg-gold" />
                       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-                        <div>
+                        {p.image && (
+                          <div className="relative hidden md:block w-40 min-h-[104px] self-stretch shrink-0 overflow-hidden">
+                            <Image
+                              src={p.image}
+                              alt={`${p.name} — stylised concept artwork`}
+                              fill
+                              sizes="160px"
+                              className="object-cover"
+                            />
+                            <span className="absolute bottom-1.5 left-1.5 px-1.5 py-0.5 bg-forest/80 text-parchment/70 text-[8px] tracking-widest uppercase">
+                              Stylised
+                            </span>
+                          </div>
+                        )}
+                        <div className="flex-1">
                           <span className="text-[10px] tracking-widest uppercase text-charcoal-light/40 mb-2 block">
                             Pipeline · {p.company}
                           </span>

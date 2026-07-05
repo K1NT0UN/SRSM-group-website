@@ -13,7 +13,7 @@ import { contact } from '@/lib/contact'
 const stats = [
   { value: 25, suffix: '+', label: 'Years of Legacy' },
   { value: 24, suffix: '+', label: 'Completed Projects' },
-  { value: 4, suffix: '', label: 'Active Entities' },
+  { value: 3, suffix: '', label: 'Active Entities' },
   { value: 3, suffix: '', label: 'Cities' },
 ]
 
@@ -44,6 +44,25 @@ export default function HomePage() {
     <>
       {/* ── Hero ─────────────────────────────────────────── */}
       <section ref={heroRef} className="relative bg-forest min-h-screen flex flex-col justify-center overflow-hidden">
+        {/* cinematic backdrop — stylised skyline for mood, not a project render */}
+        <div className="absolute inset-0" aria-hidden="true">
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: "url('/hero/hero-poster.webp')" }}
+          />
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="/hero/hero-poster.webp"
+            className="absolute inset-0 w-full h-full object-cover motion-reduce:hidden"
+          >
+            <source src="/hero/hero.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-r from-forest-dark/85 via-forest/60 to-forest/25" />
+        </div>
+
         {/* subtle grid texture — drifts on scroll */}
         <motion.div
           className="absolute inset-0 opacity-5"
@@ -160,9 +179,21 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── Divider — champagne bokeh transition ─────────── */}
+      <div
+        aria-hidden="true"
+        className="h-28 md:h-36 bg-cover bg-center"
+        style={{ backgroundImage: "url('/images/textures/divider-bokeh.webp')" }}
+      />
+
       {/* ── Group Entities ────────────────────────────────── */}
-      <section className="bg-forest py-28 px-6">
-        <div className="max-w-6xl mx-auto">
+      <section className="relative bg-forest py-28 px-6 overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-cover bg-center opacity-25"
+          style={{ backgroundImage: "url('/images/textures/divider-metal.webp')" }}
+        />
+        <div className="relative max-w-6xl mx-auto">
           <FadeInView>
             <div className="text-center mb-16">
               <p className="text-xs tracking-[0.5em] uppercase text-gold/70 mb-3">Our Companies</p>
@@ -269,9 +300,14 @@ export default function HomePage() {
       <TestimonialsCarousel />
 
       {/* ── Mission Quote ─────────────────────────────────── */}
-      <section className="bg-forest py-24 px-6">
+      <section className="relative bg-forest py-24 px-6 overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-cover bg-center opacity-30"
+          style={{ backgroundImage: "url('/images/textures/divider-streaks.webp')" }}
+        />
         <FadeInView>
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="relative max-w-3xl mx-auto text-center">
             <p className="text-xs tracking-[0.5em] uppercase text-gold/60 mb-8">Our Mission</p>
             <blockquote className="font-serif text-3xl md:text-4xl text-parchment leading-snug font-light mb-8">
               &ldquo;To deliver homes and spaces that enrich lives — built with integrity, crafted with precision,

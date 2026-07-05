@@ -46,6 +46,8 @@ export const currentProjects: Project[] = [
   },
 ]
 
+// Pipeline images are stylised concept artwork (labelled in the UI) — never
+// actual renders of the developments. Replace with real photos when available.
 export const pipelineProjects: Project[] = [
   {
     company: 'SR Builders and Developers',
@@ -56,6 +58,7 @@ export const pipelineProjects: Project[] = [
     description:
       'A premium high-rise residential development within the Nisarga township — Hyderabad\'s fastest-growing corridor. Designed for modern urban living with shared access to Nisarga township infrastructure, proximity to Pharma City, Metro Phase-2, and major IT hubs.',
     targetCompletion: 'End of 2030',
+    image: '/images/projects/placeholder-residential.webp',
   },
   {
     company: 'SRSM Group',
@@ -64,6 +67,7 @@ export const pipelineProjects: Project[] = [
     status: 'PIPELINE',
     type: 'Residential',
     description: '~30 acres of residential villa development.',
+    image: '/images/projects/placeholder-residential.webp',
   },
   {
     company: 'SRSM Group',
@@ -72,6 +76,7 @@ export const pipelineProjects: Project[] = [
     status: 'PIPELINE',
     type: 'Commercial',
     description: '60,000 sq ft constructed area on 0.5 acres.',
+    image: '/images/projects/placeholder-commercial.webp',
   },
   {
     company: 'SRSM Group',
@@ -80,6 +85,7 @@ export const pipelineProjects: Project[] = [
     status: 'PIPELINE',
     type: 'Commercial',
     description: '30,000 sq ft commercial space on 1,200 sq yards.',
+    image: '/images/projects/placeholder-commercial.webp',
   },
   {
     company: 'SRSM Group',
@@ -88,6 +94,7 @@ export const pipelineProjects: Project[] = [
     status: 'PIPELINE',
     type: 'Residential',
     description: '120 residential flats on 6,000 sq yards, opposite Lingampally Railway Station.',
+    image: '/images/projects/placeholder-residential.webp',
   },
 ]
 
