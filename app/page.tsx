@@ -180,24 +180,26 @@ export default function HomePage() {
       </section>
 
       {/* ── Group Entities ────────────────────────────────── */}
-      <section className="bg-forest py-28 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="relative mb-10 md:mb-14">
-            <img
-              src="/images/textures/entities-bg.webp"
-              alt=""
-              aria-hidden="true"
-              className="w-full h-auto rounded-sm"
-            />
-            {/* Live heading overlaid on the (text-free) artwork */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+      <section className="relative bg-forest py-24 md:py-32 px-6 overflow-hidden">
+        {/* Designed artwork as the full-section backdrop — heading + tiles sit on top */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/images/textures/entities-bg.webp')" }}
+        />
+        <div aria-hidden="true" className="absolute inset-0 bg-forest/30" />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-forest to-transparent" />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-forest to-transparent" />
+
+        <div className="relative max-w-6xl mx-auto">
+          <FadeInView>
+            <div className="text-center mb-12 md:mb-16">
               <p className="text-xs tracking-[0.5em] uppercase text-gold/70 mb-3">Our Companies</p>
               <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-parchment drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]">
                 Three Entities. <span className="font-light text-gold">One Vision.</span>
               </h2>
             </div>
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-forest" />
-          </div>
+          </FadeInView>
 
           <motion.div
             variants={container}
@@ -212,7 +214,7 @@ export default function HomePage() {
                 variants={item}
                 whileHover={{ y: -6, boxShadow: '0 20px 48px rgba(0,0,0,0.3)' }}
                 transition={{ type: 'spring', stiffness: 300, damping: 28 }}
-                className="bg-forest-dark border border-gold/20 p-8 group hover:border-gold/60 cursor-default flex flex-col"
+                className="bg-forest-dark/75 backdrop-blur-sm border border-gold/25 p-8 group hover:border-gold/60 hover:bg-forest-dark/90 cursor-default flex flex-col shadow-2xl transition-colors duration-300"
               >
                 <div className="mb-2">
                   <span className="text-[10px] tracking-widest uppercase px-2 py-0.5 border border-gold/30 text-gold/70">
