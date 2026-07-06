@@ -122,117 +122,52 @@ export default function ProjectsTabs({ current, pipeline, completed }: Props) {
 
             {/* Pipeline */}
             <div>
-              <h3 className="font-serif text-2xl text-forest mb-8 text-center">Coming Soon</h3>
-              <div className="max-w-3xl mx-auto space-y-4">
+              <h3 className="font-serif text-2xl text-forest mb-3 text-center">Coming Soon</h3>
+              <p className="text-center text-sm text-charcoal-light/60 mb-8 max-w-xl mx-auto">
+                A growing pipeline of residential and commercial developments across Hyderabad.
+              </p>
+              <div className="grid sm:grid-cols-2 gap-5 max-w-4xl mx-auto">
                 {pipeline.map((p, i) => (
-                  i === 0 ? (
-                    <motion.div
-                      key={i}
-                      whileHover={{ y: -4, boxShadow: '0 20px 48px rgba(200,169,81,0.18)' }}
-                      transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-                      className="bg-parchment border border-gold/40 p-10 relative group cursor-default hover:border-gold overflow-hidden transition-all duration-300"
-                    >
-                      <div className="absolute top-0 left-0 w-1 h-full bg-gold" />
-                      {p.image && (
-                        <div className="relative aspect-[21/9] -mx-10 -mt-10 mb-8 overflow-hidden">
-                          <Image
-                            src={p.image}
-                            alt={`${p.name} — stylised concept artwork`}
-                            fill
-                            sizes="(max-width: 768px) 100vw, 768px"
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
-                          />
-                          <span className="absolute bottom-3 left-3 px-2.5 py-1 bg-forest/80 text-parchment/80 text-[9px] tracking-widest uppercase">
-                            Stylised concept — not an actual render
-                          </span>
-                        </div>
-                      )}
-                      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
-                        <div className="flex-1">
-                          <span className="text-[10px] tracking-[0.4em] uppercase text-gold font-semibold mb-3 block">
-                            Coming Soon · {p.company}
-                          </span>
-                          <h4 className="font-serif text-3xl text-forest group-hover:text-gold transition-colors duration-300 mb-1 font-bold">
-                            {p.name}
-                            <span className="ml-3 align-middle text-[10px] tracking-widest uppercase text-gold/60 font-sans font-normal border border-gold/40 px-2 py-0.5">
-                              Name TBD
-                            </span>
-                          </h4>
-                          <p className="text-sm text-charcoal-light mb-4">{p.location} · {p.type}</p>
-                          {p.description && (
-                            <p className="text-sm text-charcoal-light leading-relaxed max-w-lg">{p.description}</p>
-                          )}
-                          <div className="mt-5 flex flex-wrap gap-3 text-xs">
-                            {['High-Rise Living', 'Nisarga Township', 'Kollur Corridor', 'Premium Apartments'].map(tag => (
-                              <span key={tag} className="px-3 py-1 border border-gold/30 text-gold/80 tracking-wide uppercase">{tag}</span>
-                            ))}
-                          </div>
-                        </div>
-                        <div className="shrink-0 md:text-right flex flex-col items-end gap-3">
-                          <span className="inline-block px-4 py-1.5 border border-gold text-gold text-[10px] tracking-widest uppercase">
-                            Pipeline
-                          </span>
-                          {p.targetCompletion && (
-                            <p className="text-xs text-charcoal-light/60">{p.targetCompletion}</p>
-                          )}
-                          <span className="flex items-center gap-2 text-charcoal-light/30 text-xs tracking-widest uppercase border border-charcoal/10 px-4 py-2 cursor-not-allowed">
-                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg>
-                            Brochure Coming Soon
-                          </span>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key={i}
-                      whileHover={{ y: -3, boxShadow: '0 12px 36px rgba(26,51,32,0.12)' }}
-                      transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-                      className="bg-parchment border border-gold/40 p-8 relative group cursor-default hover:border-gold transition-all duration-300"
-                    >
-                      <div className="absolute top-0 left-0 w-1 h-full bg-gold" />
-                      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-                        {p.image && (
-                          <div className="relative hidden md:block w-40 min-h-[104px] self-stretch shrink-0 overflow-hidden">
-                            <Image
-                              src={p.image}
-                              alt={`${p.name} — stylised concept artwork`}
-                              fill
-                              sizes="160px"
-                              className="object-cover"
-                            />
-                            <span className="absolute bottom-1.5 left-1.5 px-1.5 py-0.5 bg-forest/80 text-parchment/70 text-[8px] tracking-widest uppercase">
-                              Stylised
-                            </span>
-                          </div>
-                        )}
-                        <div className="flex-1">
-                          <span className="text-[10px] tracking-widest uppercase text-charcoal-light/40 mb-2 block">
-                            Pipeline · {p.company}
-                          </span>
-                          <h4 className="font-serif text-2xl text-forest group-hover:text-gold transition-colors duration-300 mb-1">
-                            {p.name}
-                          </h4>
-                          <p className="text-xs text-charcoal-light/60 mb-2">{p.location}</p>
-                          {p.description && (
-                            <p className="text-sm text-charcoal-light/70 leading-relaxed">{p.description}</p>
-                          )}
-                        </div>
-                        <div className="shrink-0 flex flex-col items-end gap-3">
-                          <span className="mt-2 inline-block text-[10px] tracking-widest uppercase px-3 py-1 border border-forest/20 text-forest/40">
-                            {p.type}
-                          </span>
-                          <span className="flex items-center gap-2 text-charcoal-light/30 text-xs tracking-widest uppercase border border-charcoal/10 px-4 py-2 cursor-not-allowed">
-                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg>
-                            Brochure Coming Soon
-                          </span>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )
+                  <motion.div
+                    key={i}
+                    whileHover={{ y: -4, boxShadow: '0 18px 44px rgba(200,169,81,0.16)' }}
+                    transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+                    className="bg-parchment border border-gold/40 p-8 relative group cursor-default hover:border-gold overflow-hidden transition-all duration-300 flex flex-col"
+                  >
+                    <div className="absolute top-0 left-0 w-1 h-full bg-gold" />
+                    {/* Faint index numeral fills the space where a render would go — no fake imagery */}
+                    <span aria-hidden="true" className="pointer-events-none absolute -top-8 right-1 font-serif text-[7.5rem] leading-none text-gold/[0.07] select-none">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+
+                    <div className="relative flex items-start justify-between gap-4 mb-4">
+                      <span className="text-[10px] tracking-[0.4em] uppercase text-gold font-semibold pt-1">Coming Soon</span>
+                      <span className="shrink-0 inline-block px-3 py-1 border border-gold text-gold text-[9px] tracking-widest uppercase">
+                        {p.type}
+                      </span>
+                    </div>
+
+                    <h4 className="relative font-serif text-2xl md:text-[26px] text-forest group-hover:text-gold transition-colors duration-300 font-bold leading-tight mb-1">
+                      {p.name}
+                    </h4>
+                    <p className="relative text-[11px] tracking-widest uppercase text-charcoal-light/40 mb-3">{p.company}</p>
+                    <p className="relative text-sm text-charcoal-light/80 mb-4">{p.location}</p>
+                    {p.description && (
+                      <p className="relative text-sm text-charcoal-light/70 leading-relaxed mb-6">{p.description}</p>
+                    )}
+
+                    <div className="relative mt-auto flex items-center justify-between pt-4 border-t border-gold/20">
+                      <span className="text-[11px] tracking-widest uppercase text-charcoal-light/50">
+                        {p.targetCompletion ? `Expected ${p.targetCompletion}` : 'In planning'}
+                      </span>
+                      <Link
+                        href="/enquire"
+                        className="text-forest text-xs tracking-widest uppercase border-b border-gold pb-0.5 hover:text-gold transition-colors"
+                      >
+                        Enquire →
+                      </Link>
+                    </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
