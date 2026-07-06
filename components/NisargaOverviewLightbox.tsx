@@ -31,7 +31,6 @@ export default function NisargaOverviewLightbox() {
                   src="/images/nisarga/overview-left.webp"
                   alt="Nisarga — aerial township view"
                   fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover"
                 />
               </div>
@@ -46,7 +45,6 @@ export default function NisargaOverviewLightbox() {
                   src="/images/nisarga/masterplan.webp"
                   alt="Nisarga master plan"
                   fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-forest/0 group-hover:bg-forest/30 transition-colors duration-300 flex items-center justify-center">
@@ -93,7 +91,6 @@ export default function NisargaOverviewLightbox() {
                 src="/images/nisarga/masterplan.webp"
                 alt="Nisarga master plan"
                 fill
-                sizes="100vw"
                 className="object-contain"
               />
             </motion.div>

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { enquiryForm, siteVisitForm } from '@/lib/leadConfig'
+import { enquiryForm, siteVisitForm, nisargaBrochureForm, nisargaEnquiryForm, nisargaSiteVisitForm } from '@/lib/leadConfig'
 
 // Server-side Google Forms proxy.
 // Posting from the browser with `no-cors` silently drops submissions unless the
@@ -8,6 +8,10 @@ import { enquiryForm, siteVisitForm } from '@/lib/leadConfig'
 const FORMS = {
   enquiry: enquiryForm,
   siteVisit: siteVisitForm,
+  // Nisarga project pipeline — separate Google Forms from the group ones above
+  nisargaBrochure: nisargaBrochureForm,
+  nisargaEnquiry: nisargaEnquiryForm,
+  nisargaSiteVisit: nisargaSiteVisitForm,
 }
 
 async function getFbzx(viewUrl: string): Promise<string | null> {
@@ -36,11 +40,13 @@ export async function POST(req: NextRequest) {
   }
 
   const body = new URLSearchParams()
-  for (const [key, entryId] of Object.entries(config.fields)) {
+  for (const [key, entryId] of Object.entries(config.fields as Record<string, string>)) {
     let value = (data as Record<string, string>)[key]
     if (!value) continue
-    // Google Forms rejects E.164 format — strip country code prefix
-    if (key === 'mobile') value = value.replace(/^\+\d{1,3}/, '')
+    // Google Forms rejects E.164 format — keep just the 10-digit national number.
+    // (The old /^\+\d{1,3}/ was greedy and ate the mobile's first digit,
+    //  e.g. +919000543635 -> 000543635, corrupting every lead.)
+    if (key === 'mobile') value = value.replace(/\D/g, '').slice(-10)
     // Date fields (YYYY-MM-DD) must be split into _year/_month/_day parts
     if ((key === 'date1' || key === 'date2') && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
       const [year, month, day] = value.split('-')
@@ -61,12 +67,22 @@ export async function POST(req: NextRequest) {
   body.append('partialResponse', JSON.stringify([null, null, fbzx]))
   body.append('submissionTimestamp', Date.now().toString())
 
-  const res = await fetch(config.actionUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: body.toString(),
-  })
+  let res: Response
+  try {
+    res = await fetch(config.actionUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body.toString(),
+    })
+  } catch (err) {
+    console.error('[lead] google submit network error:', err)
+    return NextResponse.json({ ok: false, error: 'network' }, { status: 502 })
+  }
   console.log(`[lead] form=${form} google status=${res.status}`)
 
-  return NextResponse.json({ ok: res.ok, status: res.status })
+  // Surface real failures instead of always returning 200 (was hiding dropped leads)
+  if (!res.ok) {
+    return NextResponse.json({ ok: false, status: res.status }, { status: 502 })
+  }
+  return NextResponse.json({ ok: true })
 }

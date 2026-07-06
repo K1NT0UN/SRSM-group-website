@@ -1,10 +1,10 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import FadeInView from '@/components/FadeInView'
 import NisargaHeroCarousel from '@/components/NisargaHeroCarousel'
+import EditorialSplit from '@/components/EditorialSplit'
 import NisargaOverviewLightbox from '@/components/NisargaOverviewLightbox'
 import NisargaLandscapeGallery from '@/components/NisargaLandscapeGallery'
-import { contact } from '@/lib/contact'
+import NisargaLeadModal from '@/components/NisargaLeadModal'
 
 const stats = [
   { value: '17+', label: 'Acres' },
@@ -65,6 +65,7 @@ const nfinityAmenities = [
   'Seating Deck', 'Grocery Store', 'Private Lobby',
 ]
 
+
 const locationHighlights = {
   connectivity: ['TSRTC Bus Connectivity', 'Hyderabad Metro Phase-2 (Planned)', 'First/Last Mile Connectivity', 'Hyderabad Road Network', 'Multi-Modal Transport Integration'],
   hospitals: ['Sreshta Multi Speciality Hospital', 'Tirumala Hospital', 'ESI Hospital RC Purani', 'SAI Hospital', 'Lucid Medical Diagnostics'],
@@ -110,37 +111,25 @@ export default function NisargaPageContent() {
               Here, the forest greets you before the city does. Light filters through the canopy. The air carries its own vitality. Silence returns as the rarest luxury. This is where life begins with the moments that cannot be repeated, only lived.
             </p>
             <blockquote className="border-l-2 border-gold pl-6 text-charcoal/60 italic leading-relaxed">
-              &ldquo;Living becomes an experience where vision turns into the view of every day. Life flows with nature, expanding gently and deepening with meaning. Every breath feels renewed. Every moment feels entirely yours, revealing forest-deep joys within, immersed in natural bliss.&rdquo;
+              "Living becomes an experience where vision turns into the view of every day. Life flows with nature, expanding gently and deepening with meaning. Every breath feels renewed. Every moment feels entirely yours, revealing forest-deep joys within, immersed in natural bliss."
             </blockquote>
             <p className="mt-6 text-charcoal/70 leading-relaxed">
-              Each villa opens to distinction. Indulgence within; privacy beyond. Luxury here isn&apos;t counted, it&apos;s carved. A rare privilege held within nature&apos;s reserve. Curated, but untamed and limitless.
+              Each villa opens to distinction. Indulgence within; privacy beyond. Luxury here isn't counted, it's carved. A rare privilege held within nature's reserve. Curated, but untamed and limitless.
             </p>
           </FadeInView>
         </div>
       </section>
 
-      <section className="relative py-36 px-6 overflow-hidden">
-        <Image
-          src="/images/nisarga/arch-streetscape.webp"
-          alt="Nisarga villas — golden hour"
-          fill
-          className="object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-forest/75" />
-        <div className="relative z-10 max-w-3xl mx-auto text-center">
-          <FadeInView>
-            <p className="text-xs tracking-[0.5em] uppercase text-gold mb-4">
-              ImpreSSsion — Structure · Stature · Signature
-            </p>
-            <h2 className="font-serif text-5xl md:text-6xl text-parchment leading-tight mb-6">
-              Architecture That Commands.
-            </h2>
-            <p className="text-parchment/70 leading-relaxed max-w-2xl mx-auto">
-              Some landmarks are built; others evolve. NISARGA belongs to the latter. Its architecture rises with a sense of permanence, inspired by nature, crafted for today, envisioned for every day, and designed to leave an impression that lasts forever. Every angle, every line, every detail speaks of scale and stature — a monument destined to be lived N&apos;finitely.
-            </p>
-          </FadeInView>
-        </div>
-      </section>
+      <EditorialSplit
+        pre="Impre"
+        repeat="S"
+        post="ion"
+        labels={['Structure', 'Stature', 'Signature']}
+        headline="Architecture That Commands."
+        body="Some landmarks are built; others evolve. NISARGA belongs to the latter. Its architecture rises with a sense of permanence, inspired by nature, crafted for today, envisioned for every day, and designed to leave an impression that lasts forever. Every angle, every line, every detail speaks of scale and stature — a monument destined to be lived N'finitely."
+        image={{ src: '/images/nisarga/impression-render.webp', alt: 'Nisarga villas — golden hour' }}
+        imageSide="right"
+      />
 
       <NisargaOverviewLightbox />
 
@@ -192,39 +181,26 @@ export default function NisargaPageContent() {
           </div>
           <FadeInView>
             <div className="mt-10 text-center">
-              <Link
-                href="/enquire"
+              <NisargaLeadModal
+                variant="enquiry"
+                label="Request Pricing"
                 className="inline-block px-10 py-4 bg-gold text-forest text-sm tracking-widest uppercase font-semibold hover:bg-gold-dark transition-colors duration-200"
-              >
-                Request Pricing
-              </Link>
+              />
             </div>
           </FadeInView>
         </div>
       </section>
 
-      <section className="relative min-h-[70vh] flex items-center overflow-hidden">
-        <Image
-          src="/images/nisarga/streetscape-rain.webp"
-          alt="Nisarga villa streetscape"
-          fill
-          className="object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-forest/70" />
-        <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-12 text-center">
-          <FadeInView>
-            <p className="text-xs tracking-[0.5em] uppercase text-gold mb-4">
-              EleGGGance — Grandeur · Grace · Gravitas
-            </p>
-            <h2 className="font-serif text-5xl md:text-6xl text-parchment leading-tight mb-6">
-              Where Every Villa Is a Statement.
-            </h2>
-            <p className="text-parchment/70 leading-relaxed max-w-2xl mx-auto">
-              Step within and the villa unfolds as an ode to refinement. Sunlight moves with rhythm, breeze carries its cadence, and proportions settle into harmony. Craftsmanship resides in every contour, finesse in every finish — each detail composed as if time were its guest.
-            </p>
-          </FadeInView>
-        </div>
-      </section>
+      <EditorialSplit
+        pre="Ele"
+        repeat="G"
+        post="ance"
+        labels={['Grandeur', 'Grace', 'Gravitas']}
+        headline="Where Every Villa Is a Statement."
+        body="Step within and the villa unfolds as an ode to refinement. Sunlight moves with rhythm, breeze carries its cadence, and proportions settle into harmony. Craftsmanship resides in every contour, finesse in every finish — each detail composed as if time were its guest."
+        image={{ src: '/images/nisarga/elegance-render.webp', alt: 'Nisarga villa streetscape' }}
+        imageSide="left"
+      />
 
       <section className="bg-parchment py-28 px-6">
         <div className="max-w-7xl mx-auto">
@@ -248,13 +224,13 @@ export default function NisargaPageContent() {
             </FadeInView>
             <FadeInView direction="right" className="bg-forest p-10 lg:p-14 flex flex-col justify-center">
               <p className="text-xs tracking-[0.4em] uppercase text-gold/60 mb-3">Clubhouse 1</p>
-              <h3 className="font-serif text-4xl text-parchment mb-4">Club N&apos;Spire</h3>
+              <h3 className="font-serif text-4xl text-parchment mb-4">Club N'finity</h3>
               <p className="text-parchment/60 leading-relaxed mb-2 text-sm">
-                Every visit becomes a passage into calm, where zen-like balance, deep detox, and pure rejuvenation weave into a ritual. To immerse here is to indulge in atmospheres shaped for body, mind and spirit.
+                Evolved luxury speaks here in the language of privilege. Every chamber carries its own stature, every setting rises into an experience that belongs to the chosen few.
               </p>
-              <p className="text-gold/70 text-xs tracking-widest uppercase mb-6">12 World-Class Amenities</p>
+              <p className="text-gold/70 text-xs tracking-widest uppercase mb-6">6 Exclusive Amenities</p>
               <div className="grid grid-cols-2 gap-2">
-                {nspireAmenities.map((a) => (
+                {nfinityAmenities.map((a) => (
                   <div key={a} className="flex items-center gap-2 text-sm text-parchment/70">
                     <span className="w-1 h-1 rounded-full bg-gold flex-shrink-0" />
                     {a}
@@ -267,13 +243,13 @@ export default function NisargaPageContent() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 overflow-hidden">
             <FadeInView direction="left" className="bg-charcoal p-10 lg:p-14 flex flex-col justify-center lg:order-1">
               <p className="text-xs tracking-[0.4em] uppercase text-gold/60 mb-3">Clubhouse 2</p>
-              <h3 className="font-serif text-4xl text-parchment mb-4">Club N&apos;finity</h3>
+              <h3 className="font-serif text-4xl text-parchment mb-4">Club N'Spire</h3>
               <p className="text-parchment/60 leading-relaxed mb-2 text-sm">
-                Evolved luxury speaks here in the language of privilege. Every chamber carries its own stature, every setting rises into an experience that belongs to the chosen few.
+                Every visit becomes a passage into calm, where zen-like balance, deep detox, and pure rejuvenation weave into a ritual. To immerse here is to indulge in atmospheres shaped for body, mind and spirit.
               </p>
-              <p className="text-gold/70 text-xs tracking-widest uppercase mb-6">50+ Amenities Combined Across Both Clubhouses</p>
+              <p className="text-gold/70 text-xs tracking-widest uppercase mb-6">12 World-Class Amenities</p>
               <div className="grid grid-cols-2 gap-2">
-                {nfinityAmenities.map((a) => (
+                {nspireAmenities.map((a) => (
                   <div key={a} className="flex items-center gap-2 text-sm text-parchment/70">
                     <span className="w-1 h-1 rounded-full bg-gold flex-shrink-0" />
                     {a}
@@ -299,10 +275,10 @@ export default function NisargaPageContent() {
         <div className="max-w-7xl mx-auto">
           <FadeInView>
             <div className="text-center mb-16">
-              <p className="text-xs tracking-[0.5em] uppercase text-gold mb-4">Where You&apos;ll Find Us</p>
+              <p className="text-xs tracking-[0.5em] uppercase text-gold mb-4">Where You'll Find Us</p>
               <h2 className="font-serif text-4xl md:text-5xl text-parchment">Location Highlights</h2>
               <p className="text-parchment/50 text-sm mt-3 max-w-xl mx-auto">
-                Survey No 155, Bahirdurpally, Bachupally–Kompally Main Road, Hyderabad – 500 043
+                Kollur, Patancheru, Hyderabad, Telangana – 502300
               </p>
             </div>
           </FadeInView>
@@ -347,27 +323,43 @@ export default function NisargaPageContent() {
         <FadeInView>
           <p className="text-xs tracking-[0.5em] uppercase text-forest/60 mb-4">Enquire Today</p>
           <h2 className="font-serif text-4xl md:text-5xl text-forest mb-4">
-            The World of N&apos;finite Kind,<br className="hidden md:block" /> Woven in the Woods.
+            The World of N'finite Kind,<br className="hidden md:block" /> Woven in the Woods.
           </h2>
-          <p className="text-forest/70 text-sm mb-2">RERA: PO22000007723 (T.S. RERA) · CREDAI Member</p>
-          <p className="text-forest/70 text-sm mb-8">
-            <a href={contact.phoneHref} className="hover:text-forest transition-colors">{contact.phone}</a>
+          <p className="text-forest/70 text-sm mb-2">RERA: P01100010902 · T.S. RERA</p>
+          <p className="text-forest/70 text-sm mb-1">
+            <a href="tel:+919492239339" className="hover:text-forest transition-colors">+91 94922 39339</a>
             {' · '}
-            <a href={`mailto:${contact.email}`} className="hover:text-forest transition-colors">{contact.email}</a>
+            <a href="mailto:srbuildersnisarga@gmail.com" className="hover:text-forest transition-colors">srbuildersnisarga@gmail.com</a>
+          </p>
+          <p className="text-forest/50 text-xs mb-8">
+            Site Office:{' '}
+            <a
+              href="https://maps.app.goo.gl/ohHkRPB9tcTFn6td7"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-forest transition-colors"
+            >
+              F6RX+9J4, Patancheruvu, Hyderabad – 502300
+            </a>
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              href="/enquire#site-visit"
+            <NisargaLeadModal
+              variant="siteVisit"
+              label="Book a Site Visit"
               className="px-10 py-4 bg-forest text-parchment text-sm tracking-widest uppercase font-semibold hover:bg-forest-dark transition-colors duration-200"
-            >
-              Book a Site Visit
-            </Link>
-            <Link
-              href="/enquire"
+            />
+            <NisargaLeadModal
+              variant="enquiry"
+              label="Send Enquiry"
               className="px-10 py-4 border-2 border-forest text-forest text-sm tracking-widest uppercase font-semibold hover:bg-forest/10 transition-colors duration-200"
-            >
-              Send Enquiry
-            </Link>
+            />
+            <NisargaLeadModal
+              variant="brochure"
+              label="Download Brochure"
+              brochureUrl="/nisarga-brochure.pdf"
+              projectName="Nisarga"
+              className="px-10 py-4 bg-forest/10 border-2 border-forest text-forest text-sm tracking-widest uppercase font-semibold hover:bg-forest/20 transition-colors duration-200"
+            />
           </div>
         </FadeInView>
       </section>

@@ -49,14 +49,13 @@ export default function NisargaLandscapeGallery() {
                   key={view.label}
                   onClick={() => setActive(i)}
                   className={`relative overflow-hidden cursor-pointer group ${
-                    i === 0 ? 'col-span-2 row-span-2 aspect-square' : 'aspect-square'
+                    i === 0 ? 'col-span-2 row-span-2' : 'aspect-square'
                   }`}
                 >
                   <Image
                     src={view.image}
                     alt={view.label}
                     fill
-                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-forest/0 group-hover:bg-forest/50 transition-colors duration-300 flex items-end p-3">
@@ -80,7 +79,6 @@ export default function NisargaLandscapeGallery() {
                 src={landscapeViews[active].image}
                 alt={landscapeViews[active].label}
                 fill
-                sizes="100vw"
                 className="object-cover"
               />
               <button
