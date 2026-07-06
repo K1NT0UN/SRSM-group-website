@@ -179,24 +179,23 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Divider — champagne bokeh transition ─────────── */}
-      <div
-        aria-hidden="true"
-        className="h-28 md:h-36 bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/textures/divider-bokeh.webp')" }}
-      />
-
       {/* ── Group Entities ────────────────────────────────── */}
       <section className="bg-forest py-28 px-6">
         <div className="max-w-6xl mx-auto">
-          {/* Heading is baked into the designed backdrop artwork below */}
-          <h2 className="sr-only">Our Companies — Three Entities. One Vision.</h2>
           <div className="relative mb-10 md:mb-14">
             <img
               src="/images/textures/entities-bg.webp"
-              alt="Our Companies — Three Entities. One Vision."
+              alt=""
+              aria-hidden="true"
               className="w-full h-auto rounded-sm"
             />
+            {/* Live heading overlaid on the (text-free) artwork */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+              <p className="text-xs tracking-[0.5em] uppercase text-gold/70 mb-3">Our Companies</p>
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-parchment drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]">
+                Three Entities. <span className="font-light text-gold">One Vision.</span>
+              </h2>
+            </div>
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-forest" />
           </div>
 
