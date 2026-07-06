@@ -60,12 +60,20 @@ export default function Navbar() {
               />
             </Link>
           ))}
-          <Link
-            href="/enquire"
-            className="ml-4 px-6 py-2.5 bg-forest text-parchment text-sm tracking-widest uppercase font-semibold hover:bg-forest-dark transition-colors duration-200"
-          >
-            Enquire Now
-          </Link>
+          <div className="flex items-center gap-3 ml-2">
+            <Link
+              href="/projects/nisarga"
+              className="px-6 py-2.5 border border-gold text-forest text-sm tracking-widest uppercase font-semibold hover:bg-gold transition-colors duration-200"
+            >
+              Nisarga
+            </Link>
+            <Link
+              href="/enquire"
+              className="px-6 py-2.5 bg-forest text-parchment text-sm tracking-widest uppercase font-semibold hover:bg-forest-dark transition-colors duration-200"
+            >
+              Enquire Now
+            </Link>
+          </div>
         </div>
 
         <button
@@ -94,9 +102,16 @@ export default function Navbar() {
             </Link>
           ))}
           <Link
+            href="/projects/nisarga"
+            onClick={() => setMenuOpen(false)}
+            className="mt-2 px-6 py-3 border border-gold text-parchment text-sm tracking-widest uppercase font-semibold text-center hover:bg-gold hover:text-forest transition-colors duration-200"
+          >
+            Nisarga · Flagship
+          </Link>
+          <Link
             href="/enquire"
             onClick={() => setMenuOpen(false)}
-            className="mt-2 px-6 py-3 bg-gold text-forest text-sm tracking-widest uppercase font-semibold text-center"
+            className="px-6 py-3 bg-gold text-forest text-sm tracking-widest uppercase font-semibold text-center"
           >
             Enquire Now
           </Link>

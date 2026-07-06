@@ -75,7 +75,7 @@ export default function HomePage() {
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative max-w-7xl mx-auto px-6 lg:px-12 pt-32 pb-24">
           <FadeInView direction="none">
             <p className="text-xs tracking-[0.6em] uppercase text-gold/70 mb-6">
-              Hyderabad · Vizag · Bangalore
+              Hyderabad
             </p>
           </FadeInView>
 
