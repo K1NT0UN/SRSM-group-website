@@ -187,13 +187,8 @@ export default function HomePage() {
       />
 
       {/* ── Group Entities ────────────────────────────────── */}
-      <section className="relative bg-forest py-28 px-6 overflow-hidden">
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-cover bg-center opacity-25"
-          style={{ backgroundImage: "url('/images/textures/divider-metal.webp')" }}
-        />
-        <div className="relative max-w-6xl mx-auto">
+      <section className="bg-forest py-28 px-6">
+        <div className="max-w-6xl mx-auto">
           <FadeInView>
             <div className="text-center mb-16">
               <p className="text-xs tracking-[0.5em] uppercase text-gold/70 mb-3">Our Companies</p>
