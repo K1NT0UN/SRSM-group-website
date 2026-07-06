@@ -50,7 +50,7 @@ export default function EnquirePage() {
                 <Link href="/projects/nisarga" className="text-forest font-serif text-xl hover:text-gold transition-colors">
                   Nisarga — Kollur →
                 </Link>
-                <p className="text-xs text-charcoal-light/50 mt-1">RERA: PO22000007723</p>
+                <p className="text-xs text-charcoal-light/50 mt-1">RERA: P01100010902</p>
               </div>
             </div>
           </FadeInView>

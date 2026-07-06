@@ -287,7 +287,7 @@ export default function HomePage() {
                   ))}
                   <div className="col-span-2 bg-forest/5 border border-gold/20 px-5 py-3 flex items-center justify-between">
                     <span className="text-xs text-charcoal-light/60">RERA Registration</span>
-                    <span className="font-mono text-xs text-forest">PO22000007723</span>
+                    <span className="font-mono text-xs text-forest">P01100010902</span>
                   </div>
                 </div>
               </div>

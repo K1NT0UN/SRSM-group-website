@@ -216,8 +216,8 @@ export default function NisargaPageContent() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 mb-16 overflow-hidden">
             <FadeInView direction="left" className="relative aspect-[4/3] lg:aspect-auto lg:min-h-[480px]">
               <Image
-                src="/images/nisarga/clubhouse-nspire.webp"
-                alt="Club N'Spire"
+                src="/images/nisarga/clubhouse-nfinity.webp"
+                alt="Club N'finity"
                 fill
                 className="object-cover"
               />
@@ -259,8 +259,8 @@ export default function NisargaPageContent() {
             </FadeInView>
             <FadeInView direction="right" className="relative aspect-[4/3] lg:aspect-auto lg:min-h-[480px] lg:order-2">
               <Image
-                src="/images/nisarga/clubhouse-nfinity.webp"
-                alt="Club N'finity"
+                src="/images/nisarga/clubhouse-nspire.webp"
+                alt="Club N'Spire"
                 fill
                 className="object-cover"
               />

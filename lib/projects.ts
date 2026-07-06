@@ -23,7 +23,7 @@ export const currentProjects: Project[] = [
     status: 'ONGOING',
     type: 'Integrated Township — Villas',
     description:
-      'A landmark gated township offering premium 4 & 5 BHK forestscape villas on 17+ acres in Kollur, one of Hyderabad\'s fastest-growing corridors. 50+ amenities, 2 exclusive clubhouses. RERA: PO22000007723.',
+      'A landmark gated township offering premium 4 & 5 BHK forestscape villas on 17+ acres in Kollur, one of Hyderabad\'s fastest-growing corridors. 50+ amenities, 2 exclusive clubhouses. RERA: P01100010902.',
     targetCompletion: 'End of 2028',
     slug: 'nisarga',
     brochureExternal: 'https://www.srbuildersanddevelopers.co',

@@ -1,30 +1,19 @@
 'use client'
 
 import { useState } from 'react'
-import {
-  COUNTRY_CODE,
-  otpEnabled,
-  enquiryForm,
-  siteVisitForm,
-  formConfigured,
-} from '@/lib/leadConfig'
-import { sendOtp, verifyOtp, resetOtp } from '@/lib/otp'
+import { COUNTRY_CODE, enquiryForm, siteVisitForm, formConfigured } from '@/lib/leadConfig'
 import { submitEnquiry, submitSiteVisit } from '@/lib/submitForm'
 
 type Variant = 'enquiry' | 'siteVisit'
 
-const RECAPTCHA_ID = 'recaptcha-container'
-
+// Enquiry / site-visit forms save straight to their Google Form — no OTP.
+// (Only the Nisarga brochure download is OTP-gated; see NisargaLeadModal.)
 export default function LeadForm({ variant }: { variant: Variant }) {
   const form = variant === 'siteVisit' ? siteVisitForm : enquiryForm
 
   const [name, setName] = useState('')
   const [mobile, setMobile] = useState('')
   const [email, setEmail] = useState('')
-
-  const [otpSent, setOtpSent] = useState(false)
-  const [otpCode, setOtpCode] = useState('')
-  const [verified, setVerified] = useState(false)
 
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
@@ -34,46 +23,16 @@ export default function LeadForm({ variant }: { variant: Variant }) {
   const mobileValid = tenDigits.length === 10
   const e164 = `${COUNTRY_CODE}${tenDigits}`
 
-  async function handleSendOtp() {
-    setError('')
-    if (!name.trim()) return setError('Please enter your name.')
-    if (!mobileValid) return setError('Enter a valid 10-digit mobile number.')
-    setBusy(true)
-    try {
-      await sendOtp(e164, RECAPTCHA_ID)
-      setOtpSent(true)
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Could not send OTP. Try again.')
-    } finally {
-      setBusy(false)
-    }
-  }
-
-  async function handleVerify() {
-    setError('')
-    setBusy(true)
-    try {
-      await verifyOtp(otpCode)
-      setVerified(true)
-    } catch {
-      setError('Incorrect or expired code. Please try again.')
-    } finally {
-      setBusy(false)
-    }
-  }
-
   async function handleSubmit() {
     setError('')
     if (!name.trim()) return setError('Please enter your name.')
     if (!mobileValid) return setError('Enter a valid 10-digit mobile number.')
-    if (otpEnabled && !verified) return setError('Please verify your mobile number first.')
     setBusy(true)
     try {
       const payload = { name: name.trim(), mobile: e164, email: email.trim() || undefined }
       if (variant === 'siteVisit') await submitSiteVisit(payload)
       else await submitEnquiry(payload)
       setDone(true)
-      resetOtp()
     } catch {
       setError('Something went wrong submitting. Please call us instead.')
     } finally {
@@ -121,51 +80,9 @@ export default function LeadForm({ variant }: { variant: Variant }) {
               onChange={(e) => setMobile(e.target.value)}
               inputMode="numeric"
               placeholder="10-digit mobile number"
-              disabled={verified}
             />
           </div>
         </div>
-
-        {/* OTP flow (only when Firebase is configured) */}
-        {otpEnabled && !verified && (
-          <div className="pt-1">
-            {!otpSent ? (
-              <button
-                type="button"
-                onClick={handleSendOtp}
-                disabled={busy || !mobileValid}
-                className="text-xs tracking-widest uppercase text-forest border-b border-gold pb-0.5 hover:text-gold disabled:opacity-40 transition-colors"
-              >
-                {busy ? 'Sending…' : 'Send OTP'}
-              </button>
-            ) : (
-              <div className="flex gap-2 items-end">
-                <div className="flex-1">
-                  <label className="block text-xs tracking-widest uppercase text-charcoal-light/60 mb-1">Enter OTP</label>
-                  <input
-                    className={inputCls}
-                    value={otpCode}
-                    onChange={(e) => setOtpCode(e.target.value)}
-                    inputMode="numeric"
-                    placeholder="6-digit code"
-                  />
-                </div>
-                <button
-                  type="button"
-                  onClick={handleVerify}
-                  disabled={busy || otpCode.length < 6}
-                  className="px-5 py-3 bg-forest text-parchment text-xs tracking-widest uppercase hover:bg-forest-dark disabled:opacity-40 transition-colors"
-                >
-                  Verify
-                </button>
-              </div>
-            )}
-          </div>
-        )}
-
-        {verified && (
-          <p className="text-xs text-green-700 tracking-wide">✓ Mobile verified</p>
-        )}
 
         <div>
           <label className="block text-xs tracking-widest uppercase text-charcoal-light/60 mb-1">Email (optional)</label>
@@ -189,9 +106,6 @@ export default function LeadForm({ variant }: { variant: Variant }) {
           </p>
         )}
       </div>
-
-      {/* invisible reCAPTCHA mount point for Firebase Phone Auth */}
-      <div id={RECAPTCHA_ID} />
     </div>
   )
 }

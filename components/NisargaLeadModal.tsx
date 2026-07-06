@@ -47,6 +47,7 @@ export default function NisargaLeadModal({
   const tenDigits = mobile.replace(/\D/g, '').slice(-10)
   const mobileValid = tenDigits.length === 10
   const e164 = `${COUNTRY_CODE}${tenDigits}`
+  const needsOtp = variant === 'brochure' // only the brochure download is OTP-gated
 
   function reset() {
     setOpen(false)
@@ -107,6 +108,27 @@ export default function NisargaLeadModal({
         return
       }
 
+      if (variant === 'enquiry') {
+        await submitNisargaEnquiry({ name: name.trim(), mobile: e164, email: email.trim() || undefined })
+      } else {
+        await submitNisargaSiteVisit({ name: name.trim(), mobile: e164, date1: date1 || undefined, date2: date2 || undefined })
+      }
+      setDone(true)
+    } catch {
+      setError('Something went wrong recording your details. Please call us instead.')
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  // Non-brochure variants (enquiry / site-visit) skip OTP entirely and save
+  // straight to their Google Form.
+  async function handleDirectSubmit() {
+    setError('')
+    if (!name.trim()) return setError('Please enter your name.')
+    if (!mobileValid) return setError('Enter a valid 10-digit mobile number.')
+    setBusy(true)
+    try {
       if (variant === 'enquiry') {
         await submitNisargaEnquiry({ name: name.trim(), mobile: e164, email: email.trim() || undefined })
       } else {
@@ -260,11 +282,11 @@ export default function NisargaLeadModal({
                     {!otpSent ? (
                       <button
                         type="button"
-                        onClick={handleSend}
+                        onClick={needsOtp ? handleSend : handleDirectSubmit}
                         disabled={busy}
                         className="w-full px-8 py-4 bg-forest text-parchment text-sm tracking-widest uppercase font-semibold hover:bg-forest-dark disabled:opacity-40 transition-colors"
                       >
-                        {busy ? 'Please wait…' : 'Send OTP'}
+                        {busy ? 'Please wait…' : needsOtp ? 'Send OTP' : 'Submit'}
                       </button>
                     ) : (
                       <div className="space-y-3">

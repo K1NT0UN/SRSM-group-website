@@ -10,7 +10,7 @@ const coreStrengths = [
   'Debt-free balance sheet — no existing loans or credit facilities',
   'In-house civil engineering team ensuring quality control and execution excellence',
   'Long-standing relationships with architects, contractors, and accountants',
-  'Active RERA registration for the flagship Kollur project (PO22000007723)',
+  'Active RERA registration for the flagship Kollur project (P01100010902)',
 ]
 
 const leadership = [
