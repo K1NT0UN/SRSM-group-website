@@ -2,15 +2,12 @@
 
 import FadeInView from '@/components/FadeInView'
 
-const testimonials = [
-  { name: 'Placeholder Name 1', rating: 5.0, review: 'Exceptional build quality and timely delivery — SRSM Group exceeded every expectation we had.' },
-  { name: 'Placeholder Name 2', rating: 4.8, review: 'The team was transparent throughout the entire process and delivered exactly what was promised.' },
-  { name: 'Placeholder Name 3', rating: 5.0, review: 'Our home at Nisarga is everything we dreamed of — the craftsmanship and attention to detail are outstanding.' },
-  { name: 'Placeholder Name 4', rating: 4.5, review: 'Reliable, professional, and quality-focused. SRSM Group stands out among Hyderabad real estate developers.' },
-  { name: 'Placeholder Name 5', rating: 4.8, review: 'From documentation to handover, the entire experience was smooth and stress-free.' },
-  { name: 'Placeholder Name 6', rating: 4.3, review: 'Trusted the Group based on their track record and they absolutely delivered. Highly recommended.' },
-  { name: 'Placeholder Name 7', rating: 5.0, review: 'The landscape design and amenities at our community are world-class — we couldn\'t be happier.' },
-  { name: 'Placeholder Name 8', rating: 4.7, review: 'A builder that actually cares about its customers even after possession. Rare to find in this industry.' },
+const testimonials: { name: string; rating: number; review: string; nri?: boolean }[] = [
+  { name: 'Mahendar Gainibaiti', rating: 5.0, review: 'Exceptional build quality and timely delivery — SRSM Group exceeded every expectation we had.' },
+  { name: 'Chandan Mudiam', nri: true, rating: 4.8, review: 'From documentation to handover, the entire experience was smooth and stress-free.' },
+  { name: 'Govinda Raju', rating: 5.0, review: 'The team was transparent throughout the entire process and delivered exactly what was promised.' },
+  { name: 'Pruthviraj Tanjutoori', nri: true, rating: 4.7, review: 'Trusted the Group based on their track record and they absolutely delivered. Highly recommended.' },
+  { name: 'Rajashekar', rating: 4.8, review: 'Reliable, professional, and quality-focused. SRSM Group stands out among Hyderabad real estate developers.' },
 ]
 
 function StarRating({ rating }: { rating: number }) {
@@ -37,7 +34,8 @@ function StarRating({ rating }: { rating: number }) {
 }
 
 export default function TestimonialsCarousel() {
-  const doubled = [...testimonials, ...testimonials]
+  // Two identical halves (2 sets each) so the -50% scrollLeft loop stays seamless
+  const doubled = [...testimonials, ...testimonials, ...testimonials, ...testimonials]
 
   return (
     <section className="bg-linen py-24 overflow-hidden">
@@ -74,8 +72,17 @@ export default function TestimonialsCarousel() {
                 &ldquo;{t.review}&rdquo;
               </p>
               <div className="pt-4 border-t border-gold/15">
-                <p className="font-serif text-base text-forest">{t.name}</p>
-                <p className="text-[10px] tracking-widest uppercase text-charcoal-light/40 mt-0.5">SRSM Group Homeowner</p>
+                <p className="font-serif text-base text-forest flex items-center gap-2">
+                  {t.name}
+                  {t.nri && (
+                    <span className="text-[9px] tracking-widest uppercase px-1.5 py-0.5 border border-gold/50 text-gold-dark font-sans">
+                      NRI
+                    </span>
+                  )}
+                </p>
+                <p className="text-[10px] tracking-widest uppercase text-charcoal-light/40 mt-0.5">
+                  {t.nri ? 'NRI Customer' : 'SRSM Group Homeowner'}
+                </p>
               </div>
             </div>
           ))}
