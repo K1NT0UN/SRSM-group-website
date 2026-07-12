@@ -21,7 +21,8 @@ const barlow = Barlow({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://srsm-group.vercel.app'),
+  metadataBase: new URL('https://srsmbuilders.com'),
+  alternates: { canonical: '/' },
   title: 'SRSM Group | 25 Years of Excellence in Real Estate',
   description:
     'SRSM Group — A Hyderabad-based real estate and construction group with 25+ years of legacy, 24+ completed projects, and a growing portfolio across residential and commercial segments.',
