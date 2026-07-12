@@ -1,10 +1,6 @@
 import type { Metadata } from 'next'
-import { Oswald, Barlow } from 'next/font/google'
+import { Oswald, Barlow, Cormorant_Garamond, Manrope } from 'next/font/google'
 import './globals.css'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import FloatingWhatsApp from '@/components/FloatingWhatsApp'
-import ScrollProgress from '@/components/ScrollProgress'
 
 const oswald = Oswald({
   subsets: ['latin'],
@@ -20,16 +16,32 @@ const barlow = Barlow({
   display: 'swap',
 })
 
+// Cinematic home experience — editorial serif + quiet grotesk
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600'],
+  style: ['normal', 'italic'],
+  variable: '--font-cormorant',
+  display: 'swap',
+})
+
+const manrope = Manrope({
+  subsets: ['latin'],
+  weight: ['200', '300', '400', '500', '600'],
+  variable: '--font-manrope',
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://srsmbuilders.com'),
   alternates: { canonical: '/' },
-  title: 'SRSM Group | 25 Years of Excellence in Real Estate',
+  title: 'SRSM Builders & Developers | Where Life Finds Its Place',
   description:
-    'SRSM Group — A Hyderabad-based real estate and construction group with 25+ years of legacy, 24+ completed projects, and a growing portfolio across residential and commercial segments.',
+    'SRSM Group — a Hyderabad real estate group with 25+ years of legacy and 24+ completed projects. Now crafting Nisarga: 4 & 5 BHK forestscape villas on 17+ acres in Kollur.',
   openGraph: {
-    title: 'SRSM Group | 25 Years of Excellence in Real Estate',
+    title: 'SRSM Builders & Developers | Where Life Finds Its Place',
     description:
-      'A Hyderabad-based real estate and construction group with 25+ years of legacy, 24+ completed projects, and a growing portfolio across residential and commercial segments.',
+      'A Hyderabad-based real estate group with 25+ years of legacy, 24+ completed projects, and Nisarga — a 17+ acre forestscape villa township in Kollur.',
     url: '/',
     siteName: 'SRSM Group',
     locale: 'en_IN',
@@ -45,23 +57,20 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'SRSM Group | 25 Years of Excellence in Real Estate',
+    title: 'SRSM Builders & Developers | Where Life Finds Its Place',
     description:
-      'A Hyderabad-based real estate and construction group with 25+ years of legacy and 24+ completed projects.',
+      'A Hyderabad-based real estate group with 25+ years of legacy and 24+ completed projects.',
     images: ['/og/og-default.png'],
   },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${oswald.variable} ${barlow.variable}`}>
-      <body className="min-h-screen flex flex-col">
-        <ScrollProgress />
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <FloatingWhatsApp />
-      </body>
+    <html
+      lang="en"
+      className={`${oswald.variable} ${barlow.variable} ${cormorant.variable} ${manrope.variable}`}
+    >
+      <body>{children}</body>
     </html>
   )
 }

@@ -4,6 +4,10 @@
   --font-serif: var(--font-oswald), 'Arial Narrow', sans-serif;
   --font-sans: var(--font-barlow), system-ui, sans-serif;
 
+  /* Cinematic home experience — editorial serif + quiet grotesk */
+  --font-display: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+  --font-body: var(--font-manrope), 'Manrope', system-ui, sans-serif;
+
   /* SRSM Group palette — midnight navy + champagne gold */
   --color-forest: #0c2340;
   --color-forest-dark: #071729;
@@ -15,6 +19,17 @@
   --color-linen: #eee9de;
   --color-charcoal: #1a1d21;
   --color-charcoal-light: #3b4046;
+
+  /* Cinematic palette — deep midnight, warm ivory, muted gold */
+  --color-midnight: #071a2e;
+  --color-midnight-deep: #04101d;
+  --color-ivory: #f7f5f2;
+  --color-aurum: #c8a45a;
+  --color-mist: #e8e8e8;
+  --color-stone: #d8d3cc;
+  --color-ink: #111111;
+
+  --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 html {
@@ -29,6 +44,12 @@ body {
 
 h1, h2, h3, h4 {
   font-family: var(--font-serif);
+}
+
+/* The cinematic home experience sets headings in the editorial serif.
+   (Unlayered, so it outranks the rule above — utilities can't, they're layered.) */
+.cinematic :is(h1, h2, h3, h4) {
+  font-family: var(--font-display);
 }
 
 ::selection {
@@ -54,6 +75,40 @@ h1, h2, h3, h4 {
   from { transform: scale(1) translate(0, 0); }
   to   { transform: scale(1.08) translate(-1%, -0.5%); }
 }
+
+/* ── Cinematic home experience ──────────────────────────────── */
+
+/* Slow, expensive zoom for the hero film */
+@keyframes heroDrift {
+  from { transform: scale(1); }
+  to   { transform: scale(1.09); }
+}
+.hero-drift {
+  animation: heroDrift 32s var(--ease-lux) infinite alternate;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-drift { animation: none; }
+}
+
+/* Hairline rules that read as engraving on dark grounds */
+.hairline { background: linear-gradient(90deg, transparent, rgba(200, 164, 90, 0.55), transparent); height: 1px; }
+
+/* Ambient grain — keeps large flat midnight fields from banding */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Lenis recommended base styles */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
 
 @keyframes scrollLeft {
   0%   { transform: translateX(0); }
