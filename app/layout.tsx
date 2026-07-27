@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Oswald, Barlow, Cormorant_Garamond, Manrope } from 'next/font/google'
 import Script from 'next/script'
 import FloatingWhatsApp from '@/components/FloatingWhatsApp'
+import SiteNotice from '@/components/SiteNotice'
 import './globals.css'
 
 const oswald = Oswald({
@@ -92,6 +93,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {children}
         {/* Primary conversion CTA (WhatsApp) — site-wide, all routes */}
         <FloatingWhatsApp />
+        {/* Dismissible "recently redesigned" notice for returning visitors */}
+        <SiteNotice />
       </body>
     </html>
   )

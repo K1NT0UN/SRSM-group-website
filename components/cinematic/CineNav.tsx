@@ -8,11 +8,18 @@ import { useLenis } from './LenisProvider'
 import { EASE } from './motion'
 import SrsmLogo from '@/components/SrsmLogo'
 
-const LINKS: { href: string; label: string }[] = [
+type NavLink = { href: string; label: string; children?: { href: string; label: string }[] }
+
+const LINKS: NavLink[] = [
   { href: '/projects', label: 'Projects' },
-  { href: '#nisarga', label: 'Nisarga' },
-  { href: '#gallery', label: 'Gallery' },
-  { href: '#location', label: 'Location' },
+  {
+    href: '#nisarga',
+    label: 'Nisarga',
+    children: [
+      { href: '#gallery', label: 'Gallery' },
+      { href: '#location', label: 'Location' },
+    ],
+  },
   { href: '/about', label: 'About' },
   { href: '#contact', label: 'Contact' },
 ]
@@ -75,17 +82,48 @@ export default function CineNav() {
           </Link>
 
           <div className="hidden items-center gap-9 lg:flex">
-            {LINKS.map(({ href, label }) => (
-              <Link
-                key={label}
-                href={resolveHref(href)}
-                onClick={(e) => onAnchor(e, href)}
-                className="group relative font-body text-[11px] font-medium uppercase tracking-[0.28em] text-ivory/70 transition-colors duration-500 hover:text-ivory"
-              >
-                {label}
-                <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-aurum transition-all duration-500 group-hover:w-full" />
-              </Link>
-            ))}
+            {LINKS.map(({ href, label, children }) =>
+              children ? (
+                <div key={label} className="group/drop relative">
+                  <Link
+                    href={resolveHref(href)}
+                    onClick={(e) => onAnchor(e, href)}
+                    className="group relative flex items-center gap-1.5 font-body text-[11px] font-medium uppercase tracking-[0.28em] text-ivory/70 transition-colors duration-500 hover:text-ivory"
+                  >
+                    {label}
+                    <svg width="8" height="8" viewBox="0 0 10 10" className="mt-px opacity-60 transition-transform duration-300 group-hover/drop:rotate-180" fill="none" stroke="currentColor" strokeWidth="1.4">
+                      <path d="M2 3.5 L5 6.5 L8 3.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-aurum transition-all duration-500 group-hover:w-full" />
+                  </Link>
+                  {/* Sub-tabs — Gallery / Location under Nisarga */}
+                  <div className="invisible absolute left-1/2 top-full -translate-x-1/2 pt-4 opacity-0 transition-all duration-300 group-hover/drop:visible group-hover/drop:opacity-100">
+                    <div className="flex min-w-[150px] flex-col border border-white/10 bg-midnight/90 p-1.5 shadow-xl backdrop-blur-xl">
+                      {children.map((c) => (
+                        <Link
+                          key={c.label}
+                          href={resolveHref(c.href)}
+                          onClick={(e) => onAnchor(e, c.href)}
+                          className="px-3.5 py-2.5 font-body text-[10px] font-medium uppercase tracking-[0.28em] text-ivory/65 transition-colors duration-300 hover:bg-white/5 hover:text-aurum"
+                        >
+                          {c.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={label}
+                  href={resolveHref(href)}
+                  onClick={(e) => onAnchor(e, href)}
+                  className="group relative font-body text-[11px] font-medium uppercase tracking-[0.28em] text-ivory/70 transition-colors duration-500 hover:text-ivory"
+                >
+                  {label}
+                  <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-aurum transition-all duration-500 group-hover:w-full" />
+                </Link>
+              ),
+            )}
             <Link
               href={resolveHref('#visit')}
               onClick={(e) => onAnchor(e, '#visit')}
@@ -120,7 +158,7 @@ export default function CineNav() {
             transition={{ duration: 0.5, ease: EASE }}
           >
             <nav className="flex flex-col gap-2">
-              {LINKS.map(({ href, label }, i) => (
+              {LINKS.map(({ href, label, children }, i) => (
                 <div key={label} className="overflow-hidden">
                   <motion.div
                     initial={{ y: '110%' }}
@@ -135,6 +173,20 @@ export default function CineNav() {
                     >
                       {label}
                     </Link>
+                    {children && (
+                      <div className="mt-2.5 ml-1 flex flex-col gap-2.5 border-l border-white/15 pl-4">
+                        {children.map((c) => (
+                          <Link
+                            key={c.label}
+                            href={resolveHref(c.href)}
+                            onClick={(e) => onAnchor(e, c.href)}
+                            className="font-body text-sm font-medium uppercase tracking-[0.28em] text-ivory/55 transition-colors duration-300 active:text-aurum"
+                          >
+                            {c.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
                   </motion.div>
                 </div>
               ))}
