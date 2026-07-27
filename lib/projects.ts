@@ -13,6 +13,8 @@ export interface Project {
   /** External brochure page (e.g. project's own website) — opens in a new tab. */
   brochureExternal?: string
   image?: string
+  /** 'photo' = site photograph; 'render' = brochure artwork (labelled in the UI). */
+  imageKind?: 'photo' | 'render'
 }
 
 export const currentProjects: Project[] = [
@@ -98,29 +100,35 @@ export const pipelineProjects: Project[] = [
   },
 ]
 
+// Completed-project imagery sourced from public listing portals (housing.com,
+// NoBroker, 99acres, SquareYards, MagicBricks) and verified against project
+// name + locality. `imageKind: 'render'` marks brochure artwork rather than a
+// site photograph — labelled in the UI. Replace with SRSM's own archive
+// photography when available; projects without a verified image get a styled
+// archive tile.
 export const completedProjects: Project[] = [
-  { company: 'SR Builders and Developers', name: "MSR's Serene City", location: 'Miyapur', status: 'COMPLETED', type: 'Residential' },
-  { company: 'SM Builders', name: 'SM Classic', location: 'Kondapur', status: 'COMPLETED', type: 'Residential' },
-  { company: 'SM Builders', name: 'SM Sapphire', location: 'Chandanagar', status: 'COMPLETED', type: 'RE & Comm' },
+  { company: 'SR Builders and Developers', name: "MSR's Serene City", location: 'Miyapur', status: 'COMPLETED', type: 'Residential', image: '/images/projects/completed/msr-serene-city.webp', imageKind: 'render' },
+  { company: 'SM Builders', name: 'SM Classic', location: 'Kondapur', status: 'COMPLETED', type: 'Residential', image: '/images/projects/completed/sm-classic.webp', imageKind: 'render' },
+  { company: 'SM Builders', name: 'SM Sapphire', location: 'Chandanagar', status: 'COMPLETED', type: 'RE & Comm', image: '/images/projects/completed/sm-sapphire.webp', imageKind: 'photo' },
   { company: 'SM Builders', name: 'SM Srinivasa Nilayam', location: 'Madeenaguda', status: 'COMPLETED', type: 'Residential' },
   { company: 'SM Builders', name: 'SM Plaza', location: 'Miyapur', status: 'COMPLETED', type: 'Commercial' },
-  { company: 'SM Builders and Developers', name: 'SM Classe', location: 'Chandanagar', status: 'COMPLETED', type: 'Residential' },
-  { company: 'SM Projects', name: 'Rajeshwari Residency', location: 'Bachupally', status: 'COMPLETED', type: 'Residential' },
+  { company: 'SM Builders and Developers', name: 'SM Classe', location: 'Chandanagar', status: 'COMPLETED', type: 'Residential', image: '/images/projects/completed/sm-classe.webp', imageKind: 'render' },
+  { company: 'SM Projects', name: 'Rajeshwari Residency', location: 'Bachupally', status: 'COMPLETED', type: 'Residential', image: '/images/projects/completed/rajeshwari-residency.webp', imageKind: 'photo' },
   { company: 'SM Projects', name: 'SM Pride', location: 'Nacharam', status: 'COMPLETED', type: 'Residential' },
   { company: 'SM Projects', name: 'SM Fortunate', location: 'A.S. Rao Nagar', status: 'COMPLETED', type: 'Residential' },
-  { company: 'SM Projects', name: 'SM Vally', location: 'ECIL', status: 'COMPLETED', type: 'Residential' },
-  { company: 'SM Projects', name: 'SM Plaza', location: 'A.S. Rao Nagar', status: 'COMPLETED', type: 'RE & Comm' },
+  { company: 'SM Projects', name: 'SM Vally', location: 'ECIL', status: 'COMPLETED', type: 'Residential', image: '/images/projects/completed/sm-vally.webp', imageKind: 'render' },
+  { company: 'SM Projects', name: 'SM Plaza', location: 'A.S. Rao Nagar', status: 'COMPLETED', type: 'RE & Comm', image: '/images/projects/completed/sm-plaza-asrao.webp', imageKind: 'render' },
   { company: 'SM Projects', name: 'SM Elegance', location: 'Vizag', status: 'COMPLETED', type: 'Residential' },
-  { company: 'SM Constructions', name: 'SM Arcade', location: 'Chandanagar', status: 'COMPLETED', type: 'Residential' },
-  { company: 'SM Constructions', name: 'SM Royal', location: 'Chandanagar', status: 'COMPLETED', type: 'RE & Comm' },
-  { company: 'SM Constructions', name: 'SM Sai Hills', location: 'Manikonda', status: 'COMPLETED', type: 'Residential' },
+  { company: 'SM Constructions', name: 'SM Arcade', location: 'Chandanagar', status: 'COMPLETED', type: 'Residential', image: '/images/projects/completed/sm-arcade.webp', imageKind: 'photo' },
+  { company: 'SM Constructions', name: 'SM Royal', location: 'Chandanagar', status: 'COMPLETED', type: 'RE & Comm', image: '/images/projects/completed/sm-royal.webp', imageKind: 'render' },
+  { company: 'SM Constructions', name: 'SM Sai Hills', location: 'Manikonda', status: 'COMPLETED', type: 'Residential', image: '/images/projects/completed/sm-sai-hills.webp', imageKind: 'render' },
   { company: 'SM Constructions', name: 'SM Central', location: 'Manikonda', status: 'COMPLETED', type: 'Commercial' },
-  { company: 'SM Constructions', name: 'Crystal Habitat', location: 'Manikonda', status: 'COMPLETED', type: 'RE & Comm' },
-  { company: 'SM Constructions', name: 'Madhavi Classic', location: 'Manikonda', status: 'COMPLETED', type: 'Residential' },
+  { company: 'SM Constructions', name: 'Crystal Habitat', location: 'Manikonda', status: 'COMPLETED', type: 'RE & Comm', image: '/images/projects/completed/crystal-habitat.webp', imageKind: 'photo' },
+  { company: 'SM Constructions', name: 'Madhavi Classic', location: 'Manikonda', status: 'COMPLETED', type: 'Residential', image: '/images/projects/completed/madhavi-classic.webp', imageKind: 'photo' },
   { company: 'SM Constructions', name: 'Madhavi Nest', location: 'Manikonda', status: 'COMPLETED', type: 'Residential' },
-  { company: 'SM Constructions', name: 'Sai Chidvilas', location: 'Manikonda', status: 'COMPLETED', type: 'Residential' },
+  { company: 'SM Constructions', name: 'Sai Chidvilas', location: 'Manikonda', status: 'COMPLETED', type: 'Residential', image: '/images/projects/completed/sai-chidvilas.webp', imageKind: 'photo' },
   { company: 'SM Constructions', name: 'Madhavi Enclave', location: 'Manikonda', status: 'COMPLETED', type: 'Residential' },
-  { company: 'SM Constructions', name: 'Madhavi Residency', location: 'Manikonda', status: 'COMPLETED', type: 'Residential' },
-  { company: 'SM Constructions', name: 'Madhavi Medows', location: 'Manikonda', status: 'COMPLETED', type: 'Residential' },
+  { company: 'SM Constructions', name: 'Madhavi Residency', location: 'Manikonda', status: 'COMPLETED', type: 'Residential', image: '/images/projects/completed/madhavi-residency.webp', imageKind: 'photo' },
+  { company: 'SM Constructions', name: 'Madhavi Medows', location: 'Manikonda', status: 'COMPLETED', type: 'Residential', image: '/images/projects/completed/madhavi-medows.webp', imageKind: 'photo' },
   { company: 'SM Infra Developers', name: 'SM Platina', location: 'Bangalore', status: 'COMPLETED', type: 'Residential' },
 ]

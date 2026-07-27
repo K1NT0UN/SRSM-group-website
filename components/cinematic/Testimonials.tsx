@@ -1,7 +1,8 @@
 'use client'
 
-import { useRef } from 'react'
-import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion'
+import { useRef, useState } from 'react'
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion'
+import { EASE } from './motion'
 
 const QUOTES = [
   {
@@ -28,60 +29,24 @@ const QUOTES = [
 
 const N = QUOTES.length
 
-function Quote({
-  progress,
-  index,
-  quote,
-  name,
-  role,
-}: {
-  progress: MotionValue<number>
-  index: number
-  quote: string
-  name: string
-  role: string
-}) {
-  const start = index / N
-  const end = (index + 1) / N
-  const fade = 0.2 / N
-
-  const opacity = useTransform(
-    progress,
-    index === 0
-      ? [start, end - fade, end]
-      : index === N - 1
-        ? [start, start + fade, end]
-        : [start, start + fade, end - fade, end],
-    index === 0 ? [1, 1, 0] : index === N - 1 ? [0, 1, 1] : [0, 1, 1, 0],
-  )
-  const y = useTransform(progress, [start, end], [34, -34])
-
-  return (
-    <motion.blockquote
-      style={{ opacity, y }}
-      className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center md:px-12"
-    >
-      <p className="mx-auto max-w-4xl font-display text-[clamp(1.7rem,4vw,3.4rem)] font-light italic leading-[1.3] text-ink">
-        &ldquo;{quote}&rdquo;
-      </p>
-      <footer className="mt-10">
-        <p className="font-body text-[12px] font-semibold uppercase tracking-[0.3em] text-ink">{name}</p>
-        <p className="mt-2 font-body text-[10px] uppercase tracking-[0.4em] text-aurum">{role}</p>
-      </footer>
-    </motion.blockquote>
-  )
-}
-
 /** One voice at a time, held for a full screen. */
 export default function Testimonials() {
   const ref = useRef<HTMLDivElement>(null)
+  const [active, setActive] = useState(0)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
 
+  useMotionValueEvent(scrollYProgress, 'change', (v) => {
+    const next = Math.min(N - 1, Math.max(0, Math.floor(v * N)))
+    if (next !== active) setActive(next)
+  })
+
+  const q = QUOTES[active]
+
   return (
-    <div ref={ref} className="relative h-[340vh] bg-ivory" aria-label="What our homeowners say">
+    <div ref={ref} className="relative h-[340vh] bg-sand" aria-label="What our homeowners say">
       <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden">
         <span
-          className="pointer-events-none absolute left-1/2 top-[8vh] -translate-x-1/2 select-none font-display text-[24rem] leading-none text-ink/[0.045]"
+          className="pointer-events-none absolute left-1/2 top-[8vh] -translate-x-1/2 select-none font-display text-[24rem] leading-none text-ink/[0.05]"
           aria-hidden="true"
         >
           &ldquo;
@@ -90,9 +55,36 @@ export default function Testimonials() {
           Words From Home
         </p>
 
-        {QUOTES.map((q, i) => (
-          <Quote key={q.name} progress={scrollYProgress} index={i} {...q} />
-        ))}
+        <AnimatePresence mode="wait">
+          <motion.blockquote
+            key={active}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -40 }}
+            transition={{ duration: 0.55, ease: EASE }}
+            className="flex flex-col items-center justify-center px-6 text-center md:px-12"
+          >
+            <p className="mx-auto max-w-4xl font-display text-[clamp(1.7rem,4vw,3.4rem)] font-light italic leading-[1.3] text-ink">
+              &ldquo;{q.quote}&rdquo;
+            </p>
+            <footer className="mt-10">
+              <p className="font-body text-[12px] font-semibold uppercase tracking-[0.3em] text-ink">{q.name}</p>
+              <p className="mt-2 font-body text-[10px] uppercase tracking-[0.4em] text-aurum">{q.role}</p>
+            </footer>
+          </motion.blockquote>
+        </AnimatePresence>
+
+        {/* Progress markers */}
+        <div className="absolute bottom-14 left-1/2 flex -translate-x-1/2 items-center gap-3" aria-hidden="true">
+          {QUOTES.map((item, i) => (
+            <span
+              key={item.name}
+              className={`h-px transition-all duration-700 ${
+                i === active ? 'w-12 bg-aurum' : 'w-5 bg-ink/20'
+              }`}
+            />
+          ))}
+        </div>
       </div>
     </div>
   )

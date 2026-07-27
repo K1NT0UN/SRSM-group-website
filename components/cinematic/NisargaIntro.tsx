@@ -24,7 +24,7 @@ export default function NisargaIntro() {
   const parallax = useTransform(scrollYProgress, [0, 1], ['-6%', '6%'])
 
   return (
-    <section id="nisarga" className="bg-ivory px-6 py-[16vh] text-ink md:px-12">
+    <section id="nisarga" className="bg-sand px-6 py-[16vh] text-ink md:px-12">
       <div className="mx-auto max-w-[1600px]">
         <Eyebrow tone="ink" className="mb-10 text-center">
           The Flagship · Kollur, Hyderabad
@@ -32,10 +32,10 @@ export default function NisargaIntro() {
 
         <h2 className="text-center font-display font-light leading-[1.12] text-ink">
           <MaskLine className="text-[clamp(2.6rem,6vw,5.75rem)]">Not another villa project.</MaskLine>
-          <MaskLine delay={0.15} className="text-[clamp(1.6rem,3.4vw,3.25rem)] italic text-ink/60">
+          <MaskLine delay={0.15} className="text-[clamp(1.6rem,3.4vw,3.25rem)] italic text-ink/70">
             A place where mornings begin with nature
           </MaskLine>
-          <MaskLine delay={0.28} className="text-[clamp(1.6rem,3.4vw,3.25rem)] italic text-ink/60">
+          <MaskLine delay={0.28} className="text-[clamp(1.6rem,3.4vw,3.25rem)] italic text-ink/70">
             and evenings belong to family.
           </MaskLine>
         </h2>
@@ -53,10 +53,10 @@ export default function NisargaIntro() {
             </motion.div>
           </ImageReveal>
           <Reveal y={12} className="mt-4 flex items-center justify-between">
-            <p className="font-body text-[10px] uppercase tracking-[0.35em] text-ink/40">
+            <p className="font-body text-[10px] uppercase tracking-[0.35em] text-ink/60">
               The Nisarga entrance — artist&apos;s impression
             </p>
-            <p className="hidden font-body text-[10px] uppercase tracking-[0.35em] text-ink/40 md:block">
+            <p className="hidden font-body text-[10px] uppercase tracking-[0.35em] text-ink/60 md:block">
               TS RERA · P01100010902
             </p>
           </Reveal>
@@ -68,10 +68,10 @@ export default function NisargaIntro() {
             <Reveal
               key={label}
               delay={i * 0.1}
-              className="border-t border-ink/15 px-2 py-8 text-center md:px-6"
+              className="border-t border-ink/25 px-2 py-8 text-center md:px-6"
             >
               <p className="font-display text-3xl font-light text-ink md:text-4xl">{value}</p>
-              <p className="mt-2 font-body text-[10px] uppercase tracking-[0.4em] text-ink/45">{label}</p>
+              <p className="mt-2 font-body text-[10px] uppercase tracking-[0.4em] text-ink/65">{label}</p>
             </Reveal>
           ))}
         </div>

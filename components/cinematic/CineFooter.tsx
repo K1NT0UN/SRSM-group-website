@@ -1,9 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { contact } from '@/lib/contact'
 import { Reveal } from './motion'
+import SrsmLogo from '@/components/SrsmLogo'
 
 const EXPLORE = [
   { href: '/projects', label: 'Projects' },
@@ -27,13 +27,7 @@ export default function CineFooter() {
         <Reveal>
           <div className="flex flex-col items-start justify-between gap-10 border-b border-white/[0.08] pb-16 md:flex-row md:items-end">
             <div>
-              <Image
-                src="/images/srsm-logo.png"
-                alt="SRSM Group"
-                width={400}
-                height={120}
-                className="h-11 w-auto object-contain brightness-0 invert opacity-90"
-              />
+              <SrsmLogo tone="dark" size="footer" />
               <p className="mt-6 max-w-xs font-body text-sm font-light leading-relaxed text-ivory/45">
                 Built on trust. Delivered with excellence — since 1999.
               </p>

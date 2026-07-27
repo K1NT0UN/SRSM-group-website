@@ -5,6 +5,8 @@ import EditorialSplit from '@/components/EditorialSplit'
 import NisargaOverviewLightbox from '@/components/NisargaOverviewLightbox'
 import NisargaLandscapeGallery from '@/components/NisargaLandscapeGallery'
 import NisargaLeadModal from '@/components/NisargaLeadModal'
+import NisargaMap from '@/components/NisargaMap'
+import VillaPricing from '@/components/VillaPricing'
 
 const stats = [
   { value: '17+', label: 'Acres' },
@@ -25,6 +27,7 @@ const villas = [
       { floor: 'Second Floor', sqft: '965 SQ.FT' },
     ],
     total: '3,540 SQ.FT',
+    sqftNum: 3540,
     facing: 'East & West Facing',
     image: '/images/nisarga/villa-200-interior.webp',
   },
@@ -37,6 +40,7 @@ const villas = [
       { floor: 'Second Floor', sqft: '1,066 SQ.FT' },
     ],
     total: '4,230 SQ.FT',
+    sqftNum: 4230,
     facing: 'East & West Facing',
     image: '/images/nisarga/villa-239-interior.webp',
   },
@@ -49,6 +53,7 @@ const villas = [
       { floor: 'Second Floor', sqft: '1,485 SQ.FT' },
     ],
     total: '4,985 SQ.FT',
+    sqftNum: 4985,
     facing: 'East & West Facing',
     image: '/images/nisarga/villa-300-interior.webp',
   },
@@ -174,6 +179,7 @@ export default function NisargaPageContent() {
                       <span className="text-xs tracking-widest uppercase text-parchment/60">Total Built-Up</span>
                       <span className="font-serif text-lg text-gold">{villa.total}</span>
                     </div>
+                    <VillaPricing sqft={villa.sqftNum} variant="nisarga" />
                   </div>
                 </div>
               </FadeInView>
@@ -284,13 +290,8 @@ export default function NisargaPageContent() {
           </FadeInView>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-14">
-            <FadeInView direction="left" className="relative aspect-[6/5] overflow-hidden">
-              <Image
-                src="/images/nisarga/location-map.webp"
-                alt="Nisarga location map"
-                fill
-                className="object-contain object-center"
-              />
+            <FadeInView direction="left">
+              <NisargaMap />
             </FadeInView>
             <FadeInView direction="right">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 h-full content-start">

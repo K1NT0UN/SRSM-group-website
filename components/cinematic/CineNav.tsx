@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLenis } from './LenisProvider'
 import { EASE } from './motion'
+import SrsmLogo from '@/components/SrsmLogo'
 
 const LINKS: { href: string; label: string }[] = [
   { href: '/projects', label: 'Projects' },
@@ -22,6 +23,7 @@ const LINKS: { href: string; label: string }[] = [
  */
 export default function CineNav() {
   const lenis = useLenis()
+  const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [hidden, setHidden] = useState(false)
   const [open, setOpen] = useState(false)
@@ -38,8 +40,13 @@ export default function CineNav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  /** On the home page, anchors glide via Lenis; elsewhere they navigate to /#section. */
+  function resolveHref(href: string) {
+    return href.startsWith('#') && pathname !== '/' ? `/${href}` : href
+  }
+
   function onAnchor(e: React.MouseEvent, href: string) {
-    if (!href.startsWith('#')) {
+    if (!href.startsWith('#') || pathname !== '/') {
       setOpen(false)
       return
     }
@@ -64,21 +71,14 @@ export default function CineNav() {
       >
         <nav className="mx-auto flex h-20 max-w-[1600px] items-center justify-between px-6 md:px-12">
           <Link href="/" aria-label="SRSM Group — home" className="shrink-0">
-            <Image
-              src="/images/srsm-logo.png"
-              alt="SRSM Group"
-              width={400}
-              height={120}
-              priority
-              className="h-9 w-auto object-contain brightness-0 invert opacity-90"
-            />
+            <SrsmLogo tone="dark" size="nav" />
           </Link>
 
           <div className="hidden items-center gap-9 lg:flex">
             {LINKS.map(({ href, label }) => (
               <Link
                 key={label}
-                href={href}
+                href={resolveHref(href)}
                 onClick={(e) => onAnchor(e, href)}
                 className="group relative font-body text-[11px] font-medium uppercase tracking-[0.28em] text-ivory/70 transition-colors duration-500 hover:text-ivory"
               >
@@ -87,7 +87,7 @@ export default function CineNav() {
               </Link>
             ))}
             <Link
-              href="#visit"
+              href={resolveHref('#visit')}
               onClick={(e) => onAnchor(e, '#visit')}
               className="ml-3 border border-aurum/60 px-6 py-3 font-body text-[11px] font-semibold uppercase tracking-[0.28em] text-aurum transition-all duration-500 hover:bg-aurum hover:text-midnight"
             >
@@ -129,7 +129,7 @@ export default function CineNav() {
                     transition={{ duration: 0.8, ease: EASE, delay: 0.08 + i * 0.06 }}
                   >
                     <Link
-                      href={href}
+                      href={resolveHref(href)}
                       onClick={(e) => onAnchor(e, href)}
                       className="font-display text-5xl font-light text-ivory transition-colors duration-300 active:text-aurum"
                     >
@@ -147,7 +147,7 @@ export default function CineNav() {
               className="mt-12"
             >
               <Link
-                href="#visit"
+                href={resolveHref('#visit')}
                 onClick={(e) => onAnchor(e, '#visit')}
                 className="inline-block border border-aurum px-8 py-4 font-body text-[11px] font-semibold uppercase tracking-[0.28em] text-aurum"
               >

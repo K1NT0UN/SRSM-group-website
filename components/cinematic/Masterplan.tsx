@@ -95,14 +95,14 @@ export default function Masterplan() {
           </p>
         </Reveal>
 
-        {/* Viewer */}
+        {/* Viewer — sized to hug the plan, not the page */}
         <Reveal delay={0.1} className="mt-14">
           <div
             ref={viewportRef}
             data-lenis-prevent
             onMouseEnter={() => lenis?.stop()}
             onMouseLeave={() => lenis?.start()}
-            className="relative h-[62vh] cursor-grab overflow-hidden border border-white/10 bg-[#0b2036] active:cursor-grabbing md:h-[74vh]"
+            className="relative mx-auto aspect-[4/3] max-h-[76vh] w-full max-w-[1000px] cursor-grab overflow-hidden border border-white/10 bg-[#0b2036] active:cursor-grabbing"
           >
             <motion.div
               drag

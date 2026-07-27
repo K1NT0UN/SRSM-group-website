@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { Oswald, Barlow, Cormorant_Garamond, Manrope } from 'next/font/google'
+import Script from 'next/script'
+import FloatingWhatsApp from '@/components/FloatingWhatsApp'
 import './globals.css'
 
 const oswald = Oswald({
@@ -35,11 +37,11 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL('https://srsmbuilders.com'),
   alternates: { canonical: '/' },
-  title: 'SRSM Builders & Developers | Where Life Finds Its Place',
+  title: 'SRSM Group | Where Life Finds Its Place',
   description:
     'SRSM Group — a Hyderabad real estate group with 25+ years of legacy and 24+ completed projects. Now crafting Nisarga: 4 & 5 BHK forestscape villas on 17+ acres in Kollur.',
   openGraph: {
-    title: 'SRSM Builders & Developers | Where Life Finds Its Place',
+    title: 'SRSM Group | Where Life Finds Its Place',
     description:
       'A Hyderabad-based real estate group with 25+ years of legacy, 24+ completed projects, and Nisarga — a 17+ acre forestscape villa township in Kollur.',
     url: '/',
@@ -57,7 +59,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'SRSM Builders & Developers | Where Life Finds Its Place',
+    title: 'SRSM Group | Where Life Finds Its Place',
     description:
       'A Hyderabad-based real estate group with 25+ years of legacy and 24+ completed projects.',
     images: ['/og/og-default.png'],
@@ -70,7 +72,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${oswald.variable} ${barlow.variable} ${cormorant.variable} ${manrope.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <Script id="google-tag-manager" strategy="beforeInteractive">
+          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P5THW5VG');`}
+        </Script>
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-P5THW5VG"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+            title="Google Tag Manager"
+          />
+        </noscript>
+        {children}
+        {/* Primary conversion CTA (WhatsApp) — site-wide, all routes */}
+        <FloatingWhatsApp />
+      </body>
     </html>
   )
 }

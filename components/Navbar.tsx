@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
+import SrsmLogo from '@/components/SrsmLogo'
 
 const links = [
   { href: '/', label: 'Home' },
@@ -32,15 +32,8 @@ export default function Navbar() {
       }`}
     >
       <nav className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between h-18">
-        <Link href="/" className="flex items-center">
-          <Image
-            src="/images/srsm-logo.png"
-            alt="SRSM Group"
-            width={400}
-            height={120}
-            className="h-10 w-auto object-contain drop-shadow-sm"
-            priority
-          />
+        <Link href="/" className="flex items-center" aria-label="SRSM Group — home">
+          <SrsmLogo tone="light" size="nav" />
         </Link>
 
         <div className="hidden md:flex items-center gap-10">

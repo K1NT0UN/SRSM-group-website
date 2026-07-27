@@ -110,7 +110,7 @@ export function Eyebrow({
   const tones = {
     gold: 'text-aurum',
     ivory: 'text-ivory/60',
-    ink: 'text-ink/50',
+    ink: 'text-ink/60',
   }
   return (
     <Reveal

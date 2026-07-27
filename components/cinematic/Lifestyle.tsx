@@ -16,26 +16,26 @@ const SCENES = [
   {
     key: 'Morning',
     img: '/images/nisarga/landscape-lawn.webp',
-    head: 'Wake up to birds instead of traffic.',
-    sub: 'Sunlight through the canopy. Coffee in the garden. The day arrives gently.',
+    head: 'The Lawn & Meditation Garden.',
+    sub: 'Open lawns and healing gardens across the township’s seventeen landscaped acres — Nisarga, Kollur.',
   },
   {
     key: 'Evening',
     img: '/images/nisarga/landscape-dining.webp',
-    head: 'Evenings made for togetherness.',
-    sub: 'The outdoor kitchen hums, the light turns to honey, and the day slows down.',
+    head: 'The Outdoor Dining Court.',
+    sub: 'Shaded dining spaces set among the trees — one of 50+ amenities at Nisarga, Kollur.',
   },
   {
     key: 'Weekend',
     img: '/images/nisarga/landscape-party.webp',
-    head: 'Space for every generation.',
-    sub: 'Open lawns, an amphitheatre under the sky, and nowhere anyone needs to be.',
+    head: 'The Party Lawn.',
+    sub: 'An open-air lawn and gathering space for the whole community — Nisarga, Kollur.',
   },
   {
     key: 'Night',
     img: '/images/nisarga/hero-7-desktop.webp',
-    head: 'Come home to peace.',
-    sub: 'Warm windows. Quiet streets. The forest keeping watch.',
+    head: 'The Villa Streets.',
+    sub: 'Quiet internal roads lined with G+2 forestscape villas — Nisarga, Kollur, Hyderabad.',
   },
 ]
 
@@ -107,7 +107,7 @@ export default function Lifestyle() {
                 transition={{ duration: 0.45, ease: EASE }}
               >
                 <p className="mb-4 font-body text-[10px] font-medium uppercase tracking-[0.55em] text-aurum md:text-[11px]">
-                  {String(active + 1).padStart(2, '0')} · {SCENES[active].key}
+                  {String(active + 1).padStart(2, '0')} · {SCENES[active].key} · Nisarga, Kollur
                 </p>
                 <div className="overflow-hidden">
                   <motion.h2

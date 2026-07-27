@@ -26,23 +26,12 @@ export default function Hero() {
 
   return (
     <section ref={ref} className="relative h-[100svh] min-h-[620px] overflow-hidden bg-midnight">
-      {/* Film */}
+      {/* Film — dawn over the township, drifting slowly */}
       <motion.div style={{ scale: filmScale }} className="absolute inset-0" aria-hidden="true">
         <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/hero/hero-poster.webp')" }}
+          className="hero-drift absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/images/backdrops/home-dawn.webp')" }}
         />
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/hero/hero-poster.webp"
-          className="hero-drift absolute inset-0 h-full w-full object-cover motion-reduce:hidden"
-        >
-          <source src="/hero/hero.mp4" type="video/mp4" />
-        </video>
       </motion.div>
 
       {/* Veils — quiet at the centre, weighted at the edges */}
@@ -61,7 +50,7 @@ export default function Hero() {
           className="mb-8 flex items-center gap-5 font-body text-[10px] font-medium uppercase tracking-[0.6em] text-aurum/90 md:text-[11px]"
         >
           <span className="hidden h-px w-14 bg-aurum/50 md:block" />
-          SRSM Builders &amp; Developers
+          SRSM Group
           <span className="hidden h-px w-14 bg-aurum/50 md:block" />
         </motion.p>
 
@@ -77,6 +66,15 @@ export default function Hero() {
           className="mt-8 font-body text-sm font-light tracking-[0.02em] text-ivory/70 md:text-base"
         >
           Luxury villas crafted for generations.
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: EASE, delay: 1.35 }}
+          className="mt-4 font-body text-[10px] font-medium uppercase tracking-[0.35em] text-ivory/50 md:text-[11px]"
+        >
+          Builders &amp; Developers · Hyderabad · Vizag · Bangalore
         </motion.p>
 
         <motion.div
@@ -101,6 +99,14 @@ export default function Hero() {
               className="inline-block border border-ivory/30 px-10 py-4.5 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-ivory transition-colors duration-500 hover:border-aurum hover:text-aurum"
             >
               Book Private Visit
+            </Link>
+          </Magnetic>
+          <Magnetic>
+            <Link
+              href="/projects"
+              className="inline-block border border-ivory/30 px-10 py-4.5 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-ivory transition-colors duration-500 hover:border-aurum hover:text-aurum"
+            >
+              View Portfolio
             </Link>
           </Magnetic>
         </motion.div>

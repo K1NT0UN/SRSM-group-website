@@ -23,9 +23,8 @@ const SCENES: SceneDef[] = [
     head: 'Arrivals worth arriving for.',
     body:
       'Evolved luxury speaks here in the language of privilege — a banquet hall, private lobby and dining rooms that rise to every occasion.',
-    img: '/images/nisarga/clubhouse-nfinite-exterior.webp',
+    img: '/images/nisarga/clubhouse-nfinity-card.webp',
     alt: 'Club N’finity clubhouse at dusk — artist’s impression',
-    objectPosition: 'object-left',
     list: ['Banquet Hall', 'Dining Hall', 'Private Lobby', 'Seating Deck', 'Pantry', 'Grocery Store'],
   },
   {
@@ -34,7 +33,7 @@ const SCENES: SceneDef[] = [
     head: 'A ritual of stillness.',
     body:
       'Zen-like balance, deep detox, pure rejuvenation — twelve rooms shaped for body, mind and spirit.',
-    img: '/images/nisarga/clubhouse-nfinity.webp',
+    img: '/images/nisarga/clubhouse-nspire-card.webp',
     alt: 'Club N’Spire clubhouse — artist’s impression',
     list: ['Swimming Pool', 'Spa', 'Gym', 'Yoga', 'Library', 'Indoor Games', 'Terrace Garden', 'Roof Garden', 'Crèche', 'Cafeteria', 'Work Station', 'Parlour'],
   },

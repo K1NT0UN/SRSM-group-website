@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { contact } from '@/lib/contact'
+import SrsmLogo from '@/components/SrsmLogo'
 
 export default function Footer() {
   return (
@@ -10,13 +10,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="mb-5">
-              <Image
-                src="/images/srsm-logo.png"
-                alt="SRSM Group"
-                width={400}
-                height={120}
-                className="h-12 w-auto object-contain brightness-0 invert opacity-90"
-              />
+              <SrsmLogo tone="dark" size="footer" />
             </div>
             <p className="text-sm leading-relaxed text-parchment/60 max-w-xs">
               25+ years of excellence in construction and real estate across Hyderabad, Vizag, and Bangalore.
