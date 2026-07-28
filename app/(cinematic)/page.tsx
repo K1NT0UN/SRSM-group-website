@@ -24,9 +24,9 @@ export default function HomePage() {
       <StatsBand />
       <NisargaIntro />
       <Lifestyle />
-      <Masterplan />
       <Villas />
       <Amenities />
+      <Masterplan />
       <Progress />
       <Gallery />
       <Testimonials />

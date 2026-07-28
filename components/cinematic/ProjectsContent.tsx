@@ -181,7 +181,7 @@ export default function ProjectsContent() {
       </section>
 
       {/* Pipeline */}
-      <section className="bg-sand px-6 py-[14vh] text-ink md:px-12">
+      <section className="bg-sand px-6 pb-[14vh] pt-[20vh] text-ink md:px-12">
         <div className="mx-auto max-w-[1600px]">
           <Eyebrow tone="ink" className="mb-8">The Pipeline</Eyebrow>
           <h2 className="font-display font-light leading-[1.1] text-ink">
@@ -197,7 +197,9 @@ export default function ProjectsContent() {
                 className={`bg-sand ${i < 3 ? 'lg:col-span-2' : 'lg:col-span-3'} ${i === 4 ? 'sm:col-span-2 lg:col-span-3' : ''}`}
               >
                 <div className="flex h-full flex-col p-8 transition-colors duration-700 hover:bg-ivory md:p-10">
-                  <p className="font-body text-[10px] font-semibold uppercase tracking-[0.35em] text-aurum-deep">
+                  {/* Deeper gold than the shared aurum-deep token — that shade only hits 2.7:1
+                      contrast on this light sand card, well under WCAG AA (4.5:1) */}
+                  <p className="font-body text-[10px] font-semibold uppercase tracking-[0.35em] text-[#6b5222]">
                     {type}
                   </p>
                   <p className="mt-4 font-display text-2xl font-normal leading-snug text-ink">{name}</p>

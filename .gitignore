@@ -24,6 +24,10 @@
 .DS_Store
 *.pem
 
+# stray internal docs / sales collateral at repo root — keep out of the public repo.
+# (public/*.pdf such as the brochure stays tracked; this only ignores root-level PDFs.)
+/*.pdf
+
 # debug
 npm-debug.log*
 yarn-debug.log*

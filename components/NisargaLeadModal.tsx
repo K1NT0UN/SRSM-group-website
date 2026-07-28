@@ -5,8 +5,10 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { COUNTRY_CODE } from '@/lib/leadConfig'
 import { sendOtp, verifyOtp, resetOtp } from '@/lib/otp'
 import { submitBrochure, submitNisargaEnquiry, submitNisargaSiteVisit } from '@/lib/submitForm'
+import EnvelopeSeal, { ENVELOPE_EASE as EASE } from '@/components/EnvelopeSeal'
 
 type Variant = 'brochure' | 'enquiry' | 'siteVisit'
+type Phase = 'form' | 'sealing' | 'sent'
 
 const TITLES: Record<Variant, string> = {
   brochure: 'Download Brochure',
@@ -42,7 +44,7 @@ export default function NisargaLeadModal({
   const [otpCode, setOtpCode] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
-  const [done, setDone] = useState(false)
+  const [phase, setPhase] = useState<Phase>('form')
 
   const tenDigits = mobile.replace(/\D/g, '').slice(-10)
   const mobileValid = tenDigits.length === 10
@@ -52,7 +54,7 @@ export default function NisargaLeadModal({
   function reset() {
     setOpen(false)
     setName(''); setMobile(''); setEmail(''); setDate1(''); setDate2('')
-    setOtpSent(false); setOtpCode(''); setError(''); setDone(false)
+    setOtpSent(false); setOtpCode(''); setError(''); setPhase('form')
     resetOtp()
   }
 
@@ -113,7 +115,7 @@ export default function NisargaLeadModal({
       } else {
         await submitNisargaSiteVisit({ name: name.trim(), mobile: e164, date1: date1 || undefined, date2: date2 || undefined })
       }
-      setDone(true)
+      setPhase('sent')
     } catch {
       setError('Something went wrong recording your details. Please call us instead.')
     } finally {
@@ -122,23 +124,24 @@ export default function NisargaLeadModal({
   }
 
   // Non-brochure variants (enquiry / site-visit) skip OTP entirely and save
-  // straight to their Google Form.
+  // straight to their Google Form — sealed with the same envelope animation
+  // used everywhere else on the site.
   async function handleDirectSubmit() {
     setError('')
     if (!name.trim()) return setError('Please enter your name.')
     if (!mobileValid) return setError('Enter a valid 10-digit mobile number.')
-    setBusy(true)
+    if (variant === 'siteVisit' && !date1) return setError('Please pick a preferred date.')
+    setPhase('sealing')
     try {
-      if (variant === 'enquiry') {
-        await submitNisargaEnquiry({ name: name.trim(), mobile: e164, email: email.trim() || undefined })
-      } else {
-        await submitNisargaSiteVisit({ name: name.trim(), mobile: e164, date1: date1 || undefined, date2: date2 || undefined })
-      }
-      setDone(true)
+      const send =
+        variant === 'enquiry'
+          ? submitNisargaEnquiry({ name: name.trim(), mobile: e164, email: email.trim() || undefined })
+          : submitNisargaSiteVisit({ name: name.trim(), mobile: e164, date1: date1 || undefined, date2: date2 || undefined })
+      await Promise.all([send, new Promise((r) => setTimeout(r, 2000))])
+      setPhase('sent')
     } catch {
+      setPhase('form')
       setError('Something went wrong recording your details. Please call us instead.')
-    } finally {
-      setBusy(false)
     }
   }
 
@@ -188,8 +191,15 @@ export default function NisargaLeadModal({
 
               {/* Body */}
               <div className="bg-parchment px-8 py-6 space-y-4">
-                {done ? (
-                  <div className="text-center py-6">
+                <AnimatePresence mode="wait">
+                {phase === 'sent' ? (
+                  <motion.div
+                    key="sent"
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: EASE }}
+                    className="text-center py-6"
+                  >
                     <p className="font-serif text-2xl text-forest mb-2">Thank you!</p>
                     <p className="text-forest/70 text-sm mb-6">
                       We&apos;ve received your details and our team will reach out shortly.
@@ -200,9 +210,17 @@ export default function NisargaLeadModal({
                     >
                       Done
                     </button>
-                  </div>
+                  </motion.div>
+                ) : phase === 'sealing' ? (
+                  <EnvelopeSeal key="envelope" />
                 ) : (
-                  <>
+                  <motion.div
+                    key="form"
+                    initial={false}
+                    exit={{ opacity: 0, scale: 0.94, y: 8 }}
+                    transition={{ duration: 0.3, ease: EASE }}
+                    className="space-y-4"
+                  >
                     <input
                       className={inputCls}
                       value={name}
@@ -238,7 +256,7 @@ export default function NisargaLeadModal({
                     {variant === 'siteVisit' && (
                       <div className="grid grid-cols-2 gap-3">
                         <label className="text-[11px] tracking-widest uppercase text-forest/50 space-y-1 block">
-                          Preferred date
+                          Preferred date *
                           <input
                             className={inputCls}
                             value={date1}
@@ -307,8 +325,9 @@ export default function NisargaLeadModal({
                         </button>
                       </div>
                     )}
-                  </>
+                  </motion.div>
                 )}
+                </AnimatePresence>
               </div>
             </motion.div>
           </motion.div>

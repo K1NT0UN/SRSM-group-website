@@ -5,23 +5,24 @@ import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
 import { COUNTRY_CODE } from '@/lib/leadConfig'
 import { submitNisargaSiteVisit } from '@/lib/submitForm'
+import EnvelopeSeal, { ENVELOPE_EASE as EASE, KRAFT } from '@/components/EnvelopeSeal'
 import { Eyebrow, MaskLine, Reveal } from './motion'
-import Magnetic from './Magnetic'
+
+type Phase = 'form' | 'sealing' | 'sent'
 
 const inputCls =
-  'w-full border-b border-white/20 bg-transparent py-3.5 font-body text-sm font-light text-ivory placeholder:text-ivory/35 focus:border-aurum focus:outline-none transition-colors duration-500'
+  'w-full border-b border-[#5a4623]/30 bg-transparent py-2.5 font-body text-sm text-[#3a2e16] placeholder:text-[#7a6437]/50 focus:border-[#5a4623] focus:outline-none'
 
-const labelCls = 'block font-body text-[9px] font-medium uppercase tracking-[0.4em] text-ivory/45 mb-1'
+const labelCls = 'mb-1 block font-body text-[10px] font-semibold uppercase tracking-[0.35em] text-[#7a6437]'
 
-/** The invitation — one image, one card, no noise. */
+/** The invitation — a letter you seal to reserve your visit. */
 export default function BookVisit() {
   const [name, setName] = useState('')
   const [mobile, setMobile] = useState('')
   const [date1, setDate1] = useState('')
   const [date2, setDate2] = useState('')
-  const [busy, setBusy] = useState(false)
+  const [phase, setPhase] = useState<Phase>('form')
   const [error, setError] = useState('')
-  const [done, setDone] = useState(false)
 
   const tenDigits = mobile.replace(/\D/g, '').slice(-10)
 
@@ -30,20 +31,31 @@ export default function BookVisit() {
     setError('')
     if (!name.trim()) return setError('Please tell us your name.')
     if (tenDigits.length !== 10) return setError('Please enter a valid 10-digit mobile number.')
-    setBusy(true)
+    if (!date1) return setError('Please pick a preferred date.')
+
+    setPhase('sealing')
     try {
-      await submitNisargaSiteVisit({
+      const send = submitNisargaSiteVisit({
         name: name.trim(),
         mobile: `${COUNTRY_CODE}${tenDigits}`,
         date1: date1 || undefined,
         date2: date2 || undefined,
       })
-      setDone(true)
+      await Promise.all([send, new Promise((r) => setTimeout(r, 2000))])
+      setPhase('sent')
     } catch {
+      setPhase('form')
       setError('Something went sideways. Please call or WhatsApp us instead.')
-    } finally {
-      setBusy(false)
     }
+  }
+
+  function resetForm() {
+    setPhase('form')
+    setName('')
+    setMobile('')
+    setDate1('')
+    setDate2('')
+    setError('')
   }
 
   return (
@@ -97,110 +109,129 @@ export default function BookVisit() {
           </Reveal>
         </div>
 
-        {/* Card */}
+        {/* The letter */}
         <Reveal delay={0.2}>
-          <div className="border border-white/12 bg-white/[0.05] p-8 backdrop-blur-2xl md:p-12">
+          <div className="relative" style={{ perspective: 1400 }}>
             <AnimatePresence mode="wait">
-              {done ? (
+              {phase === 'form' && (
+                <motion.form
+                  key="letter"
+                  onSubmit={onSubmit}
+                  initial={{ opacity: 0, y: 14 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.92, y: 8 }}
+                  transition={{ duration: 0.45, ease: EASE }}
+                  className="relative overflow-hidden p-8 shadow-2xl md:p-10"
+                  style={{
+                    backgroundColor: KRAFT,
+                    backgroundImage:
+                      'radial-gradient(circle at 18% 12%, rgba(255,255,255,0.4), transparent 42%), radial-gradient(circle at 88% 92%, rgba(90,70,35,0.14), transparent 55%)',
+                  }}
+                >
+                  <div className="grain relative">
+                    <p className="mb-8 font-display text-2xl italic text-[#4a3a1e]">Reserve your visit.</p>
+
+                    <div className="space-y-6">
+                      <div>
+                        <label className={labelCls} htmlFor="bv-name">Name</label>
+                        <input
+                          id="bv-name"
+                          className={inputCls}
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          placeholder="Your full name"
+                          autoComplete="name"
+                        />
+                      </div>
+
+                      <div>
+                        <label className={labelCls} htmlFor="bv-phone">Mobile</label>
+                        <div className="flex items-baseline gap-3">
+                          <span className="font-body text-sm text-[#7a6437]">{COUNTRY_CODE}</span>
+                          <input
+                            id="bv-phone"
+                            className={inputCls}
+                            value={mobile}
+                            onChange={(e) => setMobile(e.target.value)}
+                            inputMode="numeric"
+                            placeholder="10-digit mobile number"
+                            autoComplete="tel-national"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-6">
+                        <div>
+                          <label className={labelCls} htmlFor="bv-date1">Preferred date *</label>
+                          <input
+                            id="bv-date1"
+                            type="date"
+                            className={inputCls}
+                            value={date1}
+                            onChange={(e) => setDate1(e.target.value)}
+                          />
+                        </div>
+                        <div>
+                          <label className={labelCls} htmlFor="bv-date2">Alternate date</label>
+                          <input
+                            id="bv-date2"
+                            type="date"
+                            className={inputCls}
+                            value={date2}
+                            onChange={(e) => setDate2(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {error && <p className="mt-5 font-body text-xs text-red-800">{error}</p>}
+
+                    <div className="mt-9 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+                      <button
+                        type="submit"
+                        className="inline-flex items-center gap-3 bg-[#241f16] px-9 py-4 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-[#e6d7b3] transition-colors duration-300 hover:bg-[#3a2e16]"
+                      >
+                        Seal & Reserve
+                      </button>
+                      <a
+                        href="https://wa.me/919492239339?text=Hi%2C%20I%27d%20like%20to%20book%20a%20private%20visit%20to%20Nisarga."
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-body text-[10px] font-medium uppercase tracking-[0.3em] text-[#7a6437] underline-offset-8 transition-colors duration-300 hover:text-[#3a2e16] hover:underline"
+                      >
+                        or WhatsApp us
+                      </a>
+                    </div>
+
+                    <p className="mt-4 font-body text-[10px] leading-relaxed tracking-wide text-[#7a6437]">
+                      We&apos;ll call to confirm your time. No spam — ever.
+                    </p>
+                  </div>
+                </motion.form>
+              )}
+
+              {phase === 'sealing' && <EnvelopeSeal key="envelope" />}
+
+              {phase === 'sent' && (
                 <motion.div
-                  key="done"
+                  key="sent"
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  className="py-16 text-center"
+                  transition={{ duration: 0.7, ease: EASE }}
+                  className="border border-white/12 bg-white/[0.05] px-8 py-16 text-center backdrop-blur-2xl md:px-12"
                 >
                   <p className="font-display text-4xl font-light italic text-aurum">Until then.</p>
                   <p className="mx-auto mt-6 max-w-xs font-body text-sm font-light leading-relaxed text-ivory/65">
                     Your visit is reserved. Our team will call you shortly to confirm the day and hour.
                   </p>
+                  <button
+                    type="button"
+                    onClick={resetForm}
+                    className="mt-8 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-ivory/50 underline-offset-8 transition-colors duration-300 hover:text-aurum hover:underline"
+                  >
+                    Reserve another
+                  </button>
                 </motion.div>
-              ) : (
-                <motion.form
-                  key="form"
-                  onSubmit={onSubmit}
-                  initial={false}
-                  exit={{ opacity: 0, y: -12 }}
-                  className="space-y-8"
-                >
-                  <div>
-                    <label className={labelCls} htmlFor="bv-name">Name</label>
-                    <input
-                      id="bv-name"
-                      className={inputCls}
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="Your full name"
-                      autoComplete="name"
-                    />
-                  </div>
-
-                  <div>
-                    <label className={labelCls} htmlFor="bv-phone">Phone</label>
-                    <div className="flex items-baseline gap-3">
-                      <span className="font-body text-sm text-ivory/50">{COUNTRY_CODE}</span>
-                      <input
-                        id="bv-phone"
-                        className={inputCls}
-                        value={mobile}
-                        onChange={(e) => setMobile(e.target.value)}
-                        inputMode="numeric"
-                        placeholder="10-digit mobile number"
-                        autoComplete="tel-national"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-6">
-                    <div>
-                      <label className={labelCls} htmlFor="bv-date1">Preferred date</label>
-                      <input
-                        id="bv-date1"
-                        type="date"
-                        className={`${inputCls} [color-scheme:dark]`}
-                        value={date1}
-                        onChange={(e) => setDate1(e.target.value)}
-                      />
-                    </div>
-                    <div>
-                      <label className={labelCls} htmlFor="bv-date2">Alternate date</label>
-                      <input
-                        id="bv-date2"
-                        type="date"
-                        className={`${inputCls} [color-scheme:dark]`}
-                        value={date2}
-                        onChange={(e) => setDate2(e.target.value)}
-                      />
-                    </div>
-                  </div>
-
-                  {error && (
-                    <p className="font-body text-xs font-light text-red-300">{error}</p>
-                  )}
-
-                  <div className="flex flex-col gap-6 pt-2 sm:flex-row sm:items-center sm:justify-between">
-                    <Magnetic>
-                      <button
-                        type="submit"
-                        disabled={busy}
-                        className="inline-block bg-aurum px-10 py-4.5 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-midnight transition-all duration-500 hover:bg-ivory disabled:opacity-40"
-                      >
-                        {busy ? 'Reserving…' : 'Reserve My Visit'}
-                      </button>
-                    </Magnetic>
-                    <a
-                      href="https://wa.me/919492239339?text=Hi%2C%20I%27d%20like%20to%20book%20a%20private%20visit%20to%20Nisarga."
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-body text-[10px] font-medium uppercase tracking-[0.3em] text-ivory/55 underline-offset-8 transition-colors duration-300 hover:text-aurum hover:underline"
-                    >
-                      or WhatsApp us
-                    </a>
-                  </div>
-
-                  <p className="font-body text-[10px] font-light leading-relaxed tracking-wide text-ivory/30">
-                    We&apos;ll call to confirm your time. No spam — ever.
-                  </p>
-                </motion.form>
               )}
             </AnimatePresence>
           </div>

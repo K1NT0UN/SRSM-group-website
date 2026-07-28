@@ -136,8 +136,6 @@ export default function NisargaPageContent() {
         imageSide="right"
       />
 
-      <NisargaOverviewLightbox />
-
       <section id="villas" className="bg-parchment py-28 px-6">
         <div className="max-w-7xl mx-auto">
           <FadeInView>
@@ -274,6 +272,8 @@ export default function NisargaPageContent() {
           </div>
         </div>
       </section>
+
+      <NisargaOverviewLightbox />
 
       <NisargaLandscapeGallery />
 
