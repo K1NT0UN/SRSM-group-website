@@ -46,12 +46,15 @@ export const enquiryForm: FormConfig = {
   },
 }
 
+// Consolidated (lead-routing fix): all site-visit leads land in the single
+// "Site Visit" sheet — same form as nisargaSiteVisitForm below. The older
+// standalone "SRSM Site visits" form (…U9YIDxzHfzWtAMJA) is retired.
 export const siteVisitForm: FormConfig = {
-  actionUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdHF0fGjbSUQZS1HUoQbDKr86F9FIpuw_U9YIDxzHfzWtAMJA/formResponse',
+  actionUrl: 'https://docs.google.com/forms/d/e/1FAIpQLScJ74LMqHlUJiTRVEpk-W24esO9Ssa3HnDBWxZbUOuJxp3gPQ/formResponse',
   fields: {
-    name: 'entry.1192273686',
-    mobile: 'entry.896801780',
-    email: 'entry.229658143',
+    name: 'entry.1790036588',
+    mobile: 'entry.1567757704',
+    email: 'entry.1683077939',
   },
 }
 
@@ -71,9 +74,12 @@ export const nisargaBrochureForm: NisargaForm = {
   fields: { name: 'entry.1790036588', mobile: 'entry.1567757704', email: 'entry.1683077939' },
 }
 
+// Lead-routing fix: was misrouted to a form titled "Brochure downloads" (so
+// Nisarga enquiries were landing in a brochure sheet). Re-pointed to the same
+// "SRSM enquires" form as enquiryForm above — all enquiries now share one sheet.
 export const nisargaEnquiryForm: NisargaForm = {
-  actionUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdhswMnIPbmRTTSg7ZLc8RaCQ36caYkUOwdFoA-D5Eeumn2Qw/formResponse',
-  fields: { name: 'entry.1515255903', mobile: 'entry.1653291305', email: 'entry.850337073' },
+  actionUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdB9VZaGPgvDJ1aM3h8VcgdHCUJwsP6zDZmbnIt3K0BLM2vnQ/formResponse',
+  fields: { name: 'entry.1192273686', mobile: 'entry.896801780', email: 'entry.229658143' },
 }
 
 export const nisargaSiteVisitForm: NisargaForm = {
