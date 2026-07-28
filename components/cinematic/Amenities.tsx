@@ -136,7 +136,7 @@ function Scene({ scene, flip }: { scene: SceneDef; flip: boolean }) {
 /** No icon grids. Every amenity gets its own breath. */
 export default function Amenities() {
   return (
-    <section className="grain relative bg-midnight-deep px-6 text-ivory md:px-12">
+    <section id="amenities" className="grain relative bg-midnight-deep px-6 text-ivory md:px-12">
       {/* Statement */}
       <div className="mx-auto flex min-h-[70vh] max-w-[1600px] flex-col items-center justify-center py-[12vh] text-center">
         <Eyebrow className="mb-8">Privilege</Eyebrow>

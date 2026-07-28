@@ -16,6 +16,8 @@ const LINKS: NavLink[] = [
     href: '#nisarga',
     label: 'Nisarga',
     children: [
+      { href: '#villas', label: 'Villas' },
+      { href: '#amenities', label: 'Amenities' },
       { href: '#gallery', label: 'Gallery' },
       { href: '#location', label: 'Location' },
     ],
