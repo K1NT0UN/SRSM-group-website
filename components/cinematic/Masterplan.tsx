@@ -3,13 +3,14 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { animate, motion, useMotionValue } from 'framer-motion'
+import { animate, AnimatePresence, motion, useMotionValue } from 'framer-motion'
 import { Eyebrow, MaskLine, Reveal } from './motion'
 import Magnetic from './Magnetic'
 import { useLenis } from './LenisProvider'
 
+const MASTERPLAN_SRC = '/images/nisarga/masterplan.webp'
 const MIN_SCALE = 1
-const MAX_SCALE = 3
+const MAX_SCALE = 4
 
 /** Real zones from the Nisarga masterplan legend. */
 const LEGEND = [
@@ -27,15 +28,41 @@ const LEGEND = [
   },
 ]
 
-/** Markers as drawn on the plan itself. */
+/** Markers as drawn on the plan itself. Coordinates are tied to the current
+ *  masterplan image — if the plan art changes, re-check these percentages. */
 const MARKERS = [
   { x: 78.4, y: 23.8, label: 'Clubhouse 01' },
   { x: 62.2, y: 73.9, label: 'Clubhouse 02' },
   { x: 80.5, y: 80.5, label: 'Grand Entrance' },
 ]
 
-/** The seventeen acres, explorable — drag, zoom, wander. */
-export default function Masterplan() {
+function Markers({ interactive }: { interactive: boolean }) {
+  return (
+    <>
+      {MARKERS.map(({ x: mx, y: my, label }) => (
+        <div
+          key={label}
+          className={`group/marker absolute z-10 -translate-x-1/2 -translate-y-1/2 ${interactive ? '' : 'pointer-events-none'}`}
+          style={{ left: `${mx}%`, top: `${my}%` }}
+        >
+          <span className="relative flex h-3 w-3 items-center justify-center">
+            <span className="absolute h-full w-full animate-ping rounded-full bg-aurum/50 [animation-duration:2.2s]" />
+            <span className="relative h-1.5 w-1.5 rounded-full bg-aurum" />
+          </span>
+          {interactive && (
+            <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 whitespace-nowrap border border-aurum/30 bg-midnight/85 px-3 py-1.5 font-body text-[9px] uppercase tracking-[0.3em] text-ivory opacity-0 backdrop-blur-sm transition-opacity duration-500 group-hover/marker:opacity-100">
+              {label}
+            </span>
+          )}
+        </div>
+      ))}
+    </>
+  )
+}
+
+/** Fullscreen lightbox — opened deliberately by a click; zoom + pan live here,
+ *  so the inline page scroll is never hijacked. */
+function MasterplanViewer({ onClose }: { onClose: () => void }) {
   const viewportRef = useRef<HTMLDivElement>(null)
   const lenis = useLenis()
   const [scale, setScale] = useState(1)
@@ -43,7 +70,23 @@ export default function Masterplan() {
   const x = useMotionValue(0)
   const y = useMotionValue(0)
 
-  // Native wheel listener — React registers wheel as passive, preventDefault needs this.
+  // Lock the page + smooth-scroll while the lightbox is open; Esc to close.
+  useEffect(() => {
+    lenis?.stop()
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      lenis?.start()
+      document.body.style.overflow = prevOverflow
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [lenis, onClose])
+
+  // Wheel to zoom — non-passive so we can preventDefault inside the lightbox only.
   useEffect(() => {
     const el = viewportRef.current
     if (!el) return
@@ -63,8 +106,8 @@ export default function Masterplan() {
     const my = (el.clientHeight * (scale - 1)) / 2
     setConstraints({ left: -mx, right: mx, top: -my, bottom: my })
     const clamp = (v: number, m: number) => Math.min(m, Math.max(-m, v))
-    animate(x, clamp(x.get(), mx), { duration: 0.5, ease: 'easeOut' })
-    animate(y, clamp(y.get(), my), { duration: 0.5, ease: 'easeOut' })
+    animate(x, clamp(x.get(), mx), { duration: 0.4, ease: 'easeOut' })
+    animate(y, clamp(y.get(), my), { duration: 0.4, ease: 'easeOut' })
   }, [scale, x, y])
 
   function zoom(dir: 1 | -1) {
@@ -73,9 +116,75 @@ export default function Masterplan() {
 
   function reset() {
     setScale(1)
-    animate(x, 0, { duration: 0.6, ease: 'easeOut' })
-    animate(y, 0, { duration: 0.6, ease: 'easeOut' })
+    animate(x, 0, { duration: 0.5, ease: 'easeOut' })
+    animate(y, 0, { duration: 0.5, ease: 'easeOut' })
   }
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-[120] flex flex-col bg-midnight/95 backdrop-blur-sm"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      {/* Top bar */}
+      <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
+        <p className="font-body text-[10px] uppercase tracking-[0.4em] text-ivory/60">Nisarga Masterplan</p>
+        <button
+          onClick={onClose}
+          aria-label="Close masterplan"
+          className="flex h-10 w-10 items-center justify-center text-2xl leading-none text-ivory/70 transition-colors hover:text-aurum"
+        >
+          ×
+        </button>
+      </div>
+
+      {/* Zoom + pan viewport */}
+      <div
+        ref={viewportRef}
+        className="relative flex flex-1 cursor-grab items-center justify-center overflow-hidden active:cursor-grabbing"
+      >
+        <motion.div
+          drag
+          dragConstraints={constraints}
+          dragElastic={0.05}
+          dragTransition={{ power: 0.25, timeConstant: 180 }}
+          style={{ x, y, scale }}
+          className="absolute inset-0 flex items-center justify-center"
+        >
+          <div className="relative aspect-[4/3] w-full max-w-[min(90vw,116vh)]">
+            <Image
+              src={MASTERPLAN_SRC}
+              alt="Nisarga masterplan — plots, clubhouses, amenities and roads across 17+ acres"
+              fill
+              sizes="100vw"
+              quality={95}
+              className="select-none object-contain"
+              draggable={false}
+            />
+            <Markers interactive />
+          </div>
+        </motion.div>
+
+        {/* Controls */}
+        <div className="absolute bottom-6 right-6 flex flex-col gap-px border border-white/15 bg-midnight/70 backdrop-blur-md">
+          <button onClick={() => zoom(1)} aria-label="Zoom in" className="flex h-11 w-11 items-center justify-center text-ivory/80 transition-colors hover:bg-white/10 hover:text-aurum">+</button>
+          <button onClick={() => zoom(-1)} aria-label="Zoom out" className="flex h-11 w-11 items-center justify-center text-ivory/80 transition-colors hover:bg-white/10 hover:text-aurum">−</button>
+          <button onClick={reset} aria-label="Reset view" className="flex h-11 w-11 items-center justify-center text-[10px] uppercase tracking-wider text-ivory/60 transition-colors hover:bg-white/10 hover:text-aurum">⟲</button>
+        </div>
+
+        <p className="pointer-events-none absolute bottom-6 left-6 font-body text-[9px] uppercase tracking-[0.35em] text-ivory/40">
+          Drag to pan · Scroll to zoom · Esc to close
+        </p>
+      </div>
+    </motion.div>
+  )
+}
+
+/** The seventeen acres — a still preview inline; click to enlarge and explore. */
+export default function Masterplan() {
+  const [open, setOpen] = useState(false)
 
   return (
     <section className="grain relative bg-midnight px-6 py-[14vh] text-ivory md:px-12">
@@ -95,62 +204,35 @@ export default function Masterplan() {
           </p>
         </Reveal>
 
-        {/* Viewer — sized to hug the plan, not the page */}
+        {/* Inline preview — a plain image that opens the interactive lightbox on click */}
         <Reveal delay={0.1} className="mt-14">
-          <div
-            ref={viewportRef}
-            data-lenis-prevent
-            onMouseEnter={() => lenis?.stop()}
-            onMouseLeave={() => lenis?.start()}
-            className="relative mx-auto aspect-[4/3] max-h-[76vh] w-full max-w-[1000px] cursor-grab overflow-hidden border border-white/10 bg-[#0b2036] active:cursor-grabbing"
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            aria-label="Enlarge the masterplan to zoom and explore"
+            className="group relative mx-auto block aspect-[4/3] max-h-[76vh] w-full max-w-[1000px] cursor-zoom-in overflow-hidden border border-white/10 bg-[#0b2036]"
           >
-            <motion.div
-              drag
-              dragConstraints={constraints}
-              dragElastic={0.05}
-              dragTransition={{ power: 0.25, timeConstant: 180 }}
-              style={{ x, y, scale }}
-              className="absolute inset-0"
-            >
-              <div className="relative mx-auto aspect-[4/3] h-full max-w-full">
-                <Image
-                  src="/images/nisarga/masterplan.webp"
-                  alt="Nisarga masterplan — plots, clubhouses, amenities and roads across 17+ acres"
-                  fill
-                  sizes="(max-width: 768px) 160vw, 100vw"
-                  quality={90}
-                  className="select-none object-contain"
-                  draggable={false}
-                />
-                {MARKERS.map(({ x: mx, y: my, label }) => (
-                  <div
-                    key={label}
-                    className="group absolute z-10 -translate-x-1/2 -translate-y-1/2"
-                    style={{ left: `${mx}%`, top: `${my}%` }}
-                  >
-                    <span className="relative flex h-3 w-3 items-center justify-center">
-                      <span className="absolute h-full w-full animate-ping rounded-full bg-aurum/50 [animation-duration:2.2s]" />
-                      <span className="relative h-1.5 w-1.5 rounded-full bg-aurum" />
-                    </span>
-                    <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 whitespace-nowrap border border-aurum/30 bg-midnight/85 px-3 py-1.5 font-body text-[9px] uppercase tracking-[0.3em] text-ivory opacity-0 backdrop-blur-sm transition-opacity duration-500 group-hover:opacity-100">
-                      {label}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
+            <Image
+              src={MASTERPLAN_SRC}
+              alt="Nisarga masterplan — plots, clubhouses, amenities and roads across 17+ acres"
+              fill
+              sizes="(max-width: 768px) 100vw, 1000px"
+              quality={90}
+              className="object-contain"
+            />
+            <Markers interactive={false} />
 
-            {/* Controls */}
-            <div className="absolute bottom-5 right-5 flex flex-col gap-px border border-white/15 bg-midnight/70 backdrop-blur-md">
-              <button onClick={() => zoom(1)} aria-label="Zoom in" className="flex h-11 w-11 items-center justify-center text-ivory/80 transition-colors hover:bg-white/10 hover:text-aurum">+</button>
-              <button onClick={() => zoom(-1)} aria-label="Zoom out" className="flex h-11 w-11 items-center justify-center text-ivory/80 transition-colors hover:bg-white/10 hover:text-aurum">−</button>
-              <button onClick={reset} aria-label="Reset view" className="flex h-11 w-11 items-center justify-center text-[10px] uppercase tracking-wider text-ivory/60 transition-colors hover:bg-white/10 hover:text-aurum">⟲</button>
-            </div>
-
-            <p className="pointer-events-none absolute bottom-5 left-5 font-body text-[9px] uppercase tracking-[0.35em] text-ivory/40">
-              Drag to explore · Scroll to zoom
-            </p>
-          </div>
+            {/* Affordances — always subtly present, brighten on hover. No zoom on hover. */}
+            <span className="pointer-events-none absolute inset-0 bg-midnight/0 transition-colors duration-500 group-hover:bg-midnight/15" />
+            <span className="pointer-events-none absolute right-5 top-5 flex h-11 w-11 items-center justify-center border border-white/20 bg-midnight/55 text-ivory/75 backdrop-blur-md transition-colors duration-500 group-hover:border-aurum group-hover:text-aurum">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M9 4H4v5M15 4h5v5M15 20h5v-5M9 20H4v-5" />
+              </svg>
+            </span>
+            <span className="pointer-events-none absolute bottom-5 left-1/2 -translate-x-1/2 border border-white/15 bg-midnight/70 px-5 py-2.5 font-body text-[10px] uppercase tracking-[0.35em] text-ivory/85 backdrop-blur-md transition-colors duration-500 group-hover:border-aurum/50 group-hover:text-aurum">
+              Click to enlarge
+            </span>
+          </button>
         </Reveal>
 
         {/* Legend — the real one */}
@@ -186,6 +268,10 @@ export default function Masterplan() {
           </Magnetic>
         </Reveal>
       </div>
+
+      <AnimatePresence>
+        {open && <MasterplanViewer onClose={() => setOpen(false)} />}
+      </AnimatePresence>
     </section>
   )
 }
