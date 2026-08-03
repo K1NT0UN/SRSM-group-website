@@ -1,88 +1,52 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { enquiryForm, siteVisitForm, nisargaBrochureForm, nisargaEnquiryForm, nisargaSiteVisitForm } from '@/lib/leadConfig'
 
-// Server-side Google Forms proxy.
-// Posting from the browser with `no-cors` silently drops submissions unless the
-// fbzx/session fields are present — this route fetches them and posts reliably.
-
-const FORMS = {
-  enquiry: enquiryForm,
-  siteVisit: siteVisitForm,
-  // Nisarga project pipeline — separate Google Forms from the group ones above
-  nisargaBrochure: nisargaBrochureForm,
-  nisargaEnquiry: nisargaEnquiryForm,
-  nisargaSiteVisit: nisargaSiteVisitForm,
-}
-
-async function getFbzx(viewUrl: string): Promise<string | null> {
-  try {
-    const html = await fetch(viewUrl).then(r => r.text())
-    // Hidden input has the value (sometimes negative); use absolute value as Google Forms JS does
-    const m = html.match(/name="fbzx"\s+value="-?(\d+)"/)
-    if (m) return m[1]
-    // Fallback: find large number (17-19 digits) repeated 3+ times in the page data
-    const nums = html.match(/\d{17,19}/g) ?? []
-    const counts: Record<string, number> = {}
-    for (const n of nums) counts[n] = (counts[n] ?? 0) + 1
-    const top = Object.entries(counts).sort((a, b) => b[1] - a[1])[0]
-    return top ? top[0] : null
-  } catch {
-    return null
-  }
-}
+// Leads are recorded via a Google Apps Script web app bound to the "Nisarga
+// Leads" sheet. This replaced the old Google-Forms scrape, which silently
+// stopped recording (Google tightened headless /formResponse submissions).
+// The /exec URL is server-only (env var) so the endpoint can't be spammed.
+const WEBAPP_URL = process.env.LEADS_WEBHOOK_URL
 
 export async function POST(req: NextRequest) {
   const { form, data } = await req.json()
-  const config = FORMS[form as keyof typeof FORMS]
-  if (!config) return NextResponse.json({ error: 'Unknown form' }, { status: 400 })
-  if (!config.actionUrl.startsWith('http')) {
-    return NextResponse.json({ error: 'Form not configured' }, { status: 500 })
+
+  if (!WEBAPP_URL) {
+    console.error('[lead] LEADS_WEBHOOK_URL is not set')
+    return NextResponse.json({ ok: false, error: 'not-configured' }, { status: 500 })
   }
 
-  const body = new URLSearchParams()
-  for (const [key, entryId] of Object.entries(config.fields as Record<string, string>)) {
-    let value = (data as Record<string, string>)[key]
-    if (!value) continue
-    // Google Forms rejects E.164 format — keep just the 10-digit national number.
-    // (The old /^\+\d{1,3}/ was greedy and ate the mobile's first digit,
-    //  e.g. +919000543635 -> 000543635, corrupting every lead.)
-    if (key === 'mobile') value = value.replace(/\D/g, '').slice(-10)
-    // Date fields (YYYY-MM-DD) must be split into _year/_month/_day parts
-    if ((key === 'date1' || key === 'date2') && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
-      const [year, month, day] = value.split('-')
-      body.append(`${entryId}_year`, year)
-      body.append(`${entryId}_month`, month)
-      body.append(`${entryId}_day`, day)
-      continue
-    }
-    body.append(entryId, value)
+  const d = (data ?? {}) as Record<string, string>
+  const name = (d.name ?? '').trim()
+  const mobile = (d.mobile ?? '').replace(/\D/g, '').slice(-10) // 10-digit national number
+  if (!name || mobile.length !== 10) {
+    return NextResponse.json({ ok: false, error: 'missing-fields' }, { status: 400 })
   }
 
-  // Google Forms requires these session fields to actually record the response
-  const viewUrl = config.actionUrl.replace('formResponse', 'viewform')
-  const fbzx = (await getFbzx(viewUrl)) ?? String(Math.floor(Math.random() * 9e18))
-  body.append('fvv', '1')
-  body.append('pageHistory', '0')
-  body.append('fbzx', fbzx)
-  body.append('partialResponse', JSON.stringify([null, null, fbzx]))
-  body.append('submissionTimestamp', Date.now().toString())
+  const payload = {
+    name,
+    mobile,
+    email: (d.email ?? '').trim(),
+    source: typeof form === 'string' ? form : 'website', // which button/flow it came from
+  }
 
   let res: Response
   try {
-    res = await fetch(config.actionUrl, {
+    res = await fetch(WEBAPP_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: body.toString(),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      // Apps Script 302-redirects to its googleusercontent echo *after* the row
+      // is written; we don't need the echo body, just proof the script ran.
+      redirect: 'manual',
     })
   } catch (err) {
-    console.error('[lead] google submit network error:', err)
+    console.error('[lead] webhook network error:', err)
     return NextResponse.json({ ok: false, error: 'network' }, { status: 502 })
   }
-  console.log(`[lead] form=${form} google status=${res.status}`)
 
-  // Surface real failures instead of always returning 200 (was hiding dropped leads)
-  if (!res.ok) {
-    return NextResponse.json({ ok: false, status: res.status }, { status: 502 })
-  }
+  // Success = the script executed: 200 (JSON reply) or a 3xx to googleusercontent.
+  // Either way the row has been appended. A 4xx/5xx means it genuinely failed.
+  const ok = res.status >= 200 && res.status < 400
+  console.log(`[lead] source=${payload.source} webhook status=${res.status} ok=${ok}`)
+  if (!ok) return NextResponse.json({ ok: false, status: res.status }, { status: 502 })
   return NextResponse.json({ ok: true })
 }
