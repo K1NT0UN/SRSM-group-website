@@ -10,7 +10,8 @@ import { useLenis } from './LenisProvider'
 
 const MASTERPLAN_SRC = '/images/nisarga/masterplan.webp'
 const MIN_SCALE = 1
-const MAX_SCALE = 4
+const MAX_SCALE = 5 // plot numbers are small — allow a deeper zoom
+const PLAN_RATIO = '3640 / 4000' // portrait masterplan artwork
 
 /** Real zones from the Nisarga masterplan legend. */
 const LEGEND = [
@@ -27,38 +28,6 @@ const LEGEND = [
     items: ['Entrance Court', 'Water Feature', 'Open-Air Theatre', 'Outdoor Kitchen & Bar', 'Multipurpose Lawn', 'Pet Park', 'Elderly Seating Court', 'Outdoor Work Stations'],
   },
 ]
-
-/** Markers as drawn on the plan itself. Coordinates are tied to the current
- *  masterplan image — if the plan art changes, re-check these percentages. */
-const MARKERS = [
-  { x: 78.4, y: 23.8, label: 'Clubhouse 01' },
-  { x: 62.2, y: 73.9, label: 'Clubhouse 02' },
-  { x: 80.5, y: 80.5, label: 'Grand Entrance' },
-]
-
-function Markers({ interactive }: { interactive: boolean }) {
-  return (
-    <>
-      {MARKERS.map(({ x: mx, y: my, label }) => (
-        <div
-          key={label}
-          className={`group/marker absolute z-10 -translate-x-1/2 -translate-y-1/2 ${interactive ? '' : 'pointer-events-none'}`}
-          style={{ left: `${mx}%`, top: `${my}%` }}
-        >
-          <span className="relative flex h-3 w-3 items-center justify-center">
-            <span className="absolute h-full w-full animate-ping rounded-full bg-aurum/50 [animation-duration:2.2s]" />
-            <span className="relative h-1.5 w-1.5 rounded-full bg-aurum" />
-          </span>
-          {interactive && (
-            <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 whitespace-nowrap border border-aurum/30 bg-midnight/85 px-3 py-1.5 font-body text-[9px] uppercase tracking-[0.3em] text-ivory opacity-0 backdrop-blur-sm transition-opacity duration-500 group-hover/marker:opacity-100">
-              {label}
-            </span>
-          )}
-        </div>
-      ))}
-    </>
-  )
-}
 
 /** Fullscreen lightbox — opened deliberately by a click; zoom + pan live here,
  *  so the inline page scroll is never hijacked. */
@@ -151,20 +120,17 @@ function MasterplanViewer({ onClose }: { onClose: () => void }) {
           dragElastic={0.05}
           dragTransition={{ power: 0.25, timeConstant: 180 }}
           style={{ x, y, scale }}
-          className="absolute inset-0 flex items-center justify-center"
+          className="absolute inset-0"
         >
-          <div className="relative aspect-[4/3] w-full max-w-[min(90vw,116vh)]">
-            <Image
-              src={MASTERPLAN_SRC}
-              alt="Nisarga masterplan — plots, clubhouses, amenities and roads across 17+ acres"
-              fill
-              sizes="100vw"
-              quality={95}
-              className="select-none object-contain"
-              draggable={false}
-            />
-            <Markers interactive />
-          </div>
+          <Image
+            src={MASTERPLAN_SRC}
+            alt="Nisarga masterplan — plots, clubhouses, amenities and roads across 17+ acres"
+            fill
+            sizes="100vw"
+            quality={95}
+            className="select-none object-contain"
+            draggable={false}
+          />
         </motion.div>
 
         {/* Controls */}
@@ -210,26 +176,26 @@ export default function Masterplan() {
             type="button"
             onClick={() => setOpen(true)}
             aria-label="Enlarge the masterplan to zoom and explore"
-            className="group relative mx-auto block aspect-[4/3] max-h-[76vh] w-full max-w-[1000px] cursor-zoom-in overflow-hidden border border-white/10 bg-[#0b2036]"
+            style={{ aspectRatio: PLAN_RATIO }}
+            className="group relative mx-auto block w-full max-w-[760px] cursor-zoom-in overflow-hidden border border-white/10 bg-[#e9ecdf]"
           >
             <Image
               src={MASTERPLAN_SRC}
               alt="Nisarga masterplan — plots, clubhouses, amenities and roads across 17+ acres"
               fill
-              sizes="(max-width: 768px) 100vw, 1000px"
+              sizes="(max-width: 768px) 100vw, 760px"
               quality={90}
               className="object-contain"
             />
-            <Markers interactive={false} />
 
             {/* Affordances — always subtly present, brighten on hover. No zoom on hover. */}
-            <span className="pointer-events-none absolute inset-0 bg-midnight/0 transition-colors duration-500 group-hover:bg-midnight/15" />
-            <span className="pointer-events-none absolute right-5 top-5 flex h-11 w-11 items-center justify-center border border-white/20 bg-midnight/55 text-ivory/75 backdrop-blur-md transition-colors duration-500 group-hover:border-aurum group-hover:text-aurum">
+            <span className="pointer-events-none absolute inset-0 bg-midnight/0 transition-colors duration-500 group-hover:bg-midnight/10" />
+            <span className="pointer-events-none absolute right-5 top-5 flex h-11 w-11 items-center justify-center border border-midnight/20 bg-white/70 text-midnight/70 backdrop-blur-md transition-colors duration-500 group-hover:border-aurum group-hover:text-aurum-deep">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M9 4H4v5M15 4h5v5M15 20h5v-5M9 20H4v-5" />
               </svg>
             </span>
-            <span className="pointer-events-none absolute bottom-5 left-1/2 -translate-x-1/2 border border-white/15 bg-midnight/70 px-5 py-2.5 font-body text-[10px] uppercase tracking-[0.35em] text-ivory/85 backdrop-blur-md transition-colors duration-500 group-hover:border-aurum/50 group-hover:text-aurum">
+            <span className="pointer-events-none absolute bottom-5 left-1/2 -translate-x-1/2 border border-midnight/15 bg-white/75 px-5 py-2.5 font-body text-[10px] uppercase tracking-[0.35em] text-midnight/80 backdrop-blur-md transition-colors duration-500 group-hover:border-aurum/60 group-hover:text-aurum-deep">
               Click to enlarge
             </span>
           </button>
