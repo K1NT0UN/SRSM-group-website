@@ -59,15 +59,7 @@ export default function ProjectsContent() {
                   href="/enquire"
                   className="inline-block bg-aurum px-10 py-4.5 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-midnight transition-colors duration-500 hover:bg-ivory"
                 >
-                  Enquire Now
-                </Link>
-              </Magnetic>
-              <Magnetic>
-                <Link
-                  href="/#visit"
-                  className="inline-block border border-ivory/30 px-10 py-4.5 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-ivory transition-colors duration-500 hover:border-aurum hover:text-aurum"
-                >
-                  Book a Private Visit
+                  Get in touch
                 </Link>
               </Magnetic>
             </div>
@@ -295,18 +287,10 @@ export default function ProjectsContent() {
             <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
               <Magnetic>
                 <Link
-                  href="/#visit"
+                  href="/enquire"
                   className="inline-block bg-midnight px-10 py-4.5 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-ivory transition-colors duration-500 hover:bg-aurum hover:text-midnight"
                 >
-                  Book a Private Visit
-                </Link>
-              </Magnetic>
-              <Magnetic>
-                <Link
-                  href="/enquire"
-                  className="inline-block border border-ink/35 px-10 py-4.5 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-ink transition-colors duration-500 hover:border-aurum hover:text-aurum-deep"
-                >
-                  Enquire
+                  Get in touch
                 </Link>
               </Magnetic>
             </div>

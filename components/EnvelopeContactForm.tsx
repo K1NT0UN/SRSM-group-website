@@ -3,10 +3,9 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { COUNTRY_CODE } from '@/lib/leadConfig'
-import { submitEnquiry, submitSiteVisit } from '@/lib/submitForm'
+import { submitGetInTouch } from '@/lib/submitForm'
 import EnvelopeSeal, { ENVELOPE_EASE as EASE, KRAFT } from './EnvelopeSeal'
 
-type Variant = 'enquiry' | 'siteVisit'
 type Phase = 'form' | 'sealing' | 'sent'
 
 /**
@@ -14,12 +13,10 @@ type Phase = 'form' | 'sealing' | 'sent'
  * folds into a kraft envelope that seals shut with the SRSM crest pressed
  * into wax — then the whole thing is "sent."
  *
- * Submits through the same verified /api/lead -> Google Forms pipeline as
- * every other lead form on the site (enquiryForm / siteVisitForm); nothing
- * about the backend changes, only the presentation.
+ * One "Get in touch" form for every enquiry; submits through the single
+ * verified /api/lead -> Google Form pipeline (see lib/leadConfig).
  */
 export default function EnvelopeContactForm() {
-  const [tab, setTab] = useState<Variant>('enquiry')
   const [name, setName] = useState('')
   const [mobile, setMobile] = useState('')
   const [email, setEmail] = useState('')
@@ -29,11 +26,6 @@ export default function EnvelopeContactForm() {
   const tenDigits = mobile.replace(/\D/g, '').slice(-10)
   const mobileValid = tenDigits.length === 10
 
-  function switchTab(next: Variant) {
-    setTab(next)
-    setError('')
-  }
-
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
@@ -42,8 +34,11 @@ export default function EnvelopeContactForm() {
 
     setPhase('sealing')
     try {
-      const payload = { name: name.trim(), mobile: `${COUNTRY_CODE}${tenDigits}`, email: email.trim() || undefined }
-      const send = tab === 'siteVisit' ? submitSiteVisit(payload) : submitEnquiry(payload)
+      const send = submitGetInTouch({
+        name: name.trim(),
+        mobile: `${COUNTRY_CODE}${tenDigits}`,
+        email: email.trim() || undefined,
+      })
       // Run the network call alongside the full seal animation, whichever takes longer.
       await Promise.all([send, new Promise((r) => setTimeout(r, 2000))])
       setPhase('sent')
@@ -63,23 +58,6 @@ export default function EnvelopeContactForm() {
 
   return (
     <div className="mx-auto w-full max-w-lg">
-      {phase === 'form' && (
-        <div className="mb-8 flex gap-1 border-b border-ivory/15">
-          {(['enquiry', 'siteVisit'] as const).map((v) => (
-            <button
-              key={v}
-              type="button"
-              onClick={() => switchTab(v)}
-              className={`flex-1 pb-4 font-body text-[11px] font-semibold uppercase tracking-[0.3em] transition-colors duration-300 ${
-                tab === v ? 'border-b-2 border-aurum text-aurum' : 'text-ivory/40 hover:text-ivory/70'
-              }`}
-            >
-              {v === 'enquiry' ? 'Quick Enquiry' : 'Book Site Visit'}
-            </button>
-          ))}
-        </div>
-      )}
-
       <div className="relative" style={{ perspective: 1400 }}>
         <AnimatePresence mode="wait">
           {phase === 'form' && (
@@ -98,9 +76,7 @@ export default function EnvelopeContactForm() {
               }}
             >
               <div className="grain relative">
-                <p className="mb-8 font-display text-2xl italic text-[#4a3a1e]">
-                  {tab === 'siteVisit' ? 'Reserve your visit.' : 'Write to us.'}
-                </p>
+                <p className="mb-8 font-display text-2xl italic text-[#4a3a1e]">Get in touch.</p>
 
                 <div className="space-y-6">
                   <div>
@@ -154,11 +130,11 @@ export default function EnvelopeContactForm() {
                   type="submit"
                   className="mt-9 inline-flex items-center gap-3 bg-[#241f16] px-9 py-4 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-[#e6d7b3] transition-colors duration-300 hover:bg-[#3a2e16]"
                 >
-                  {tab === 'siteVisit' ? 'Seal & Reserve' : 'Seal & Send'}
+                  Get in touch
                 </button>
 
                 <p className="mt-4 font-body text-[10px] leading-relaxed tracking-wide text-[#7a6437]">
-                  We&apos;ll call to confirm. No spam — ever.
+                  We&apos;ll call you back. No spam — ever.
                 </p>
               </div>
             </motion.form>
@@ -176,8 +152,7 @@ export default function EnvelopeContactForm() {
             >
               <p className="font-display text-4xl font-light italic text-aurum">Sent.</p>
               <p className="mx-auto mt-6 max-w-xs font-body text-sm font-light leading-relaxed text-ivory/65">
-                Your {tab === 'siteVisit' ? 'visit request' : 'note'} is on its way to us. Our team will
-                call you shortly.
+                Your note is on its way to us. Our team will call you back shortly.
               </p>
               <button
                 type="button"

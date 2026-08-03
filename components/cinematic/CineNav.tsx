@@ -23,7 +23,7 @@ const LINKS: NavLink[] = [
     ],
   },
   { href: '/about', label: 'About' },
-  { href: '#contact', label: 'Contact' },
+  { href: '#visit', label: 'Contact' },
 ]
 
 /**
@@ -131,7 +131,7 @@ export default function CineNav() {
               onClick={(e) => onAnchor(e, '#visit')}
               className="ml-3 border border-aurum/60 px-6 py-3 font-body text-[11px] font-semibold uppercase tracking-[0.28em] text-aurum transition-all duration-500 hover:bg-aurum hover:text-midnight"
             >
-              Book a Private Visit
+              Get in touch
             </Link>
           </div>
 
@@ -205,7 +205,7 @@ export default function CineNav() {
                 onClick={(e) => onAnchor(e, '#visit')}
                 className="inline-block border border-aurum px-8 py-4 font-body text-[11px] font-semibold uppercase tracking-[0.28em] text-aurum"
               >
-                Book a Private Visit
+                Get in touch
               </Link>
             </motion.div>
           </motion.div>

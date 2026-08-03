@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
 import { COUNTRY_CODE } from '@/lib/leadConfig'
-import { submitNisargaSiteVisit } from '@/lib/submitForm'
+import { submitGetInTouch } from '@/lib/submitForm'
 import EnvelopeSeal, { ENVELOPE_EASE as EASE, KRAFT } from '@/components/EnvelopeSeal'
 import { Eyebrow, MaskLine, Reveal } from './motion'
 
@@ -15,12 +15,11 @@ const inputCls =
 
 const labelCls = 'mb-1 block font-body text-[10px] font-semibold uppercase tracking-[0.35em] text-[#7a6437]'
 
-/** The invitation — a letter you seal to reserve your visit. */
+/** The invitation — a letter you seal to reach us. */
 export default function BookVisit() {
   const [name, setName] = useState('')
   const [mobile, setMobile] = useState('')
-  const [date1, setDate1] = useState('')
-  const [date2, setDate2] = useState('')
+  const [email, setEmail] = useState('')
   const [phase, setPhase] = useState<Phase>('form')
   const [error, setError] = useState('')
 
@@ -31,15 +30,13 @@ export default function BookVisit() {
     setError('')
     if (!name.trim()) return setError('Please tell us your name.')
     if (tenDigits.length !== 10) return setError('Please enter a valid 10-digit mobile number.')
-    if (!date1) return setError('Please pick a preferred date.')
 
     setPhase('sealing')
     try {
-      const send = submitNisargaSiteVisit({
+      const send = submitGetInTouch({
         name: name.trim(),
         mobile: `${COUNTRY_CODE}${tenDigits}`,
-        date1: date1 || undefined,
-        date2: date2 || undefined,
+        email: email.trim() || undefined,
       })
       await Promise.all([send, new Promise((r) => setTimeout(r, 2000))])
       setPhase('sent')
@@ -53,8 +50,7 @@ export default function BookVisit() {
     setPhase('form')
     setName('')
     setMobile('')
-    setDate1('')
-    setDate2('')
+    setEmail('')
     setError('')
   }
 
@@ -76,7 +72,7 @@ export default function BookVisit() {
       <div className="relative mx-auto grid max-w-[1400px] items-center gap-16 lg:grid-cols-2 lg:gap-24">
         {/* Invitation */}
         <div>
-          <Eyebrow className="mb-8">A Private Visit</Eyebrow>
+          <Eyebrow className="mb-8">Get In Touch</Eyebrow>
           <h2 className="font-display font-light leading-[1.08]">
             <MaskLine className="text-[clamp(2.6rem,5.5vw,5.25rem)]">See it in the</MaskLine>
             <MaskLine delay={0.15} className="text-[clamp(2.6rem,5.5vw,5.25rem)] italic text-aurum">
@@ -85,8 +81,8 @@ export default function BookVisit() {
           </h2>
           <Reveal delay={0.25} className="mt-8 max-w-md">
             <p className="font-body text-sm font-light leading-relaxed text-ivory/60">
-              An unhurried walkthrough of the township, the clubhouses and your shortlisted villa —
-              by appointment, at the hour the light is kindest.
+              Leave your details and our team will call you back — to share the brochure, answer
+              your questions, or arrange an unhurried walkthrough of the township and clubhouses.
             </p>
           </Reveal>
           <Reveal delay={0.35} className="mt-10 space-y-3">
@@ -129,7 +125,7 @@ export default function BookVisit() {
                   }}
                 >
                   <div className="grain relative">
-                    <p className="mb-8 font-display text-2xl italic text-[#4a3a1e]">Reserve your visit.</p>
+                    <p className="mb-8 font-display text-2xl italic text-[#4a3a1e]">Get in touch.</p>
 
                     <div className="space-y-6">
                       <div>
@@ -160,27 +156,17 @@ export default function BookVisit() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-6">
-                        <div>
-                          <label className={labelCls} htmlFor="bv-date1">Preferred date *</label>
-                          <input
-                            id="bv-date1"
-                            type="date"
-                            className={inputCls}
-                            value={date1}
-                            onChange={(e) => setDate1(e.target.value)}
-                          />
-                        </div>
-                        <div>
-                          <label className={labelCls} htmlFor="bv-date2">Alternate date</label>
-                          <input
-                            id="bv-date2"
-                            type="date"
-                            className={inputCls}
-                            value={date2}
-                            onChange={(e) => setDate2(e.target.value)}
-                          />
-                        </div>
+                      <div>
+                        <label className={labelCls} htmlFor="bv-email">Email (optional)</label>
+                        <input
+                          id="bv-email"
+                          type="email"
+                          className={inputCls}
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="you@example.com"
+                          autoComplete="email"
+                        />
                       </div>
                     </div>
 
@@ -191,10 +177,10 @@ export default function BookVisit() {
                         type="submit"
                         className="inline-flex items-center gap-3 bg-[#241f16] px-9 py-4 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-[#e6d7b3] transition-colors duration-300 hover:bg-[#3a2e16]"
                       >
-                        Seal & Reserve
+                        Get in touch
                       </button>
                       <a
-                        href="https://wa.me/919492239339?text=Hi%2C%20I%27d%20like%20to%20book%20a%20private%20visit%20to%20Nisarga."
+                        href="https://wa.me/919492239339?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20Nisarga."
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-body text-[10px] font-medium uppercase tracking-[0.3em] text-[#7a6437] underline-offset-8 transition-colors duration-300 hover:text-[#3a2e16] hover:underline"
@@ -204,7 +190,7 @@ export default function BookVisit() {
                     </div>
 
                     <p className="mt-4 font-body text-[10px] leading-relaxed tracking-wide text-[#7a6437]">
-                      We&apos;ll call to confirm your time. No spam — ever.
+                      We&apos;ll call you back. No spam — ever.
                     </p>
                   </div>
                 </motion.form>
@@ -220,16 +206,16 @@ export default function BookVisit() {
                   transition={{ duration: 0.7, ease: EASE }}
                   className="border border-white/12 bg-white/[0.05] px-8 py-16 text-center backdrop-blur-2xl md:px-12"
                 >
-                  <p className="font-display text-4xl font-light italic text-aurum">Until then.</p>
+                  <p className="font-display text-4xl font-light italic text-aurum">Thank you.</p>
                   <p className="mx-auto mt-6 max-w-xs font-body text-sm font-light leading-relaxed text-ivory/65">
-                    Your visit is reserved. Our team will call you shortly to confirm the day and hour.
+                    Your details are with us. Our team will call you back shortly.
                   </p>
                   <button
                     type="button"
                     onClick={resetForm}
                     className="mt-8 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-ivory/50 underline-offset-8 transition-colors duration-300 hover:text-aurum hover:underline"
                   >
-                    Reserve another
+                    Send another
                   </button>
                 </motion.div>
               )}

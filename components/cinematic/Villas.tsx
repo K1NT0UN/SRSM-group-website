@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { Eyebrow, ImageReveal, MaskLine, Reveal } from './motion'
 import NisargaLeadModal from '@/components/NisargaLeadModal'
 
@@ -168,15 +167,9 @@ export default function Villas() {
                   <div className="mt-8 flex items-center gap-6 pt-2">
                     <NisargaLeadModal
                       variant="enquiry"
-                      label="Request Brochure"
+                      label="Get in touch"
                       className="font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-ink underline-offset-8 transition-colors duration-300 hover:text-aurum hover:underline"
                     />
-                    <Link
-                      href="#visit"
-                      className="font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-ink underline-offset-8 transition-colors duration-300 hover:text-aurum hover:underline"
-                    >
-                      Book a Visit
-                    </Link>
                   </div>
                 </div>
               </Reveal>

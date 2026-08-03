@@ -64,7 +64,7 @@ export default function Navbar() {
               href="/enquire"
               className="px-6 py-2.5 bg-forest text-parchment text-sm tracking-widest uppercase font-semibold hover:bg-forest-dark transition-colors duration-200"
             >
-              Enquire Now
+              Get in touch
             </Link>
           </div>
         </div>

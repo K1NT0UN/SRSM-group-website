@@ -187,7 +187,7 @@ export default function NisargaPageContent() {
             <div className="mt-10 text-center">
               <NisargaLeadModal
                 variant="enquiry"
-                label="Request Pricing"
+                label="Get in touch"
                 className="inline-block px-10 py-4 bg-gold text-forest text-sm tracking-widest uppercase font-semibold hover:bg-gold-dark transition-colors duration-200"
               />
             </div>
@@ -345,21 +345,9 @@ export default function NisargaPageContent() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <NisargaLeadModal
-              variant="siteVisit"
-              label="Book a Site Visit"
-              className="px-10 py-4 bg-forest text-parchment text-sm tracking-widest uppercase font-semibold hover:bg-forest-dark transition-colors duration-200"
-            />
-            <NisargaLeadModal
               variant="enquiry"
-              label="Send Enquiry"
-              className="px-10 py-4 border-2 border-forest text-forest text-sm tracking-widest uppercase font-semibold hover:bg-forest/10 transition-colors duration-200"
-            />
-            <NisargaLeadModal
-              variant="brochure"
-              label="Download Brochure"
-              brochureUrl="/nisarga-brochure.pdf"
-              projectName="Nisarga"
-              className="px-10 py-4 bg-forest/10 border-2 border-forest text-forest text-sm tracking-widest uppercase font-semibold hover:bg-forest/20 transition-colors duration-200"
+              label="Get in touch"
+              className="px-10 py-4 bg-forest text-parchment text-sm tracking-widest uppercase font-semibold hover:bg-forest-dark transition-colors duration-200"
             />
           </div>
         </FadeInView>

@@ -11,9 +11,9 @@ type Variant = 'brochure' | 'enquiry' | 'siteVisit'
 type Phase = 'form' | 'sealing' | 'sent'
 
 const TITLES: Record<Variant, string> = {
-  brochure: 'Download Brochure',
-  enquiry: 'Send Enquiry',
-  siteVisit: 'Book a Site Visit',
+  brochure: 'Get in touch',
+  enquiry: 'Get in touch',
+  siteVisit: 'Get in touch',
 }
 
 /**

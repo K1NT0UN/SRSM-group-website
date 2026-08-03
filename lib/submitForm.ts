@@ -29,6 +29,13 @@ async function postLead(form: string, data: Record<string, string | undefined>):
   })
 }
 
+// The one lead call the site uses now — every "Get in touch" form records to
+// the single verified form (all form names map to it in lib/leadConfig).
+export async function submitGetInTouch(data: { name: string; mobile: string; email?: string }): Promise<void> {
+  const res = await postLead('nisargaBrochure', data)
+  if (!res.ok) throw new Error(`Lead failed (${res.status})`)
+}
+
 export async function submitBrochure(data: { name: string; mobile: string; email?: string }): Promise<void> {
   const res = await postLead('nisargaBrochure', data)
   if (!res.ok) throw new Error(`Brochure lead failed (${res.status})`)

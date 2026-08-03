@@ -37,52 +37,26 @@ type FormConfig = {
   fields: { name: string; mobile: string; email: string }
 }
 
-export const enquiryForm: FormConfig = {
-  actionUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdB9VZaGPgvDJ1aM3h8VcgdHCUJwsP6zDZmbnIt3K0BLM2vnQ/formResponse',
-  fields: {
-    name: 'entry.1192273686',
-    mobile: 'entry.896801780',
-    email: 'entry.229658143',
-  },
+// ── Get in touch — ONE working form for every lead ───────────────────────────
+// Every lead surface (contact, brochure request, homepage invitation) records
+// to the single verified Google Form — the "Brochure Download" form, the only
+// sheet confirmed to be receiving entries. There is no separate site-visit
+// form any more. Captures name + mobile + email.
+export const GET_IN_TOUCH_FORM = {
+  actionUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSfmvwbfQcxSJ_uKn6vl-kJnSbp8JkzKTUlRy5ZSFP0HkYibgw/formResponse',
+  fields: { name: 'entry.1790036588', mobile: 'entry.1567757704', email: 'entry.1683077939' },
 }
 
-// Consolidated (lead-routing fix): all site-visit leads land in the single
-// "Site Visit" sheet — same form as nisargaSiteVisitForm below. The older
-// standalone "SRSM Site visits" form (…U9YIDxzHfzWtAMJA) is retired.
-export const siteVisitForm: FormConfig = {
-  actionUrl: 'https://docs.google.com/forms/d/e/1FAIpQLScJ74LMqHlUJiTRVEpk-W24esO9Ssa3HnDBWxZbUOuJxp3gPQ/formResponse',
-  fields: {
-    name: 'entry.1790036588',
-    mobile: 'entry.1567757704',
-    email: 'entry.1683077939',
-  },
-}
+export const enquiryForm: FormConfig = GET_IN_TOUCH_FORM
+export const siteVisitForm: FormConfig = GET_IN_TOUCH_FORM
 
 export function formConfigured(f: FormConfig) {
   return f.actionUrl.startsWith('http')
 }
 
-// ── Nisarga project forms (separate pipeline from the SRSM group forms above) ──
-// Live Google Forms carried over from the SR Builders / Nisarga site so Nisarga
-// brochure, enquiry and site-visit leads keep landing in their existing sheets —
-// never mixed with the SRSM group's own enquiries. (Values are the live ones
-// from the SR Builders /api/lead route, not secret.)
+// ── Nisarga lead forms — all consolidated onto the one Get-in-touch form ──────
 export type NisargaForm = { actionUrl: string; fields: Record<string, string> }
 
-export const nisargaBrochureForm: NisargaForm = {
-  actionUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSfmvwbfQcxSJ_uKn6vl-kJnSbp8JkzKTUlRy5ZSFP0HkYibgw/formResponse',
-  fields: { name: 'entry.1790036588', mobile: 'entry.1567757704', email: 'entry.1683077939' },
-}
-
-// Lead-routing fix: was misrouted to a form titled "Brochure downloads" (so
-// Nisarga enquiries were landing in a brochure sheet). Re-pointed to the same
-// "SRSM enquires" form as enquiryForm above — all enquiries now share one sheet.
-export const nisargaEnquiryForm: NisargaForm = {
-  actionUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdB9VZaGPgvDJ1aM3h8VcgdHCUJwsP6zDZmbnIt3K0BLM2vnQ/formResponse',
-  fields: { name: 'entry.1192273686', mobile: 'entry.896801780', email: 'entry.229658143' },
-}
-
-export const nisargaSiteVisitForm: NisargaForm = {
-  actionUrl: 'https://docs.google.com/forms/d/e/1FAIpQLScJ74LMqHlUJiTRVEpk-W24esO9Ssa3HnDBWxZbUOuJxp3gPQ/formResponse',
-  fields: { name: 'entry.1790036588', mobile: 'entry.1567757704', email: 'entry.1683077939', date1: 'entry.389006286', date2: 'entry.1376214177' },
-}
+export const nisargaBrochureForm: NisargaForm = GET_IN_TOUCH_FORM
+export const nisargaEnquiryForm: NisargaForm = GET_IN_TOUCH_FORM
+export const nisargaSiteVisitForm: NisargaForm = GET_IN_TOUCH_FORM

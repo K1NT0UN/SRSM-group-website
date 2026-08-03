@@ -147,10 +147,8 @@ export default function NisargaHeroCarousel() {
         </a>
         <div className="mt-8 flex flex-wrap gap-4">
           <NisargaLeadModal
-            variant="brochure"
-            label="Download Brochure"
-            brochureUrl="/nisarga-brochure.pdf"
-            projectName="Nisarga"
+            variant="enquiry"
+            label="Get in touch"
             className="px-8 py-3.5 bg-gold text-forest text-sm tracking-widest uppercase font-semibold hover:bg-gold-dark transition-colors duration-200"
           />
           <a
@@ -159,11 +157,6 @@ export default function NisargaHeroCarousel() {
           >
             Explore Villas
           </a>
-          <NisargaLeadModal
-            variant="siteVisit"
-            label="Book a Site Visit"
-            className="px-8 py-3.5 border border-gold/60 text-gold text-sm tracking-widest uppercase hover:bg-gold hover:text-forest transition-colors duration-200"
-          />
         </div>
       </div>
 
