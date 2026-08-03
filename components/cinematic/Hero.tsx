@@ -98,7 +98,7 @@ export default function Hero() {
               onClick={(e) => toAnchor(e, '#visit')}
               className="inline-block border border-ivory/30 px-10 py-4.5 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-ivory transition-colors duration-500 hover:border-aurum hover:text-aurum"
             >
-              Book Private Visit
+              Get in touch
             </Link>
           </Magnetic>
           <Magnetic>
