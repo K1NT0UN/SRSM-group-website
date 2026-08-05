@@ -7,7 +7,7 @@ import SrsmLogo from '@/components/SrsmLogo'
 
 const EXPLORE = [
   { href: '/projects', label: 'Projects' },
-  { href: '/projects/nisarga', label: 'Nisarga' },
+  { href: '/#nisarga', label: 'Nisarga' },
   { href: '/about', label: 'About the Group' },
   { href: '/enquire', label: 'Enquire' },
 ]

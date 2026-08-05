@@ -127,7 +127,7 @@ export default function ProjectsContent() {
           <Reveal delay={0.2} className="mt-12 text-center">
             <Magnetic>
               <Link
-                href="/projects/nisarga"
+                href="/"
                 className="inline-block bg-midnight px-10 py-4.5 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-ivory transition-colors duration-500 hover:bg-aurum hover:text-midnight"
               >
                 Explore Nisarga

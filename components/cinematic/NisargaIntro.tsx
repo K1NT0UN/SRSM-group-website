@@ -2,10 +2,8 @@
 
 import { useRef } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Eyebrow, ImageReveal, MaskLine, Reveal } from './motion'
-import Magnetic from './Magnetic'
 
 const FACTS = [
   { value: '17+', label: 'Acres' },
@@ -75,18 +73,6 @@ export default function NisargaIntro() {
             </Reveal>
           ))}
         </div>
-
-        <Reveal delay={0.2} className="mt-16 text-center">
-          <Magnetic>
-            <Link
-              href="/projects/nisarga"
-              className="group inline-flex items-center gap-4 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-ink"
-            >
-              Discover Nisarga
-              <span className="relative h-px w-12 bg-ink/30 transition-all duration-500 group-hover:w-20 group-hover:bg-aurum" />
-            </Link>
-          </Magnetic>
-        </Reveal>
       </div>
     </section>
   )
