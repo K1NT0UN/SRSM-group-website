@@ -12,11 +12,11 @@ export const contact = {
   },
 }
 
-// Nisarga sales WhatsApp — every "Get in touch" / brochure CTA on the Nisarga
-// site routes here (the number shown on the contact section). Pass a message to
-// pre-fill the chat; falls back to a general Nisarga enquiry.
-export const NISARGA_WA_NUMBER = '919492239339'
-export const NISARGA_TEL = '+91 94922 39339'
-export const NISARGA_TEL_HREF = 'tel:+919492239339'
+// The one WhatsApp number for the whole site — same line as the floating
+// bubble (contact.whatsapp), so every route to us lands in one inbox.
+// Every "Get in touch" / brochure CTA calls this with a pre-filled message.
+export const WA_NUMBER = '919989990256'
+export const NISARGA_TEL = contact.phone
+export const NISARGA_TEL_HREF = contact.phoneHref
 export const nisargaWhatsApp = (text = "Hi, I'd like to know more about Nisarga.") =>
-  `https://wa.me/${NISARGA_WA_NUMBER}?text=${encodeURIComponent(text)}`
+  `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`
