@@ -4,6 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Eyebrow, MaskLine, Reveal } from './motion'
 import Magnetic from './Magnetic'
+import WhatsAppGlyph from '@/components/WhatsAppGlyph'
+import { nisargaWhatsApp } from '@/lib/contact'
 import { entities } from '@/lib/entities'
 
 const PRINCIPLES = [
@@ -103,12 +105,15 @@ export default function AboutContent() {
                 </Link>
               </Magnetic>
               <Magnetic>
-                <Link
-                  href="/#visit"
-                  className="inline-block border border-ivory/30 px-10 py-4.5 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-ivory transition-colors duration-500 hover:border-aurum hover:text-aurum"
+                <a
+                  href={nisargaWhatsApp()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 border border-ivory/30 px-10 py-4.5 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-ivory transition-colors duration-500 hover:border-aurum hover:text-aurum"
                 >
+                  <WhatsAppGlyph className="h-4 w-4" />
                   Get in touch
-                </Link>
+                </a>
               </Magnetic>
             </div>
           </Reveal>

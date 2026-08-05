@@ -2,10 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { animate, AnimatePresence, motion, useMotionValue } from 'framer-motion'
 import { Eyebrow, MaskLine, Reveal } from './motion'
 import Magnetic from './Magnetic'
+import WhatsAppGlyph from '@/components/WhatsAppGlyph'
+import { nisargaWhatsApp } from '@/lib/contact'
 import { useLenis } from './LenisProvider'
 
 const MASTERPLAN_SRC = '/images/nisarga/masterplan.webp'
@@ -225,12 +226,15 @@ export default function Masterplan() {
             Masterplan is illustrative. Plots range from 200 to 313 sq. yd. on 30&#8242; and 40&#8242; wide roads.
           </p>
           <Magnetic>
-            <Link
-              href="#visit"
-              className="inline-block border border-aurum/60 px-9 py-4 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-aurum transition-colors duration-500 hover:bg-aurum hover:text-midnight"
+            <a
+              href={nisargaWhatsApp("Hi, I'd like to check plot availability at Nisarga.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 border border-aurum/60 px-9 py-4 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-aurum transition-colors duration-500 hover:bg-aurum hover:text-midnight"
             >
+              <WhatsAppGlyph className="h-4 w-4" />
               Get in touch
-            </Link>
+            </a>
           </Magnetic>
         </Reveal>
       </div>

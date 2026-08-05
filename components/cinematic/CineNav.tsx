@@ -7,6 +7,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useLenis } from './LenisProvider'
 import { EASE } from './motion'
 import SrsmLogo from '@/components/SrsmLogo'
+import WhatsAppGlyph from '@/components/WhatsAppGlyph'
+import { nisargaWhatsApp } from '@/lib/contact'
 
 type NavLink = { href: string; label: string; children?: { href: string; label: string }[] }
 
@@ -70,7 +72,7 @@ export default function CineNav() {
   return (
     <>
       <motion.header
-        className={`fixed inset-x-0 top-0 z-[90] transition-[background-color,backdrop-filter,border-color] duration-700 ${
+        className={`fixed inset-x-0 top-9 z-[90] transition-[background-color,backdrop-filter,border-color] duration-700 ${
           scrolled && !open
             ? 'bg-midnight/65 backdrop-blur-xl border-b border-white/[0.06]'
             : 'bg-transparent border-b border-transparent'
@@ -126,13 +128,15 @@ export default function CineNav() {
                 </Link>
               ),
             )}
-            <Link
-              href={resolveHref('#visit')}
-              onClick={(e) => onAnchor(e, '#visit')}
-              className="ml-3 border border-aurum/60 px-6 py-3 font-body text-[11px] font-semibold uppercase tracking-[0.28em] text-aurum transition-all duration-500 hover:bg-aurum hover:text-midnight"
+            <a
+              href={nisargaWhatsApp()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-3 inline-flex items-center gap-2 border border-aurum/60 px-6 py-3 font-body text-[11px] font-semibold uppercase tracking-[0.28em] text-aurum transition-all duration-500 hover:bg-aurum hover:text-midnight"
             >
+              <WhatsAppGlyph className="h-3.5 w-3.5" />
               Get in touch
-            </Link>
+            </a>
           </div>
 
           {/* Mobile trigger */}
@@ -200,13 +204,16 @@ export default function CineNav() {
               transition={{ duration: 0.8, ease: EASE, delay: 0.5 }}
               className="mt-12"
             >
-              <Link
-                href={resolveHref('#visit')}
-                onClick={(e) => onAnchor(e, '#visit')}
-                className="inline-block border border-aurum px-8 py-4 font-body text-[11px] font-semibold uppercase tracking-[0.28em] text-aurum"
+              <a
+                href={nisargaWhatsApp()}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                className="inline-flex items-center gap-2 border border-aurum px-8 py-4 font-body text-[11px] font-semibold uppercase tracking-[0.28em] text-aurum"
               >
+                <WhatsAppGlyph className="h-3.5 w-3.5" />
                 Get in touch
-              </Link>
+              </a>
             </motion.div>
           </motion.div>
         )}

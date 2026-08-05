@@ -11,3 +11,12 @@ export const contact = {
     line5: 'Nanakramguda, Hyderabad 500032',
   },
 }
+
+// Nisarga sales WhatsApp — every "Get in touch" / brochure CTA on the Nisarga
+// site routes here (the number shown on the contact section). Pass a message to
+// pre-fill the chat; falls back to a general Nisarga enquiry.
+export const NISARGA_WA_NUMBER = '919492239339'
+export const NISARGA_TEL = '+91 94922 39339'
+export const NISARGA_TEL_HREF = 'tel:+919492239339'
+export const nisargaWhatsApp = (text = "Hi, I'd like to know more about Nisarga.") =>
+  `https://wa.me/${NISARGA_WA_NUMBER}?text=${encodeURIComponent(text)}`

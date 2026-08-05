@@ -6,6 +6,8 @@ import Link from 'next/link'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Eyebrow, ImageReveal, MaskLine, Reveal } from './motion'
 import Magnetic from './Magnetic'
+import WhatsAppGlyph from '@/components/WhatsAppGlyph'
+import { nisargaWhatsApp } from '@/lib/contact'
 import { currentProjects, pipelineProjects, completedProjects } from '@/lib/projects'
 
 const NISARGA_FACTS = [
@@ -55,12 +57,15 @@ export default function ProjectsContent() {
           <Reveal delay={0.4} className="mt-10">
             <div className="flex flex-col gap-4 sm:flex-row sm:gap-6">
               <Magnetic>
-                <Link
-                  href="/enquire"
-                  className="inline-block bg-aurum px-10 py-4.5 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-midnight transition-colors duration-500 hover:bg-ivory"
+                <a
+                  href={nisargaWhatsApp()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 bg-aurum px-10 py-4.5 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-midnight transition-colors duration-500 hover:bg-ivory"
                 >
+                  <WhatsAppGlyph className="h-4 w-4" />
                   Get in touch
-                </Link>
+                </a>
               </Magnetic>
             </div>
           </Reveal>
@@ -286,12 +291,15 @@ export default function ProjectsContent() {
           <Reveal delay={0.25}>
             <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
               <Magnetic>
-                <Link
-                  href="/enquire"
-                  className="inline-block bg-midnight px-10 py-4.5 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-ivory transition-colors duration-500 hover:bg-aurum hover:text-midnight"
+                <a
+                  href={nisargaWhatsApp()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 bg-midnight px-10 py-4.5 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-ivory transition-colors duration-500 hover:bg-aurum hover:text-midnight"
                 >
+                  <WhatsAppGlyph className="h-4 w-4" />
                   Get in touch
-                </Link>
+                </a>
               </Magnetic>
             </div>
           </Reveal>

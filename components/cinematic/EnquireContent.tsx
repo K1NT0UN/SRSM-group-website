@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { contact } from '@/lib/contact'
 import { Eyebrow, MaskLine, Reveal } from './motion'
-import EnvelopeContactForm from '@/components/EnvelopeContactForm'
+import WhatsAppCTA from './WhatsAppCTA'
 
 /** Get in touch — the letter-and-wax-seal contact experience. */
 export default function EnquireContent() {
@@ -62,9 +62,9 @@ export default function EnquireContent() {
           </Reveal>
         </div>
 
-        {/* The letter */}
+        {/* Reach us — WhatsApp */}
         <Reveal delay={0.2}>
-          <EnvelopeContactForm />
+          <WhatsAppCTA message="Hi, I'd like to enquire about Nisarga by SRSM Group." />
         </Reveal>
       </div>
     </section>

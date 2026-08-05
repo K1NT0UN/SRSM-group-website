@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { Eyebrow, ImageReveal, MaskLine, Reveal } from './motion'
-import NisargaLeadModal from '@/components/NisargaLeadModal'
+import WhatsAppGlyph from '@/components/WhatsAppGlyph'
+import { nisargaWhatsApp } from '@/lib/contact'
 
 type FloorAreas = { areas: { floor: string; sqft: string }[]; total: string }
 type Villa = { size: string; tagline: string; east: FloorAreas; west: FloorAreas }
@@ -165,11 +166,15 @@ export default function Villas() {
                   </div>
 
                   <div className="mt-8 flex items-center gap-6 pt-2">
-                    <NisargaLeadModal
-                      variant="enquiry"
-                      label="Get in touch"
-                      className="font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-ivory underline-offset-8 transition-colors duration-300 hover:text-aurum hover:underline"
-                    />
+                    <a
+                      href={nisargaWhatsApp(`Hi, I'm interested in the Nisarga ${villa.size} Sq. Yd villa.`)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-ivory underline-offset-8 transition-colors duration-300 hover:text-aurum hover:underline"
+                    >
+                      <WhatsAppGlyph className="h-3.5 w-3.5" />
+                      Get in touch
+                    </a>
                   </div>
                 </div>
               </Reveal>
