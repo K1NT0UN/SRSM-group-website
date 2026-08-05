@@ -135,9 +135,9 @@ export default function Villas() {
           {VILLAS.map((villa, i) => {
             const cfg = villa[facing]
             return (
-              <Reveal key={villa.size} delay={i * 0.12} className="group relative bg-[#dce5f0]">
+              <Reveal key={villa.size} delay={i * 0.12} className="group relative bg-[#dcebf7]">
                 <div className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-aurum transition-transform duration-700 ease-out group-hover:scale-x-100" />
-                <div className="flex h-full flex-col p-10 transition-all duration-700 group-hover:-translate-y-1.5 group-hover:bg-[#e8eff7] md:p-12">
+                <div className="flex h-full flex-col p-10 transition-all duration-700 group-hover:-translate-y-1.5 group-hover:bg-[#eaf3fb] md:p-12">
                   <p className="font-display text-[clamp(4rem,7vw,6.5rem)] font-light leading-none text-ink">
                     {villa.size}
                     <span className="ml-3 align-middle font-body text-[10px] uppercase tracking-[0.4em] text-ink/45">
