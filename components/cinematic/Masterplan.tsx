@@ -229,7 +229,7 @@ export default function Masterplan() {
               href="#visit"
               className="inline-block border border-aurum/60 px-9 py-4 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-aurum transition-colors duration-500 hover:bg-aurum hover:text-midnight"
             >
-              Request Plot Availability
+              Get in touch
             </Link>
           </Magnetic>
         </Reveal>

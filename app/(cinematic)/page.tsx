@@ -1,7 +1,6 @@
 import Hero from '@/components/cinematic/Hero'
 import StatsBand from '@/components/cinematic/StatsBand'
 import NisargaIntro from '@/components/cinematic/NisargaIntro'
-import Lifestyle from '@/components/cinematic/Lifestyle'
 import Masterplan from '@/components/cinematic/Masterplan'
 import Villas from '@/components/cinematic/Villas'
 import Amenities from '@/components/cinematic/Amenities'
@@ -23,7 +22,6 @@ export default function HomePage() {
       <Hero />
       <StatsBand />
       <NisargaIntro />
-      <Lifestyle />
       <Villas />
       <Amenities />
       <Masterplan />

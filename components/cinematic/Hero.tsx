@@ -47,11 +47,11 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: EASE, delay: 0.5 }}
-          className="mb-8 flex items-center gap-5 font-body text-[10px] font-medium uppercase tracking-[0.6em] text-aurum/90 md:text-[11px]"
+          className="mb-8 flex items-center gap-5 font-body text-[10px] font-medium uppercase tracking-[0.6em] text-aurum [text-shadow:_0_1px_14px_rgba(4,16,29,0.55)] md:text-[11px]"
         >
-          <span className="hidden h-px w-14 bg-aurum/50 md:block" />
+          <span className="hidden h-px w-14 bg-aurum/70 md:block" />
           SRSM Group
-          <span className="hidden h-px w-14 bg-aurum/50 md:block" />
+          <span className="hidden h-px w-14 bg-aurum/70 md:block" />
         </motion.p>
 
         <h1 className="font-display text-[clamp(3rem,9.5vw,8.75rem)] font-light uppercase leading-[1.04] tracking-[0.06em] text-ivory">
@@ -63,7 +63,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: EASE, delay: 1.25 }}
-          className="mt-8 font-body text-sm font-light tracking-[0.02em] text-ivory/70 md:text-base"
+          className="mt-8 font-body text-sm font-light tracking-[0.02em] text-ivory [text-shadow:_0_1px_16px_rgba(4,16,29,0.6)] md:text-base"
         >
           Luxury villas crafted for generations.
         </motion.p>
@@ -72,7 +72,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: EASE, delay: 1.35 }}
-          className="mt-4 font-body text-[10px] font-medium uppercase tracking-[0.35em] text-ivory/50 md:text-[11px]"
+          className="mt-4 font-body text-[10px] font-medium uppercase tracking-[0.35em] text-ivory/85 [text-shadow:_0_1px_14px_rgba(4,16,29,0.6)] md:text-[11px]"
         >
           Builders &amp; Developers · Hyderabad · Vizag · Bangalore
         </motion.p>
@@ -85,11 +85,11 @@ export default function Hero() {
         >
           <Magnetic>
             <Link
-              href="#nisarga"
-              onClick={(e) => toAnchor(e, '#nisarga')}
+              href="#villas"
+              onClick={(e) => toAnchor(e, '#villas')}
               className="inline-block bg-aurum px-10 py-4.5 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-midnight transition-colors duration-500 hover:bg-ivory"
             >
-              Explore Nisarga
+              Villa Configuration
             </Link>
           </Magnetic>
           <Magnetic>
@@ -103,10 +103,11 @@ export default function Hero() {
           </Magnetic>
           <Magnetic>
             <Link
-              href="/projects"
+              href="#amenities"
+              onClick={(e) => toAnchor(e, '#amenities')}
               className="inline-block border border-ivory/30 px-10 py-4.5 font-body text-[11px] font-semibold uppercase tracking-[0.3em] text-ivory transition-colors duration-500 hover:border-aurum hover:text-aurum"
             >
-              View Portfolio
+              Amenities
             </Link>
           </Magnetic>
         </motion.div>
