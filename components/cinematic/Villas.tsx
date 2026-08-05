@@ -131,36 +131,36 @@ export default function Villas() {
         </Reveal>
 
         {/* Spec cards */}
-        <div className="mt-8 grid gap-px bg-ink/20 md:grid-cols-3">
+        <div className="mt-8 grid gap-px bg-white/10 md:grid-cols-3">
           {VILLAS.map((villa, i) => {
             const cfg = villa[facing]
             return (
-              <Reveal key={villa.size} delay={i * 0.12} className="group relative bg-[#dcebf7]">
+              <Reveal key={villa.size} delay={i * 0.12} className="group relative bg-[#0c2340]">
                 <div className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-aurum transition-transform duration-700 ease-out group-hover:scale-x-100" />
-                <div className="flex h-full flex-col p-10 transition-all duration-700 group-hover:-translate-y-1.5 group-hover:bg-[#eaf3fb] md:p-12">
-                  <p className="font-display text-[clamp(4rem,7vw,6.5rem)] font-light leading-none text-ink">
+                <div className="flex h-full flex-col p-10 transition-all duration-700 group-hover:-translate-y-1.5 group-hover:bg-[#0f2c4f] md:p-12">
+                  <p className="font-display text-[clamp(4rem,7vw,6.5rem)] font-light leading-none text-aurum">
                     {villa.size}
-                    <span className="ml-3 align-middle font-body text-[10px] uppercase tracking-[0.4em] text-ink/45">
+                    <span className="ml-3 align-middle font-body text-[10px] uppercase tracking-[0.4em] text-ivory/45">
                       Sq. Yd
                     </span>
                   </p>
-                  <p className="mt-4 font-display text-lg italic text-aurum-deep">{villa.tagline}</p>
+                  <p className="mt-4 font-display text-lg italic text-aurum">{villa.tagline}</p>
 
                   <div className="mt-10 space-y-3">
                     {cfg.areas.map(({ floor, sqft }) => (
                       <div
                         key={floor}
-                        className="flex items-baseline justify-between border-b border-ink/15 pb-3 font-body text-sm font-light text-ink/70"
+                        className="flex items-baseline justify-between border-b border-white/12 pb-3 font-body text-sm font-light text-ivory/70"
                       >
                         <span>{floor}</span>
-                        <span className="text-ink">{sqft}</span>
+                        <span className="text-ivory">{sqft}</span>
                       </div>
                     ))}
                     <div className="flex items-baseline justify-between pt-2">
-                      <span className="font-body text-[10px] uppercase tracking-[0.35em] text-ink/60">
+                      <span className="font-body text-[10px] uppercase tracking-[0.35em] text-ivory/60">
                         Total built-up
                       </span>
-                      <span className="font-display text-2xl text-ink">{cfg.total}</span>
+                      <span className="font-display text-2xl text-ivory">{cfg.total}</span>
                     </div>
                   </div>
 
@@ -168,7 +168,7 @@ export default function Villas() {
                     <NisargaLeadModal
                       variant="enquiry"
                       label="Get in touch"
-                      className="font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-ink underline-offset-8 transition-colors duration-300 hover:text-aurum hover:underline"
+                      className="font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-ivory underline-offset-8 transition-colors duration-300 hover:text-aurum hover:underline"
                     />
                   </div>
                 </div>
