@@ -2,7 +2,7 @@
 
 import { useRef } from 'react'
 import Link from 'next/link'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import Magnetic from './Magnetic'
 import WhatsAppGlyph from '@/components/WhatsAppGlyph'
 import { nisargaWhatsApp } from '@/lib/contact'
@@ -13,6 +13,7 @@ import { useLenis } from './LenisProvider'
 export default function Hero() {
   const ref = useRef<HTMLElement>(null)
   const lenis = useLenis()
+  const reduceMotion = useReducedMotion()
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const contentY = useTransform(scrollYProgress, [0, 1], [0, -140])
   const contentOpacity = useTransform(scrollYProgress, [0, 0.65], [1, 0])
@@ -28,12 +29,29 @@ export default function Hero() {
 
   return (
     <section ref={ref} className="relative h-[100svh] min-h-[620px] overflow-hidden bg-midnight">
-      {/* Film — dawn over the township, drifting slowly */}
+      {/* Film — the township waking from night into dawn, once, then held.
+          The poster sits underneath so the frame paints instantly and remains
+          the backdrop if the clip is still loading, blocked, or motion is reduced. */}
       <motion.div style={{ scale: filmScale }} className="absolute inset-0" aria-hidden="true">
         <div
-          className="hero-drift absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/images/backdrops/home-dawn.webp')" }}
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/video/nisarga-hero-poster.webp')" }}
         />
+        {!reduceMotion && (
+          <motion.video
+            className="absolute inset-0 h-full w-full object-cover"
+            autoPlay
+            muted
+            playsInline
+            preload="auto"
+            poster="/video/nisarga-hero-poster.webp"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2, ease: EASE }}
+          >
+            <source src="/video/nisarga-hero.mp4" type="video/mp4" />
+          </motion.video>
+        )}
       </motion.div>
 
       {/* Veils — quiet at the centre, weighted at the edges */}
