@@ -31,33 +31,39 @@ const PRINCIPLES = [
   },
 ]
 
-// Drop portraits into /public/images/leadership/ (3:4, ~800px wide) and set
-// `image` — the frame renders a styled placeholder until then.
+// Portraits live in /public/images/leadership/ (3:4, 800px wide).
+// `note` carries qualifications — except the founder's, which is experience:
+// he built the group from the ground up, with no formal degree behind it.
 const LEADERSHIP: { name: string; role: string; note: string; image?: string }[] = [
   {
     name: 'Vasu Raavi',
     role: 'Founder & Promoter',
-    note: 'From Nellore to Hyderabad — the vision behind 25 years of building.',
+    note: 'Built the group from the ground up — from Nellore to Hyderabad, 25 years of building.',
+    image: '/images/leadership/vasu.webp',
   },
   {
     name: 'Yashwanth Raavi',
     role: 'Co-Director, Projects & Development',
-    note: 'BBA, Symbiosis International University · MIM, London',
+    note: 'BBA, Symbiosis · MSc Project Management, Cranfield University',
+    image: '/images/leadership/yashwanth.webp',
   },
   {
     name: 'Manaswitha Raavi',
     role: 'In-house Architect & Design Head',
-    note: 'B.Arch, Hyderabad · M.Des Interior Design, Florence',
+    note: 'B.Arch, Vaishnavi School of Architecture & Planning · MS Interior Design, Florence Institute of Design International',
+    image: '/images/leadership/manaswitha.webp',
   },
   {
     name: 'Raavi Rishi Chowdary',
     role: 'Director, Strategy & Investments',
-    note: 'BBA, Christ University · MBA, London',
+    note: 'BMS, Jain University, Bangalore · MSc Business & Management, Aston University, Birmingham',
+    image: '/images/leadership/rishi.webp',
   },
   {
     name: 'Raavi Chidvilas',
     role: 'Director, Business Development',
     note: 'B.S. Civil Engineering, NC State University',
+    image: '/images/leadership/chidvilas.webp',
   },
 ]
 
