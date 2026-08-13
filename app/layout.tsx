@@ -51,9 +51,12 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/og/og-default.png',
+        // JPEG, not PNG: WhatsApp skips preview thumbnails over ~300KB and the
+        // PNG was 568KB. Same artwork, 64KB. See the OG redesign plan in the vault.
+        url: '/og/og-default.jpg',
         width: 1200,
         height: 630,
+        type: 'image/jpeg',
         alt: 'SRSM Group — 25 Years of Excellence in Real Estate',
       },
     ],
@@ -63,7 +66,7 @@ export const metadata: Metadata = {
     title: 'SRSM Group | Where Life Finds Its Place',
     description:
       'A Hyderabad-based real estate group with 25+ years of legacy and 24+ completed projects.',
-    images: ['/og/og-default.png'],
+    images: ['/og/og-default.jpg'],
   },
 }
 
