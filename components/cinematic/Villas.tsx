@@ -9,6 +9,16 @@ import { nisargaWhatsApp } from '@/lib/contact'
 type FloorAreas = { areas: { floor: string; sqft: string }[]; total: string }
 type Villa = { size: string; tagline: string; east: FloorAreas; west: FloorAreas }
 
+// Rate per sq. ft on built-up area. West is the base; east carries a Vastu
+// premium. We show the RATE and never the computed total — totals, specs and
+// payment plans are deliberately a WhatsApp conversation, and the built-up
+// areas above are not final. See AGENTS.md.
+const EAST_PREMIUM = 300
+const BASE_RATE = 12999
+const RATES = { west: BASE_RATE, east: BASE_RATE + EAST_PREMIUM } as const
+
+const inr = (n: number) => `₹${n.toLocaleString('en-IN')}`
+
 // Floor areas per the brochure. 200 Sq. Yd is identical for both facings;
 // 239 and 300 differ between east and west.
 const VILLAS: Villa[] = [
@@ -180,11 +190,49 @@ export default function Villas() {
               </Reveal>
             )
           })}
+
+
+          {/* Base price — the starting rate, common to every plot, so it belongs
+              to the collection rather than to any single villa. Full-width row
+              inside the same grid, so the 1px divider reads it as the tiles'
+              footer. Still driven by the facing toggle: west is the base, east
+              adds the premium.
+              NOTE: corner and garden-view plots carry additional charges. Those
+              are deliberately NOT itemised here — the page shows the base rate
+              and sends the buyer to the team for the full breakdown. Do not add
+              a "same rate for every plot" line back in; it is not true. */}
+          <Reveal delay={0.4} className="bg-[#0c2340] md:col-span-3">
+            <div className="flex flex-col gap-7 p-10 md:flex-row md:items-end md:justify-between md:p-12">
+              <div>
+                <p className="font-body text-[10px] font-medium uppercase tracking-[0.35em] text-ivory/55">
+                  Base price · all plots
+                </p>
+                <p className="mt-3 flex items-baseline gap-2 font-body font-semibold tabular-nums tracking-[-0.02em] text-aurum">
+                  <span className="text-[clamp(2.1rem,4.2vw,3.1rem)] leading-none">
+                    {inr(RATES[facing])}
+                  </span>
+                  <span className="font-body text-xs font-medium tracking-[0.06em] text-ivory/60">
+                    / sq.ft
+                  </span>
+                </p>
+              </div>
+              <p className="max-w-md font-body text-xs font-light leading-relaxed text-ivory/65 md:text-right">
+                {facing === 'east'
+                  ? `East facing — the ${inr(BASE_RATE)} base rate plus a ${inr(EAST_PREMIUM)} per sq.ft premium.`
+                  : `West facing — the ${inr(BASE_RATE)} base rate.`}{' '}
+                Reach out to our team for a detailed breakdown.
+              </p>
+            </div>
+          </Reveal>
         </div>
 
-        <Reveal className="mt-8">
-          <p className="font-body text-[10px] uppercase tracking-[0.35em] text-ink/55">
+        <Reveal className="mt-8 space-y-3">
+          <p className="font-body text-[10px] uppercase tracking-[0.35em] text-ink/70">
             East &amp; west facing · G+2 configuration · Areas as per brochure
+          </p>
+          <p className="max-w-2xl font-body text-xs font-light leading-relaxed text-ink/70">
+            Rates are indicative and subject to final measurement. Specifications, totals and
+            payment plans on WhatsApp.
           </p>
         </Reveal>
       </div>
