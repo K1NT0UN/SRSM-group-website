@@ -135,6 +135,25 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
+      {/* RERA credential — shining gold over the film. Sits outside the
+          composition wrapper so it holds while the centre copy parallaxes away. */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, ease: EASE, delay: 1.9 }}
+        className="absolute bottom-10 left-6 z-10 md:left-12"
+      >
+        <p className="rera-shine font-body text-[9px] font-semibold uppercase tracking-[0.4em] md:text-[10px]">
+          RERA Approved
+        </p>
+        <p className="rera-shine mt-1 font-body text-[11px] font-semibold tabular-nums tracking-[0.2em] md:text-sm">
+          {/* The authority prefix is desktop-only: at full width this line would
+              run under the centred scroll cue on a narrow phone. The number is
+              the credential, and the footer carries the full attribution. */}
+          <span className="hidden md:inline">TS RERA · </span>P01100010902
+        </p>
+      </motion.div>
+
       {/* Scroll cue */}
       <motion.div
         initial={{ opacity: 0 }}

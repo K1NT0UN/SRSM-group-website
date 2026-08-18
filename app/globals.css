@@ -121,7 +121,7 @@ html.lenis, html.lenis body { height: auto; }
   html { scroll-behavior: auto; }
 }
 
-/* Shining gold sweep for the Nisarga RERA credential (used in NisargaHeroCarousel) */
+/* Shining gold sweep for the Nisarga RERA credential (cinematic Hero + NisargaHeroCarousel) */
 @keyframes reraShine {
   0%   { background-position: 200% center; }
   100% { background-position: -200% center; }
@@ -141,4 +141,10 @@ html.lenis, html.lenis body { height: auto; }
   animation: reraShine 3.5s linear infinite;
   filter: drop-shadow(0 0 6px rgba(223, 192, 106, 0.45))
           drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+}
+
+/* The sweep loops forever, so it must stop when motion is reduced —
+   the gradient stays, only the travel is removed. */
+@media (prefers-reduced-motion: reduce) {
+  .rera-shine { animation: none; }
 }
