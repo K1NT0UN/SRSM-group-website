@@ -86,7 +86,9 @@ const VILLAS: Villa[] = [
 
 /** The collection — three sizes, one standard; East/West areas per the brochure. */
 export default function Villas() {
-  const [facing, setFacing] = useState<'east' | 'west'>('east')
+  // Opens on west: it is the base rate (Rs 12,999), so the first figure a
+  // visitor sees is the headline number rather than the east premium.
+  const [facing, setFacing] = useState<'east' | 'west'>('west')
 
   return (
     <section id="villas" className="bg-sand px-6 py-[15vh] text-ink md:px-12">
@@ -231,8 +233,22 @@ export default function Villas() {
             East &amp; west facing · G+2 configuration · Areas as per brochure
           </p>
           <p className="max-w-2xl font-body text-xs font-light leading-relaxed text-ink/70">
-            Rates are indicative and subject to final measurement. Specifications, totals and
-            payment plans on WhatsApp.
+            All prices shown here are indicative, not final — they may be revised
+            periodically in line with prevailing market rates. Reach out to us on{' '}
+            {/* Full ink rather than gold: aurum on the sand ground is 1.83:1.
+                Darker than the surrounding ink/70 copy and underlined, so the
+                link never signals itself by colour alone. */}
+            <a
+              href={nisargaWhatsApp(
+                "Hi, could I have a detailed price breakdown for the Nisarga villas?",
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-normal text-ink underline decoration-ink/40 underline-offset-4 transition-colors duration-300 hover:decoration-ink"
+            >
+              WhatsApp
+            </a>{' '}
+            for a detailed price breakdown.
           </p>
         </Reveal>
       </div>
