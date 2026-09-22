@@ -9,13 +9,6 @@ import { nisargaWhatsApp } from '@/lib/contact'
 type FloorAreas = { areas: { floor: string; sqft: string }[]; total: string }
 type Villa = { size: string; tagline: string; east: FloorAreas; west: FloorAreas }
 
-// The collection's entry price (the 200 Sq. Yd villa), not a per-sq-ft rate
-// and not a per-plot price: 239 and 300 start higher. The built-up areas are
-// not final, so anything derived from them would move.
-// East facing, corner and garden-view plots all cost more; those differences
-// stay a WhatsApp conversation rather than a table. See AGENTS.md.
-const STARTING_PRICE = '₹4.3 Cr'
-
 // Floor areas per the brochure. 200 Sq. Yd is identical for both facings;
 // 239 and 300 differ between east and west.
 const VILLAS: Villa[] = [
@@ -189,43 +182,6 @@ export default function Villas() {
               </Reveal>
             )
           })}
-
-
-          {/* Entry price for the collection — the 200 Sq. Yd villa. The 239
-              and 300 start higher, so this is deliberately "starting from" and
-              NOT a price that applies to every plot; don't reword it into one.
-              Full-width row inside the same grid, so the 1px divider reads it
-              as the tiles' footer. The figure does not move with the facing
-              toggle; the toggle still drives the floor areas above.
-              NOTE: east facing, corner and garden-view plots all carry
-              additional charges. Those are deliberately NOT itemised here — the
-              page shows the entry price and sends the buyer to the team for the
-              full breakdown. Do not add a "same price for every plot" line back
-              in; it is not true. */}
-          <Reveal delay={0.4} className="bg-[#0c2340] md:col-span-3">
-            <div className="flex flex-col gap-7 p-10 md:flex-row md:items-end md:justify-between md:p-12">
-              <div>
-                <p className="font-body text-[10px] font-medium uppercase tracking-[0.35em] text-ivory/55">
-                  Starting from
-                </p>
-                <p className="mt-3 flex items-baseline gap-2 font-body font-semibold tabular-nums tracking-[-0.02em] text-aurum">
-                  <span className="text-[clamp(2.1rem,4.2vw,3.1rem)] leading-none">
-                    {STARTING_PRICE}
-                  </span>
-                  <span className="font-body text-xs font-medium tracking-[0.06em] text-ivory/60">
-                    onwards
-                  </span>
-                </p>
-              </div>
-              <p className="max-w-md font-body text-xs font-light leading-relaxed text-ivory/65 md:text-right">
-                {facing === 'east'
-                  ? 'East facing — a premium over the west-facing base.'
-                  : 'West facing — the base configuration.'}{' '}
-                Corner and garden-view plots carry additional charges. Reach out
-                to our team for a detailed breakdown.
-              </p>
-            </div>
-          </Reveal>
         </div>
 
         <Reveal className="mt-8 space-y-3">
@@ -233,8 +189,7 @@ export default function Villas() {
             East &amp; west facing · G+2 configuration · Areas as per brochure
           </p>
           <p className="max-w-2xl font-body text-xs font-light leading-relaxed text-ink/70">
-            All prices shown here are indicative, not final — they may be revised
-            periodically in line with prevailing market rates. Reach out to us on{' '}
+            Reach out to us on{' '}
             {/* Full ink rather than gold: aurum on the sand ground is 1.83:1.
                 Darker than the surrounding ink/70 copy and underlined, so the
                 link never signals itself by colour alone. */}
@@ -248,7 +203,7 @@ export default function Villas() {
             >
               WhatsApp
             </a>{' '}
-            for a detailed price breakdown.
+            for pricing.
           </p>
         </Reveal>
       </div>
